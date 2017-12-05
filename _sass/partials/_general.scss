@@ -71,8 +71,8 @@ h1, h2, h3, h4, h5, h6{
 
 h1 {
     font-size: 3.1em;
-    padding: 30px 0 0;
-    text-align: right;
+    padding: 30px 30px0 0;
+    text-align: left;
     border-bottom: $green 9px solid;
     width: 100%;
     line-height: 0.61;
@@ -91,9 +91,9 @@ h1 {
 
 h2 {
     font-size: 2em;
-    padding: 30px 0 0;
+    padding: 30px 30px 0;
     width: 90%;
-    text-align: center;
+    text-align: left;
     border-bottom: 5px solid $green;
     margin: 0 auto 20px;
     line-height: 0.63;
