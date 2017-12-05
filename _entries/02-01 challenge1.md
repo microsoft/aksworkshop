@@ -13,11 +13,11 @@ project you must not deploy more than three Kubernetes agent nodes.
 You need to
 
 1. Deploy Kubernetes to Azure
-
 2. Ensure you and your colleagues can connect to the cluster using kubectl
 
 Resources:
 
-- <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/>
-
+- ACS: <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/>
+- AKS: <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster>
+- ACS Engine: XXX
 - <https://kubernetes.io/docs/reference/kubectl/overview/>
