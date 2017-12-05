@@ -1,8 +1,10 @@
 header{
     background:{
-        size: auto;
+        size: 150%;
         repeat: repeat;
         image: url(../img/bg.jpg);
+        position-x: center;
+        position-y: center;
     }
     height: 150px;
     text-align: center;

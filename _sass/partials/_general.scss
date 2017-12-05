@@ -66,14 +66,14 @@ h1, h2, h3, h4, h5, h6{
     text-transform: uppercase;
     font-weight: $bold;
     line-height: 1;
-    color: $green;
+    color: $blue;
 }
 
 h1 {
     font-size: 3.1em;
-    padding: 30px 30px0 0;
+    padding: 30px 30px 0 0;
     text-align: left;
-    border-bottom: $green 9px solid;
+    border-bottom: $blue 9px solid;
     width: 100%;
     line-height: 0.61;
     margin: 0 0 20px;
@@ -91,10 +91,10 @@ h1 {
 
 h2 {
     font-size: 2em;
-    padding: 30px 30px 0;
+    padding: 30px 30px 0 0;
     width: 90%;
     text-align: left;
-    border-bottom: 5px solid $green;
+    // border-bottom: 5px solid $green;
     margin: 0 auto 20px;
     line-height: 0.63;
 
@@ -168,7 +168,7 @@ h5{
 
 a{
     transition: .3s all;
-    color: $green;
+    color: $blue;
     text-decoration: none;
 
     .content &{
@@ -181,7 +181,7 @@ a{
     }
 
     &:hover{
-        color: $darkgreen;
+        color: $darkblue;
     }
 }
 
