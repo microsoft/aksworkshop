@@ -3,7 +3,7 @@
 
 REM Put Ruby in Path
 REM You can also use %TEMP% but it is cleared on site restart. Tools is persistent.
-SET PATH=%PATH%;D:\home\site\deployments\tools\r\ruby-2.3.1-x64-mingw32\bin
+
 
 REM I am in the repository folder
 cd D:\home\site\deployments
@@ -50,12 +50,17 @@ call gem --version
 call gem uninstall rubygems-update -x
 
 :end
+
+SET PATH=%PATH%;D:\home\site\deployments\tools\r\ruby-2.3.1-x64-mingw32\bin
+
 cd D:\home\site\deployments\tools
 if exist cmake goto end
 curl -L -o cmake.zip https://cmake.org/files/v3.10/cmake-3.10.0-win64-x64.zip
 d:\7zip\7za x -y -ocmake cmake.zip > cmakeout
-SET PATH=%PATH%;D:\home\site\deployments\tools\cmake\cmake-3.10.0-win64-x64\bin
 :end
+
+SET PATH=%PATH%;D:\home\site\deployments\tools\cmake\cmake-3.10.0-win64-x64\bin
+
 
 REM Need to be in Reposistory
 cd D:/home/site/repository
