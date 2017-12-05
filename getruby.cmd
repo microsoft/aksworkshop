@@ -6,7 +6,8 @@ REM You can also use %TEMP% but it is cleared on site restart. Tools is persiste
 SET PATH=%PATH%;D:\home\site\deployments\tools\r\ruby-2.3.1-x64-mingw32\bin
 
 REM I am in the repository folder
-pushd D:\home\site\deployments
+cd D:\home\site\deployments
+
 if not exist tools md tools
 cd tools 
 if not exist r md r
@@ -48,10 +49,13 @@ ECHO What's our new Rubygems version?
 call gem --version
 call gem uninstall rubygems-update -x
 
-popd
-
 :end
-
+cd D:\home\site\deployments\tools
+if exist cmake goto end
+curl -L -o cmake.zip https://cmake.org/files/v3.10/cmake-3.10.0-win64-x64.zip
+d:\7zip\7za x -y -ocmake cmake.zip > cmakeout
+SET PATH=%PATH%;D:\home\site\deployments\tools\cmake\cmake-3.10.0-win64-x64\bin
+:end
 
 REM Need to be in Reposistory
 cd D:/home/site/repository
