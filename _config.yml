@@ -1,0 +1,23 @@
+full_rebuild: true
+name: "The Azure challenge: Kubernetes"
+author: Microsoft
+encoding: utf-8
+defaults:
+  -
+    values:
+      layout: "index"
+markdown: kramdown
+kramdown:
+  input: GFM
+relative_permalinks: false
+collections:
+- entries
+sass:
+  sass_dir: _sass
+  style: :compressed
+exclude: [
+.git,
+.gitignore,
+README.md,
+.sass-cache
+]
