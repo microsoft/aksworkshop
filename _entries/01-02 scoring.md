@@ -5,7 +5,7 @@ parent-id: intro
 ---
 
 
-We will evaluate solutions using both remote monitoring and objective assessments and score the following areas:
+To add an element of competitiveness to the hack your solutions will be evaluated using both remote monitoring and objective assessments. At the end of the hack we will announce a winner. You will be scored under the following areas:
 
 **Availability**
 
@@ -34,3 +34,4 @@ Quality of monitoring and consideration given to security
 **Cost management**
 
 Amount spent and the steps taken to reduce Azure consumption
+
