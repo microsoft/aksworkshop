@@ -5,4 +5,8 @@ title: Challenges
 parent-id: intro
 ---
 
-The challenges are intended to be a challenge! Useful resources are provided to help you work through each challenge but step by step instructions are not provided. If you feel you need assistance, please ask your proctor.
+The challenges are intended to be a challenge! Useful resources are provided to help you work through each challenge but step by step instructions are not provided. To ensure you progress at a good pace ensure workload is divided between team members where possible. This may mean anticipating work that might be required in a later challenge.
+
+The first 3 challenges, under section 2, involve getting Kubernetes and the application provisioned and **must be carried out sequentially**. After this there is flexibility as to how you proceed.
+
+If you feel you need assistance at any time, please ask a proctor.
