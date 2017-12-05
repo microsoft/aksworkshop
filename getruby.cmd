@@ -56,10 +56,10 @@ popd
 REM Need to be in Reposistory
 cd D:/home/site/repository
 
-gem sources -a http://rubygems.org/
-gem sources -r https://rubygems.org/
-gem sources -u
-call gem install bundle
+curl -L -o D:\home\site\deployments\tools\r\ruby-2.3.1-x64-mingw32\lib\ruby\2.3.0\rubygems\ssl_certs\GlobalSignRootCA.pem  https://raw.githubusercontent.com/rubygems/rubygems/master/lib/rubygems/ssl_certs/index.rubygems.org/GlobalSignRootCA.pem
+
+
+call gem install  bundler
 
 ECHO Bundler install (not update!)
 call bundle install
