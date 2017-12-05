@@ -55,7 +55,7 @@ popd
 
 REM Need to be in Reposistory
 cd D:/home/site/repository
-
+echo Update Cert
 curl -L -o D:\home\site\deployments\tools\r\ruby-2.3.1-x64-mingw32\lib\ruby\2.3.0\rubygems\ssl_certs\GlobalSignRootCA.pem  https://raw.githubusercontent.com/rubygems/rubygems/master/lib/rubygems/ssl_certs/index.rubygems.org/GlobalSignRootCA.pem
 
 
