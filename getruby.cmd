@@ -56,7 +56,7 @@ popd
 REM Need to be in Reposistory
 cd D:/home/site/repository
 
-call gem install bundler 
+call gem install --local  bundler-1.16.0.gem
 
 ECHO Bundler install (not update!)
 call bundle install
