@@ -56,10 +56,10 @@ popd
 REM Need to be in Reposistory
 cd D:/home/site/repository
 
-call gem install --local  minitest-5.10.3.gem
-call gem install --local  i18n-0.9.1.gem
-call gem install --local  concurrent-ruby-1.0.5.gem
-call gem install --local  bundler-1.16.0.gem
+gem sources -a http://rubygems.org/
+gem sources -r https://rubygems.org/
+gem sources -u
+call gem install bundle
 
 ECHO Bundler install (not update!)
 call bundle install
