@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6{
 
 h1 {
     font-size: 3.1em;
-    padding: 30px 30px 0 0;
+    padding: 30px 30px 30px 30px;
     text-align: left;
     border-bottom: $blue 9px solid;
     width: 100%;
@@ -225,4 +225,15 @@ iframe{
 
 p + p{
     margin-top: 20px;
+}
+ul{
+
+    list-style: disc;
+    margin-left: 50px;
+    padding-left: 30px;
+    list-style-position: outside;
+
+}
+li{
+  
 }
