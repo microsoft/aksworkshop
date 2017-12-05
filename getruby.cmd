@@ -55,6 +55,8 @@ popd
 
 REM Need to be in Reposistory
 cd D:/home/site/repository
+
+call gem install --local  i18n-0.9.1.gem
 call gem install --local  concurrent-ruby-1.0.5.gem
 call gem install --local  bundler-1.16.0.gem
 
