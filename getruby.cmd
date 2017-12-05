@@ -52,15 +52,15 @@ popd
 :end
 
 REM Need to be in Reposistory
-cd %DEPLOYMENT_SOURCE%
+cd 'D:\home\site\repository' 
 cd
 
-call gem install bundler
+call gem install bundler --source http://rubygems.org
 
 ECHO Bundler install (not update!)
 call bundle install
 
-cd %DEPLOYMENT_SOURCE%
+cd 'D:\home\site\repository' 
 cd
 
 ECHO Running Jekyll
