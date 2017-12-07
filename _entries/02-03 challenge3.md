@@ -6,16 +6,16 @@ parent-id: upandrunning
 ---
 
 
-The order fulfilment process need to be deployed. This includes an event hub to
-broker messages and order fulfilment service.
+The Order Fulfilment process need to be deployed. This includes an event hub to
+broker messages and the Order Fulfilment service.
 
-You need to implement RabbitMQ so that our order capture API can drop orders on
-to it. You will also need to implement the eventlistener container so that it
-can efficiently process messages from the capture order API.
+You need to implement RabbitMQ so that our Order Capture API can drop orders on
+to it. You will also need to implement the Eventlistener container so that it
+can efficiently process messages from the Capture Order API.
 
-The fulfillorder container which must be deployed as an internal only API. This
-container will fulfil orders and output orders for future batch processing. The
-log files from all instances of order fulfilment must be written to a single
+The fulfillorder container must be deployed as an internal only API. This
+container will fulfill orders and output orders for future batch processing. The
+log files from all instances of order fulfillment must be written to a single
 location that also enables staff to inspect the log files without interacting
 with Kubernetes.
 
@@ -25,9 +25,9 @@ with Kubernetes.
 
 2.  Configure captureorder to connect to RabbitMQ
 
-3.  Provision order fulfilment and event listener containers
+3.  Provision Order Fulfillment and event listener containers
 
-4.  Configure order fulfilment to store data to Azure Files
+4.  Configure Order Fulfillment to store data to Azure Files
 
     Resources:
 
