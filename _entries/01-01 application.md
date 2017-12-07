@@ -10,8 +10,18 @@ You will be deploying a customer-facing order placement and fulfilment applicati
 
 ![](media/302a7509f056cd57093c7a3de32dbb04.png)
 
-Source Repository: <http://github.com/XXX>
+Our application consists of 5 components, namely: 
+* A public facing Order Capture swagger enabled API
+* A messaging queue to provide reliable message delivery
+* An event listener that picks up events from the messaging queue and brokers requests
+* An internal Order Fulfill API.
 
-The order capture API is available via swagger at http://hmm\<capture\_order\_endpoint\>:8080/swagger/
+Source Repository: https://github.com/shanepeckham/TheAzureKubernetesChallenge
 
-Initial versions of the Docker containers have been provided by the development team and are available at in the repo: http://hub.docker.com/...:
+The order capture API is available via swagger at http://<PublicEndpoint>:8080/swagger/
+
+Initial versions of the Docker containers have been provided by the development team and are available at in the repo: 
+
+* Order Capture API - https://hub.docker.com/r/shanepeckham/captureorderack/
+* Event Listener - https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/
+* Order Fulfill API - https://hub.docker.com/r/shanepeckham/fulfillorderack/
