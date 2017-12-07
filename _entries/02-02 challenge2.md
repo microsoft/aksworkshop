@@ -16,7 +16,7 @@ Capture API so service availability and performance can be monitored.
 
 1.  Deploy an instance of MongoDB to your cluster
 
-2.  Create Kubernetes YAML files to deploy the order management service and
+2.  Create Kubernetes YAML files to deploy the Capture Order service and
     expose a public endpoint
 
 3.  Ensure orders are successfully written to MongoDB
