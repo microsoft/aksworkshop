@@ -15,23 +15,23 @@ Resources:
 
 -   Sysdig:
 
-    (https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig)
+    https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig
 
 -   CoScale:
 
-    (https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale)
+    https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale
 
-    (https://app.coscale.com/app/register/)
+    https://app.coscale.com/app/register/
 
 -   Datadog
 
-    (https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog)
+    https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog
 
 -   Application Insights: 
 
-    (https://github.com/Microsoft/ApplicationInsights-Go)
+    https://github.com/Microsoft/ApplicationInsights-Go
 
 -   OMS:
 
-    (https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms)
-    (https://kubeapps.com/charts/stable/msoms)
+    https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms
+    https://kubeapps.com/charts/stable/msoms
