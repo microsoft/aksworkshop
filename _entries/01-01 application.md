@@ -16,8 +16,6 @@ Our application consists of 5 components, namely:
 * An event listener that picks up events from the messaging queue and brokers requests
 * An internal Order Fulfill API.
 
-Source Repository: https://github.com/shanepeckham/TheAzureKubernetesChallenge
-
 The order capture API is available via swagger at http://<PublicEndpoint>:8080/swagger/
 
 Initial versions of the Docker containers have been provided by the development team and are available at in the repo: 
