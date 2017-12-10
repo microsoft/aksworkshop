@@ -23,13 +23,13 @@ The order capture API is available via swagger at http://<PublicEndpoint>:8080/s
 Initial versions of the Docker containers have been provided by the development team and are available at in the repo: 
 
 * Order Capture API
-** Docker Image and imformation on environment variables -  (https://hub.docker.com/r/shanepeckham/captureorderack/)
-** Git hub repo - (https://github.com/shanepeckham/captureorderack/tree/v3) ***Note we are using branch v3
+- Docker Image and imformation on environment variables -  <https://hub.docker.com/r/shanepeckham/captureorderack/>
+- Git hub repo - <https://github.com/shanepeckham/captureorderack/tree/v3> ***Note we are using branch v3
 
 * Event Listener 
-** Docker Image and imformation on environment variables - (https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/)
-** Git hub repo - (https://github.com/shanepeckham/rabbitmqlistenerack/tree/v3) ***Note we are using branch v3
+- Docker Image and imformation on environment variables - <https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/>
+- Git hub repo - <https://github.com/shanepeckham/rabbitmqlistenerack/tree/v3> ***Note we are using branch v3
 
 * Order Fulfill API
-** Docker Image and imformation on environment variables - (https://hub.docker.com/r/shanepeckham/fulfillorderack/)
-** Git hub repo - (https://github.com/shanepeckham/fulfillorderack/tree/v3) ***Note we are using branch v3
+- Docker Image and imformation on environment variables - <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
+- Git hub repo - <https://github.com/shanepeckham/fulfillorderack/tree/v3> ***Note we are using branch v3
