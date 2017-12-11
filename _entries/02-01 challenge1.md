@@ -22,7 +22,7 @@ You need to:
 Resources:
 
 - ACS: <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/>
-- AKS: <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster>
+- AKS: <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster> ( <https://github.com/Azure/AKS/issues> )
 - ACS Engine: 
 * If you need to run ACS-Engine to generate a version 1.8 Kubernetes cluster, follow these steps:
 1. Download ACS-Engine to generate a custom Kubernetes ARM infrastructure-as-code template from here <https://github.com/Azure/acs-engine/releases/tag/v0.10.0>
