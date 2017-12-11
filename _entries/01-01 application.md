@@ -15,6 +15,7 @@ Our application consists of 5 components, namely:
 * A messaging queue to provide reliable message delivery
 * An event listener that picks up events from the messaging queue and brokers requests
 * An internal Order Fulfill API.
+* A MongoDB database
 
 The order capture API is available via swagger at http://<PublicEndpoint>:8080/swagger/
 
