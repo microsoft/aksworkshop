@@ -18,8 +18,7 @@ in a manner that will esnure it does not change.**
 
 1.  Deploy an instance of MongoDB to your cluster
 
-2.  Create Kubernetes YAML files to deploy the Capture Order service and
-    expose a public endpoint. **You must deploy the tag v3 of the shanepeckham/captureorderack container.**
+2.  Create Kubernetes YAML files to deploy the Capture Order service and expose a public endpoint. **You must deploy the tag v3 of the shanepeckham/captureorderack container.**
 
 3.  Ensure orders are successfully written to MongoDB
 
