@@ -74,7 +74,7 @@ h1 {
     padding: 30px 30px 30px 30px;
     text-align: left;
     border-bottom: $blue 9px solid;
-    width: 100%;
+    width: calc(100% - 60px);;
     line-height: 1;
     margin: 0 0 20px;
 
