@@ -12,9 +12,9 @@ needs to write to MongoDB.
 ![](media/51744cdc31c555b1d76c71f5e2693471.png)
 
 Once deployed please provide your proctor with a Public IP for your Order
-Capture API so service availability and performance can be monitored. Note, your
-public IP cannot change during the hack, so you will need to ensure that you deploy it
-in a manner that will esnure it does not change.
+Capture API so service availability and performance can be monitored. 
+**Note, your public IP cannot change during the hack, so you will need to ensure that you deploy it
+in a manner that will esnure it does not change.**
 
 1.  Deploy an instance of MongoDB to your cluster
 
