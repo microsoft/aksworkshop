@@ -5,7 +5,7 @@ parent-id: enhancing
 title: Prevent abuse of the system
 ---
 
-You need to ensure that you can apply a throttle to the Capture order process,
+You need to ensure that you can apply a throttle to the Capture Order process,
 only 100 requests from a single IP are allowed within a minute. You may use API Management, Logic Apps,
 Kong or any other service you think relevant.
 
