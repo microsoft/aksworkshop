@@ -25,10 +25,37 @@ Initial versions of the Docker containers have been provided by the development 
 - Docker Image and information on environment variables -  <https://hub.docker.com/r/shanepeckham/captureorderack/>
 - Git hub repo - <https://github.com/shanepeckham/captureorderack/tree/v3> ***Note we are using branch v3
 
+Required Environment Variables:
+
+*ACK Logging*
+ENV TEAMNAME=[YourTeamName]
+*Mongo*
+ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+*RabbitMQ*
+ENV RABBITMQHOST=amqp://[url]:5672
+
 **Event Listener** 
 - Docker Image and information on environment variables - <https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/>
 - Git hub repo - <https://github.com/shanepeckham/rabbitmqlistenerack/tree/v3> ***Note we are using branch v3
 
+Required Environment Variables:
+
+*ACK Logging*
+ENV TEAMNAME= Your team name
+*RabbitMQ*
+ENV RABBITMQHOST=amqp://[url]:5672
+*Internal Fulfill order endpoint*
+ENV PROCESSENDPOINT=http://[yourfulfillordername].svc.cluster.local:8080/v1/order
+
 **Order Fulfill API**
 - Docker Image and information on environment variables - <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
 - Git hub repo - <https://github.com/shanepeckham/fulfillorderack/tree/v3> ***Note we are using branch v3
+
+Required Environment Variables:
+
+*ACK Logging*
+ENV TEAMNAME=[YourTeamName]
+*For Mongo*
+ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+*File mount*
+/orders
