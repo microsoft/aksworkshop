@@ -5,10 +5,10 @@ title: Deploy Kubernetes
 parent-id: upandrunning
 ---
 
-Your organisation requires that the application is to Kubernetes running on
+Your organisation requires that the application is deployed to Kubernetes running on
 Azure. You are required to use features available in Kubernetes 1.8. ACS only
 currently supports Kubernetes 1.7. Given the limited budget allocated for the
-project you must not deploy more than three Kubernetes agent nodes. 
+project you must not deploy only three Kubernetes agent nodes. 
 
 You have also found out that Azure has a managed Kubernetes service, 
 AKS (Azure Kubernetes Service) which is currently in Preview and deploys version 1.8+
