@@ -20,7 +20,7 @@ Resources (suggestions, there are many others you may prefer to use):
 
     <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale>
 
-    <https://app.coscale.com/app/register/
+    <https://app.coscale.com/app/register/>
 
 -   Datadog:
 
