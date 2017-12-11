@@ -57,5 +57,5 @@ Required Environment Variables:
 ENV TEAMNAME=[YourTeamName]
 *For Mongo*
 ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
-*File mount*
+*Order Storage Location*
 /orders
