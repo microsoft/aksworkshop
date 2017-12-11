@@ -33,5 +33,3 @@ Resources:
 -   <https://kubeapps.com/charts/stable/mongodb>
 
 -   <https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec>
-
--   If using AKS: <https://github.com/Azure/AKS/issues/48>
