@@ -27,10 +27,12 @@ Initial versions of the Docker containers have been provided by the development 
 
 Required Environment Variables:
 
-*ACK Logging*
+*Challenge Logging*
 ENV TEAMNAME=[YourTeamName]
+
 *Mongo*
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+ENV MONGOHOST="mongodb://[mongoinstance]"
+
 *RabbitMQ*
 ENV RABBITMQHOST=amqp://[url]:5672
 
@@ -42,10 +44,12 @@ Required Environment Variables:
 
 *ACK Logging*
 ENV TEAMNAME= Your team name
+
 *RabbitMQ*
 ENV RABBITMQHOST=amqp://[url]:5672
+
 *Internal Fulfill order endpoint*
-ENV PROCESSENDPOINT=http://[yourfulfillordername].svc.cluster.local:8080/v1/order
+ENV PROCESSENDPOINT=http://[yourfulfillordername]:8080/v1/order
 
 **Order Fulfill API**
 - Docker Image and information on environment variables - <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
@@ -55,7 +59,9 @@ Required Environment Variables:
 
 *ACK Logging*
 ENV TEAMNAME=[YourTeamName]
+
 *For Mongo*
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+ENV MONGOHOST="mongodb://[mongoinstance]"
+
 *Order Storage Location*
 /orders
