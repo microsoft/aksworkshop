@@ -13,7 +13,7 @@ the Kubernetes infrastructure.
 Resources (suggestions, there are many others you may prefer to use):
 
 -   Sysdig:
-
+   
     <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig>
 
 -   CoScale:
