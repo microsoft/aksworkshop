@@ -14,9 +14,9 @@ routing pattern, it simply drops a message on a unique queue. This means that
 you cannot have more than one eventlistener instance listening to a specific
 queue.
 
-1.  Configure captureorder to scale as load increases
+1.  Configure the Capture Order process to scale as load increases
 
-2.  Ensure captureorder can sustain the required load.
+2.  Ensure Capture Order can sustain the required load.
 
 3.  Scale other parts of the application as required.
 
