@@ -27,10 +27,6 @@ Resources:
 
     https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog
 
--   Application Insights: 
-
-    https://github.com/Microsoft/ApplicationInsights-Go
-
 -   OMS:
 
     https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms
