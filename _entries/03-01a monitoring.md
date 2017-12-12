@@ -12,19 +12,17 @@ the Kubernetes infrastructure.
 
 Resources (suggestions, there are many others you may prefer to use):
 
--   Sysdig:
-   
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig>
-
 -   CoScale:
 
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale>
-
-    <https://app.coscale.com/app/register/>
+    <https://app.coscale.com/app/register/> - select AKS
 
 -   Datadog:
 
     <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog>
+
+-   Sysdig:
+   
+    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig>
 
 -   OMS (currently a delay for data to initially appear):
 
