@@ -12,7 +12,7 @@ project you must not deploy more than three Kubernetes agent nodes. If you run o
 experience downtime.
 
 You have also found out that Azure has a managed Kubernetes service, 
-AKS (Azure Kubernetes Service) which is currently in Preview and deploys version 1.8+
+AKS (Azure Kubernetes Service) which is currently in Preview and deploys version 1.7.7 at the time of writing.
 
 You need to:
 
