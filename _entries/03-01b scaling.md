@@ -7,7 +7,7 @@ title: Scaling
 
 As popularity of the application grows the application needs to scale
 appropriately as demand changes. Ensure the application remains responsive as
-the number of order submissions increases.
+the number of order submissions increases. Please be aware that adding additional nodes will consume additional credit.
 
 Note, the Eventlistener does not utilise a pub/sub, competing consumers or
 routing pattern, it simply drops a message on a unique queue. This means that
