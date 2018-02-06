@@ -23,10 +23,9 @@ with Kubernetes.
 
 1.  Deploy Rabbit MQ
 
-2.  Configure captureorder to connect to RabbitMQ
+2.  Configure captureorder to connect to RabbitMQ. Authentication needs to be configured to connect successfully.
 
-3.  Provision Order Fulfillment and event listener containers. **Note you must deploy the shanepeckham/rabbitmqlistenerack:v5 and 
-shanepeckham/fulfillorderack:v5 containers.**
+3.  Provision Order Fulfillment and event listener containers. **Ensure you are using the most recent version of the image**
 
 4.  Configure Order Fulfillment to store data to Azure Files
 
