@@ -23,7 +23,7 @@ Initial versions of the Docker containers have been provided by the development 
 
 **Order Capture API**
 - Docker Image: <https://hub.docker.com/r/shanepeckham/captureorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/captureorderack/tree/v5> ***Note we are using branch v5
+- GitHub Repo: <https://github.com/shanepeckham/captureorderack/>
 
 Required Environment Variables:
 
@@ -41,7 +41,7 @@ ENV RABBITMQHOST=amqp://[url]:5672
 
 **Event Listener**
 - Docker Image: <https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/>
-- GitHub Repo: <https://github.com/shanepeckham/rabbitmqlistenerack/tree/v5> ***Note we are using branch v5
+- GitHub Repo: <https://github.com/shanepeckham/rabbitmqlistenerack/> 
 
 Required Environment Variables:
 
@@ -59,7 +59,7 @@ ENV PROCESSENDPOINT=http://[yourfulfillordername]:8080/v1/order
 
 **Order Fulfill API**
 - Docker Image: <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/fulfillorderack/tree/v5> ***Note we are using branch v5
+- GitHub Repo: <https://github.com/shanepeckham/fulfillorderack/>
 
 Required Environment Variables:
 
