@@ -17,7 +17,7 @@ Our application consists of 5 components, namely:
 * An internal Order Fulfill API.
 * A MongoDB database
 
-The order capture API is available via swagger at http://<PublicEndpoint>:8080/swagger/
+The order capture API is available at  http://<PublicEndpoint>/v1/order, and via swagger at http://<PublicEndpoint>/swagger/.
 
 Initial versions of the Docker containers have been provided by the development team and are available at in the repo: 
 
