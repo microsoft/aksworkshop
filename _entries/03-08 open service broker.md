@@ -2,8 +2,9 @@
 sectionid: osb
 sectionclass: h2
 parent-id: enhancing
-title: Open Service Broker™ for Azure (advanced/preview)
+title: Advanced: Open Service Broker™ for Azure
 ---
+*This is a new challenge utlilising a very new technologies. Only attempt if you are prepared for a real challenge!*
 
 Your organisation wants to be able to deploy the application, including Azure components through Kubernetes.
  
