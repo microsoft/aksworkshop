@@ -22,7 +22,8 @@ port a MongoDB application to CosmosDB.
 3.  Configure application to connect to CosmosDB
 
 Prebuilt containers to replace the captureorder and fulfillorder are available
-but you need to replace MongoDB with CosmosDB with zero downtime. 
+but you need to replace MongoDB with CosmosDB with zero downtime. Pay attention to how you can tune
+the throughout of CosmosDB.
 
 Resources:
 
