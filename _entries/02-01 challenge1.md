@@ -21,7 +21,7 @@ You need to:
 2. Ensure you and your colleagues can connect to the cluster using kubectl
 
 Resources:
-- AKS: <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster> ( <https://github.com/Azure/AKS/issues> )
+- AKS: <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?wt.mc_id=CSE_(96575)> ( <https://github.com/Azure/AKS/issues> )
 - ACS Engine: 
 
     If you need to run ACS-Engine to generate a version 1.8 Kubernetes cluster, follow these steps:

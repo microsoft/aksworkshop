@@ -18,14 +18,14 @@ Resources (suggestions, there are many others you may prefer to use):
 
 -   Datadog:
 
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog>
+    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog?wt.mc_id=CSE_(96575)>
 
 -   Sysdig:
    
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig>
+    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig?wt.mc_id=CSE_(96575)>
 
 -   OMS (currently a delay for data to initially appear):
 
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms>
+    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms?wt.mc_id=CSE_(96575)>
 
     <https://kubeapps.com/charts/stable/msoms>
