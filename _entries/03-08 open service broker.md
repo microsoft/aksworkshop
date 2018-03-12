@@ -10,6 +10,6 @@ Your organisation wants to be able to deploy the application, including Azure co
 - Use the Open Service Broker for Azure to deploy Cosmos DB and/or Event Hub
  
 References:
-- https://github.com/azure/open-service-broker-azure
-- https://github.com/Azure/helm-charts/tree/master/open-service-broker-azure
+- <https://github.com/azure/open-service-broker-azure>
+- <https://github.com/Azure/helm-charts/tree/master/open-service-broker-azure>
  
