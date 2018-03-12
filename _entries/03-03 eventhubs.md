@@ -15,6 +15,7 @@ Event Hub listener container with zero downtime.
 - Git hub repo - <https://github.com/shanepeckham/eventhublistenerack/tree/v6> **Note we are using branch v6**
 
 Azure Event Hubs enables you to use an event driven approach to incorporate first
-party Azure services.
+party Azure services. Pay attention to how you can tune
+the throughout of EventHubs.
 
 ![](media/25a643873acbb18166772fc1ac25b15d.png)
