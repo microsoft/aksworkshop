@@ -9,5 +9,5 @@ You need to add an email notification to send to the customer once it has been f
 
 Resources:
 
--   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-sendgrid>
--   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings>
+-   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-sendgrid?wt.mc_id=CSE_(96575)>
+-   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?wt.mc_id=CSE_(96575)>

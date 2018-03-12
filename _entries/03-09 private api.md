@@ -2,7 +2,7 @@
 sectionid: privateapi
 sectionclass: h2
 parent-id: enhancing
-title: Advanced: Deploy the Kubernetes API on a private IP address
+title: Advanced - Deploy the Kubernetes API on a private IP address
 
 ---
 *This is a new challenge utlilising a new feature in ACS Engine. Only attempt should you wish to investigate this feature.*

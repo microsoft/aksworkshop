@@ -2,7 +2,7 @@
 sectionid: osb
 sectionclass: h2
 parent-id: enhancing
-title: Advanced: Open Service Broker™ for Azure
+title: Advanced - Open Service Broker™ for Azure
 ---
 *This is a new challenge utlilising a very new technologies. Only attempt if you are prepared for a real challenge!*
 

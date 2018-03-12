@@ -10,4 +10,4 @@ only 100 requests from a single IP are allowed within a minute if the consumer i
 of 500 requests from a single IP. You may use API Management, Logic Apps,
 Kong or any other service you think relevant.
 
--   <https://docs.microsoft.com/en-us/azure/api-management/api-management-sample-flexible-throttling>
+-   <https://docs.microsoft.com/en-us/azure/api-management/api-management-sample-flexible-throttling?wt.mc_id=CSE_(96575)>
