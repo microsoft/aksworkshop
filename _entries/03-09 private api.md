@@ -2,9 +2,10 @@
 sectionid: privateapi
 sectionclass: h2
 parent-id: enhancing
-title: Deploy the Kubernetes API on a private IP address (advanced/preview)
+title: Advanced: Deploy the Kubernetes API on a private IP address
 
 ---
+*This is a new challenge utlilising a new feature in ACS Engine. Only attempt should you wish to investigate this feature.*
 
 Despite the API being secured using client certificates and TLS your organisation has a security policy that prevents the Kubernetes API from being offered on a public IP address. Ensure that your Kubernetes clusters do not have their API published on a public IP address.
  
