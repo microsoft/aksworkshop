@@ -13,8 +13,8 @@ You will be deploying a customer-facing order placement and fulfilment applicati
 Our application consists of 5 components, namely: 
 * A public facing Order Capture swagger enabled API
 * A messaging queue to provide reliable message delivery
-* An event listener that picks up events from the messaging queue and brokers requests
-* An internal Order Fulfill API.
+* An event listener that picks up events from the messaging queue and brokers requests to a 'legacy application'
+* An internal Order Fulfill legacy API.
 * A MongoDB database
 
 The order capture API is available at  http://<PublicEndpoint>/v1/order, and via swagger at http://<PublicEndpoint>/swagger/.
@@ -33,7 +33,7 @@ ENV TEAMNAME=[YourTeamName]
 
 *Mongo*
 
-ENV MONGOHOST="mongodb://[mongoinstance]"
+ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
 
 *RabbitMQ*
 
@@ -52,10 +52,11 @@ ENV TEAMNAME= Your team name
 *RabbitMQ*
 
 ENV RABBITMQHOST=amqp://[url]:5672
+ENV PARTITIONKEY=[0,1,2] ** If you want to use partitions specify a number on your listener
 
 *Internal Fulfill order endpoint*
 
-ENV PROCESSENDPOINT=http://[yourfulfillordername]:8080/v1/order
+ENV PROCESSENDPOINT=http://[yourfulfillordername].[namespace]:8080/v1/order
 
 **Order Fulfill API**
 - Docker Image: <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
@@ -69,7 +70,7 @@ ENV TEAMNAME=[YourTeamName]
 
 *For Mongo*
 
-ENV MONGOHOST="mongodb://[mongoinstance]"
+ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
 
 *Order Storage Location*
 
