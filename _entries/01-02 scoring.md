@@ -13,7 +13,7 @@ Application uptime over period of the hack. We will be continuously making HTTP 
 
 **Throughput**
 
-Ability to cope with periodic load tests. These will be order submissions to http://\<your endpoint\>:8080/v1/order/. We will be directing up to 2000 users to your application.
+Ability to cope with periodic load tests. These will be order submissions to http://\<your endpoint\>:80/v1/order/. We will be directing up to 2000 users to your application.
 
 **DevOps**
 
