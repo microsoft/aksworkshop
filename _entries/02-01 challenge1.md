@@ -27,6 +27,7 @@ Resources:
 
     [AKS Issues](https://github.com/Azure/AKS/issues)
 
+
 - ACS Engine:
 
     If you need to run ACS-Engine to generate a version 1.8 Kubernetes cluster, please follow these steps:
@@ -43,9 +44,11 @@ Resources:
 
     6. Run the following command:
 
-    ```./acs-engine generate --api-model [path_to/kubernetes1.8.json] --output-directory ./out/```
-    
-    This will generate files in the ```out``` folder.
+            ```
+                ./acs-engine generate --api-model [path_to/kubernetes1.8.json] --output-directory ./out/
+            ```
+                
+        This will generate files in the ```out``` folder.
 
     7. Now run the following command to deploy the cluster:
 
