@@ -15,7 +15,7 @@ can efficiently process messages from the Capture Order API.
 
 The fulfillorder container must be deployed as an internal only API. This
 container will fulfill orders and output orders for future batch processing. The
-log files from all instances of order fulfillment must be written to a single
+order transaction files from all instances of order fulfillment must be written to a single
 location that also enables staff to inspect the log files without interacting
 with Kubernetes.
 
