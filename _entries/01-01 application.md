@@ -22,8 +22,8 @@ The order capture API is available at  http://[PublicEndpoint].[namespace]:[port
 Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations sepcified. 
 
 **Order Capture API**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/captureorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/captureorderack/>
+- Docker Image: <https://hub.docker.com/r/sabbour/captureorderack-netcore/>
+- GitHub Repo: <https://github.com/sabbour/captureorderack/tree/master/netcore/>
 
 Required Environment Variables:
 
@@ -33,15 +33,15 @@ ENV TEAMNAME=[YourTeamName]
 
 *Mongo*
 
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
 
 *RabbitMQ*
 
-ENV RABBITMQHOST=amqp://[url]:5672
+ENV AMQPURL=amqp://[url]:5672
 
 **Event Listener**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/>
-- GitHub Repo: <https://github.com/shanepeckham/rabbitmqlistenerack/> 
+- Docker Image: <https://hub.docker.com/r/sabbour/rabbitmqlistenerack/>
+- GitHub Repo: <https://github.com/sabbour/rabbitmqlistenerack/> 
 
 Required Environment Variables:
 
@@ -51,16 +51,15 @@ ENV TEAMNAME= Your team name
 
 *RabbitMQ*
 
-ENV RABBITMQHOST=amqp://[url]:5672
-ENV PARTITIONKEY=[0,1,2] ** If you want to use partitions specify a number on your listener
+ENV AMQPURL=amqp://[url]:5672
 
 *Internal Fulfill order endpoint*
 
 ENV PROCESSENDPOINT=http://[yourfulfillordername].[namespace]:8080/v1/order
 
 **Order Fulfill API**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/fulfillorderack/>
+- Docker Image: <https://hub.docker.com/r/sabbour/fulfillorderack/>
+- GitHub Repo: <https://github.com/sabbour/fulfillorderack/>
 
 Required Environment Variables:
 
@@ -70,7 +69,7 @@ ENV TEAMNAME=[YourTeamName]
 
 *For Mongo*
 
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
 
 *Order Storage Location*
 
