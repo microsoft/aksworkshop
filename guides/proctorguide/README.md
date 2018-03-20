@@ -1,0 +1,13 @@
+# Things to note/Gotchas :
+- Ensure CosmosDB has adequate RU/s (at least 5000 is required)
+- Ensure CosmosDB is running with Eventual Consistency
+- Ensure CosmosDB is running with Lazy Indexing
+- Ensure that EventHub is scaled to at least X instances
+- Ensure that EventHub has Auto-Inflate on
+- Ensure that EventHubListener has at least 6 instances
+- Ensure that OrderCapture has at least 4 instances
+- Horizontal Pod Autoscaler will not work if you don't set resource requests on your pods
+- Default cooldown period for autoscaling is 5 minutes
+- Make sure to provision an Azure Storage Account in the same resource group MC_xxxx
+- Recommended to start with 4xDS2v3
+- Avoid deploying both scenarios at the same time to give space for the cluster to breathe
