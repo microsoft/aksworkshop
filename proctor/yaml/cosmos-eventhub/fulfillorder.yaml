@@ -22,7 +22,7 @@ spec:
         env:
         - name: TEAMNAME
           value: "sabbour-test"
-        - name: MONGOHOST
+        - name: MONGOURL
           value: "mongodb://sabbourordercapture:YftliYqKseSNN4cedwLs4o1itApGLs6hMaouPKv4MHVGMbH3lfv9085mOVyZEx0JEUcKsIJUH6yVbPL24f83vQ==@sabbourordercapture.documents.azure.com:10255/?ssl=true&replicaSet=globaldb"
         volumeMounts:
         - name: azurevol

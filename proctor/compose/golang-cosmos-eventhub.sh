@@ -1,0 +1,1 @@
+docker-compose -p golang-cosmos-eventhub -f ./cosmos-eventhub/golang/docker-compose.yml up --build 

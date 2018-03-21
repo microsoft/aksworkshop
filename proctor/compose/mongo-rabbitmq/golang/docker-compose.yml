@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+    captureorderack:
+        build: ../../../../../code/captureorderack/golang/.
+        depends_on:
+            - chlmongo
+            - chlrabbitmq
+        env_file:
+            - .env
+        ports:
+            - 8080:8080
+    fulfillorderack:
+        build: ../../../../../code/fulfillorderack/.
+        env_file:
+            - .env
+    rabbitmqlistenerack:
+        build: ../../../../../code/rabbitmqlistenerack/.
+        depends_on:
+            - chlrabbitmq
+        env_file:
+            - .env
+    chlmongo:
+        image: mongo
+    chlrabbitmq:
+        image: rabbitmq:3-management
+        environment:
+            - RABBITMQ_DEFAULT_USER=user
+            - RABBITMQ_DEFAULT_PASS=password

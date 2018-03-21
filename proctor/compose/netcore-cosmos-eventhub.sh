@@ -1,0 +1,1 @@
+docker-compose -p netcore-cosmos-eventhub -f ./cosmos-eventhub/netcore/docker-compose.yml up --build 

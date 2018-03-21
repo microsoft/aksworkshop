@@ -25,7 +25,5 @@ spec:
           value: "sabbour-test"
         - name: PROCESSENDPOINT
           value: 'http://fulfillorder.k8schallenge-mongorabbitmq.svc.cluster.local:8080/v1/order/'
-        - name: RABBITMQHOST
+        - name: AMQPURL
           value: 'amqp://admin:password@rabbitmq-rabbitmq.k8schallenge-mongorabbitmq.svc.cluster.local:5672'
-        - name: PARTITIONKEY
-          value: '0'

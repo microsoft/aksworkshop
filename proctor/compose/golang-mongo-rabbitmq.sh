@@ -1,0 +1,1 @@
+docker-compose -p golang-mongo-rabbitmq -f ./mongo-rabbitmq/golang/docker-compose.yml up --build 

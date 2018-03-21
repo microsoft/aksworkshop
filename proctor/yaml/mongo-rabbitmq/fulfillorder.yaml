@@ -22,7 +22,7 @@ spec:
         env:
         - name: TEAMNAME
           value: "sabbour-test"
-        - name: MONGOHOST
+        - name: MONGOURL
           value: "mongodb://mongodb-mongodb.k8schallenge-mongorabbitmq.svc.cluster.local"
         volumeMounts:
         - name: azurevol
