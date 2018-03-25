@@ -19,4 +19,4 @@ special care not to lose any data.
 
 Resources:
 
-<https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview?wt.mc_id=CSE_(96575)>
+<https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview?wt.mc_id=CSE_(606698)>
