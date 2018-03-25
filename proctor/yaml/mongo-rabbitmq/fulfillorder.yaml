@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: fulfillor
-        image: sabbour/fulfillorderack:latest
+        image: sabbour/fulfillorderack:preview
         env:
         - name: TEAMNAME
           value: "sabbour-test"
