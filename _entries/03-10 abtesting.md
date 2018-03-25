@@ -20,7 +20,7 @@ For this challenge, you may switch to using the Go version of the Order Capture 
 
  
 References:
-- <https://docs.microsoft.com/en-us/azure/application-insights?wt.mc_id=CSE_(96575)>
+- <https://docs.microsoft.com/en-us/azure/application-insights?wt.mc_id=CSE_(606698)>
 - <https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#canary-deployments>
 - <https://istio.io/docs/concepts/traffic-management/request-routing.html>
 - <https://github.com/ContainerSolutions/k8s-deployment-strategies/tree/master/ab-testing>
