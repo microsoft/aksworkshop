@@ -2,7 +2,7 @@ version: '3'
 
 services:
     captureorderack:
-        build: ../../../../../code/captureorderack/golang/.
+        build: ../../../../../code/captureorderack/.
         env_file:
             - .env
         ports:
