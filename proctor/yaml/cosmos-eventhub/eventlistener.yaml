@@ -6,7 +6,6 @@ metadata:
   labels:
     app: listener
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: listener
@@ -29,3 +28,17 @@ spec:
           value: "Endpoint=sb://sabbourcapture.servicebus.windows.net/;SharedAccessKeyName=TestPolicy;SharedAccessKey=2KHYwfOvBfchurrWXZkbeqh6j5MB1bfh1x1J7KYAiNY=;EntityPath=ehub"
         - name: EVENTHUBPATH
           value: ehub
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: eventlistener-autoscaler
+  namespace: k8schallenge-cosmoseventhub
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta2
+    kind: Deployment
+    name: listener-deployment
+  minReplicas: 4
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 40
