@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: listener
-        image: sabbour/eventhublistenerack:latest
+        image: sabbour/eventhublistenerack:preview
         imagePullPolicy: Always        
         env:
         - name: TEAMNAME

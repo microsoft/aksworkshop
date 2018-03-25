@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: ordercapture
-        #image: sabbour/captureorderack:latest # golang
-        image: sabbour/captureorderack-netcore:latest # netcore
+        #image: sabbour/captureorderack:preview # golang
+        image: sabbour/captureorderack-netcore:preview # netcore
         imagePullPolicy: Always        
         ports:
         - containerPort: 8080
