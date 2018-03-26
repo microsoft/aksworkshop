@@ -1,1 +1,5 @@
-docker-compose -p golang-cosmos-eventhub -f ./cosmos-eventhub/golang/docker-compose.yml up --build 
+pushd ./cosmos-eventhub/golang
+docker-compose build
+docker-compose push
+docker-compose up
+popd

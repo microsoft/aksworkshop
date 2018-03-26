@@ -23,7 +23,7 @@ Initial versions of the Docker containers have been provided by the development 
 
 **Order Capture API**
 - Docker Image: <https://hub.docker.com/r/sabbour/captureorderack-netcore/>
-- GitHub Repo: <https://github.com/sabbour/captureorderack/tree/master/netcore/>
+- GitHub Repo: <https://github.com/sabbour/captureorderack-netcore/>
 
 Required Environment Variables:
 

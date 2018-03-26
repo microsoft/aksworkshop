@@ -1,1 +1,5 @@
-docker-compose -p netcore-mongo-rabbitmq -f ./mongo-rabbitmq/netcore/docker-compose.yml up --build 
+pushd ./mongo-rabbitmq/netcore
+docker-compose build
+docker-compose push
+docker-compose up
+popd
