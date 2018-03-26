@@ -20,10 +20,17 @@ Our application consists of 5 components, namely:
 The order capture API is available at  http://[PublicEndpoint].[namespace]:[port]/v1/order, and via swagger at http://[PublicEndpoint].[namespace]:[port]/swagger/.
 
 Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations sepcified. 
+NB: There are two flavors of captureorder application. One in golang and another in .Net core. You will be advised when to use each during the challenge.
 
 **Order Capture API**
+
+.Net Core:
 - Docker Image: <https://hub.docker.com/r/sabbour/captureorderack-netcore/>
-- GitHub Repo: <https://github.com/sabbour/captureorderack-netcore/>
+- GitHub Repo: <https://github.com/sabbour/captureorderack-netcore>
+
+GoLang:
+- Docker Image: <https://hub.docker.com/r/sabbour/captureorderack-netcore/>
+- GitHub Repo: <https://github.com/sabbour/captureorderack>
 
 Required Environment Variables:
 
@@ -48,6 +55,7 @@ Required Environment Variables:
 *Challenge Logging*
 
 ENV TEAMNAME= Your team name
+ENV APPINSIGHTS_KEY=[YourCustomApplicationInsightsKey] # Optional, create your own App Insights resource
 
 *RabbitMQ*
 
