@@ -11,9 +11,9 @@ Each team is made of a Microsoft representative, a Microsoft partner representat
 
 The challenge consists of two major iterations plus extra advanced sections. 
 You are expected to conclude both the simple and advanced iterations, and perform as much advanced optional sections to get the highest score.
-The first iteration, is focused on speed and simplicity. We will leverage Azure to get up and running with Kubernetes with minimal effort. The objective is create an end to end minimal viable product. 
-More specifically, we will focus on: 
-- Deploying kubernetes cluster as an Azure managed service (AKS), for quick Dev and Test
+The first iteration, is focused on speed and simplicity. We will leverage Azure to get up and running with Kubernetes with minimal effort. 
+The objective is to create an end to end minimal viable product. More specifically, we will focus on: 
+- Deploying kubernetes cluster as a managed service (AKS), for quick Dev and Test
 - Deploying the different micro-services of our application, using public docker images and helm charts
 - Migrate some IaaS components to Azure managed services, to reduce the operational overhead 
 
