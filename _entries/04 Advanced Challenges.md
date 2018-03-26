@@ -1,7 +1,7 @@
 ---
 sectionid:  advanced
 sectionclass: h1
-title: Advanced challenges (acs-engine required)
+title: Advanced challenges (acs-engine)
 is-parent: yes
 ---
 
