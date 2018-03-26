@@ -6,16 +6,15 @@ title: Global Redundancy
 
 ---
 
-Your application needs to tolerate failure of an Azure region. You must take
-special care not to lose any data.
+Your application needs to tolerate failure of an Azure region (a disaster). You must take special care not to lose any data.
 
-1.  Deploy a second ACS cluster
+1.  Deploy a second ACS cluster with smaller resources
 
 2.  Implement a data replication solution for MongoDB or CosmosDB
 
-3.  Deploy application
+3.  Deploy your application
 
-4.  Implement traffic manager
+4.  Implement geo-loadbalancing with traffic manager
 
 **Resources:**
 
