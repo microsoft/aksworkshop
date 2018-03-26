@@ -1,7 +1,7 @@
 ---
 sectionid: abtesting
 sectionclass: h2
-parent-id: enhancing
+parent-id: advanced
 title: Advanced - A/B testing and canary deployments
 
 ---
