@@ -1,7 +1,7 @@
 ---
 sectionid: eventhubs
 sectionclass: h2
-parent-id: enhancing
+parent-id: upandrunning
 title: Swap out Rabbit MQ for Event Hubs
 
 ---
