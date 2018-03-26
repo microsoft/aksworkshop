@@ -23,4 +23,4 @@ Resources:
 
 -   <https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/>
 
--   <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(96575)>
+-   <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(433127)>
