@@ -1,7 +1,7 @@
 ---
 sectionid:  enhancing
 sectionclass: h1
-title: Enhancing the application
+title: Iteration-2: Enhancing the application
 is-parent: yes
 ---
 
