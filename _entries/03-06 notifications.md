@@ -5,7 +5,8 @@ parent-id: enhancing
 title: Send Order Fulfilled notifications to customers
 ---
 
-You need to add an email notification to send to the customer once it has been fulfilled but you may only use a serverless service.
+You need to add an email notification to send to the customer once a request is fulfilled it has been fulfilled. 
+Create a serverless function to perform this task.
 
 **Resources:**
 
