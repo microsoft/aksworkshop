@@ -1,7 +1,7 @@
 ---
 sectionid: scaling
 sectionclass: h2
-parent-id: enhancing
+parent-id: upandrunning
 title: Scaling
 ---
 
