@@ -13,7 +13,7 @@ You need to:
 1. Deploy Kubernetes to Azure, using CLI or Azure portal
 2. Ensure you and your colleagues can connect to the cluster using kubectl
 
-Resources, AKS:
+**Resources, AKS:**
 
 [https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?wt.mc_id=CSE_(606698))
 

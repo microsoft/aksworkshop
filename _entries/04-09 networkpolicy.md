@@ -7,5 +7,5 @@ title: Advanced - Network Policy
 ---
 
 
-References:
+**Resources:**
 - <https://docs.microsoft.com/en-us/azure/application-insights?wt.mc_id=CSE_(606698)>

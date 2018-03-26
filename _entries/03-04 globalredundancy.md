@@ -17,6 +17,6 @@ special care not to lose any data.
 
 4.  Implement traffic manager
 
-Resources:
+**Resources:**
 
 <https://docs.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview?wt.mc_id=CSE_(606698)>

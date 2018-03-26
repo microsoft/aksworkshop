@@ -29,7 +29,7 @@ with Kubernetes.
 
 4.  Configure Order Fulfillment to store data to Azure Files
 
-    Resources:
+**Resources:**
 
 -   <https://kubeapps.com/charts/stable/rabbitmq>
 
