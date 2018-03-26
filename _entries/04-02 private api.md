@@ -1,7 +1,7 @@
 ---
 sectionid: privateapi
 sectionclass: h2
-parent-id: enhancing
+parent-id: advanced
 title: Advanced - Deploy the Kubernetes API on a private IP address
 
 ---
