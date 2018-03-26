@@ -1,7 +1,7 @@
 ---
 sectionclass: h2
 sectionid: acs
-parent-id: enhancing
+parent-id: advanced
 title: Deploy private K8s cluster with Azure Container Service (ACS) engine 
 ---
 
