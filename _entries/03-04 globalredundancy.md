@@ -6,7 +6,7 @@ title: Global Redundancy
 
 ---
 
-Your application needs to tolerate failure of an Azure region (a disaster). You must take special care not to lose any data.
+Your application is serving different continents and requires global reach with low latency.
 
 1.  Deploy a second ACS cluster with smaller resources
 
