@@ -2,7 +2,7 @@
 sectionid: redundancy
 sectionclass: h2
 parent-id: enhancing
-title: Global Redundancy
+title: Global Reach
 
 ---
 
