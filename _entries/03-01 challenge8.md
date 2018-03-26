@@ -9,4 +9,4 @@ Instead of using the public dockerhub registry, create your own private containe
 Make sure your registry is highly redundant  
 
 
--  Azure Container Registry Documentation- <https://docs.microsoft.com/en-us/azure/container-registry/>
+-  Azure Container Registry Documentation- <https://docs.microsoft.com/en-us/azure/container-registry?wt.mc_id=CSE_(606698)>
