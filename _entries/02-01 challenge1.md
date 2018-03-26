@@ -23,7 +23,7 @@ You need to:
 Resources:
 - AKS:
 
-    [https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?wt.mc_id=CSE_(96575))
+    [https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?wt.mc_id=CSE_(433127))
 
     [AKS Issues](https://github.com/Azure/AKS/issues)
 
@@ -36,9 +36,9 @@ Resources:
 
     2. [Download the Kubernetes 1.8 API Model template](https://github.com/Azure/acs-engine/blob/master/examples/kubernetes-releases/kubernetes1.8.json)
 
-    3. [Generate a Service Principle (SP)](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?toc=%2Fazure%2Fazure-resource-manager%2Ftoc.json&view=azure-cli-latest?wt.mc_id=CSE_(96575))
+    3. [Generate a Service Principle (SP)](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?toc=%2Fazure%2Fazure-resource-manager%2Ftoc.json&view=azure-cli-latest?wt.mc_id=CSE_(433127))
 
-    4. [Generate a ssh key](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys?wt.mc_id=CSE_(96575))
+    4. [Generate a ssh key](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys?wt.mc_id=CSE_(433127))
 
     5. Populate the 1.8 API Model template with the service principal and ssh key you generated
 

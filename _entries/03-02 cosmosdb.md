@@ -27,4 +27,4 @@ the throughout of CosmosDB.
 
 Resources:
 
-<https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction?wt.mc_id=CSE_(96575)>
+<https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction?wt.mc_id=CSE_(433127)>
