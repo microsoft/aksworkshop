@@ -1,7 +1,7 @@
 ---
 sectionclass: h2
 sectionid: cosmos
-parent-id: upandrunning
+parent-id: enhancing
 title: Swap out MongoDB for CosmosDB
 
 ---

@@ -13,5 +13,5 @@ Despite the API being secured using client certificates and TLS your organisatio
 2. Create an ACS Engine cluster definition specifying a private Kubernetes API
 3. Provision a Kubernetes cluster using ACS Engine
 
-References:
+**Resources:**
 - <https://github.com/Azure/acs-engine/blob/master/docs/kubernetes/features.md#private-cluster>

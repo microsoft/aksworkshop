@@ -20,7 +20,7 @@ Once deployed, create a DNS (Azure traffic manager) endpoint. Then, provide your
 
 3.  Ensure orders are successfully written to MongoDB
 
-Resources:
+**Resources:**
 
 -   <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 

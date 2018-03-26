@@ -8,33 +8,29 @@ title: Monitoring
 You need to have deep insights into the current status of your application and
 the Kubernetes infrastructure.
 
+1.Implement a monitoring solution of your choice. Resources (suggestions, there are many others you may prefer to use):
 
-1.  Implement a monitoring solution of your choice. 
+    - Grafana and Prometheus. To access Grafana dashboard, change the service type to LoadBalancer or use port-forward
 
-Resources (suggestions, there are many others you may prefer to use):
+        <https://github.com/coreos/prometheus-operator/tree/master/helm>
 
--   Grafana and Prometheus. To access Grafana dashboard, change the service type to LoadBalancer or use port-forward 
+    - CoScale:
 
-    <https://github.com/coreos/prometheus-operator/tree/master/helm>
+        - <https://app.coscale.com/app/register/> - select AKS
+        - <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale?wt.mc_id=CSE_(606698)>
 
--   CoScale:
+    - Datadog:
 
-    <https://app.coscale.com/app/register/> - select AKS
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-coscale?wt.mc_id=CSE_(606698)>
+        <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog?wt.mc_id=CSE_(606698)>
 
--   Datadog:
+    - Sysdig:
 
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-datadog?wt.mc_id=CSE_(606698)>
+        <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig?wt.mc_id=CSE_(606698)>
 
--   Sysdig:
-   
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-sysdig?wt.mc_id=CSE_(606698)>
+    - OMS (currently a delay for data to initially appear):
 
--   OMS (currently a delay for data to initially appear):
+        <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms?wt.mc_id=CSE_(606698)>
 
-    <https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-oms?wt.mc_id=CSE_(606698)>
-
-    <https://kubeapps.com/charts/stable/msoms>
+        <https://kubeapps.com/charts/stable/msoms>
 
 2. Configure your application to work with [Azure Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-overview?wt.mc_id=CSE_(606698)). You can provision your own Azure Application Insights instance and supply the key in the environment variables.
-
