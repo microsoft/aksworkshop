@@ -9,6 +9,8 @@ title: Advanced - Network Policy
 
 Your network infrastructure team is concerned about the fact that all containers can cross communicate together. They have asked you to restrict network communication between the **Order Capture** containers and the **Fulfill Order** containers; they shouldn't be allowed to communicate together.
 
+You may also try using **kube-router** with AKS <https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/README.md>
+
 **Resources:**
 - <https://github.com/Azure/acs-engine/tree/master/examples/networkpolicy>
 - <https://github.com/Azure/azure-container-networking/blob/master/docs/network.md>

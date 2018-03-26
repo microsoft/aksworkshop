@@ -1,7 +1,7 @@
 ---
 sectionid:  enhancing
 sectionclass: h1
-title: Intermediate
+title: Intermediate challenges
 is-parent: yes
 ---
 
