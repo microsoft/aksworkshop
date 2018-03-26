@@ -3,15 +3,18 @@ version: '3'
 services:
     captureorderack:
         build: ../../../../../code/captureorderack-netcore/.
+        image: sabbour/captureorderack-netcore:dev        
         env_file:
             - .env
         ports:
             - 8080:8080
     fulfillorderack:
         build: ../../../../../code/fulfillorderack/.
+        image: sabbour/fulfillorderack:dev     
         env_file:
             - .env
     eventhublistenerack:
         build: ../../../../../code/eventhublistenerack/.
+        image: sabbour/eventhublistenerack:dev  
         env_file:
             - .env
