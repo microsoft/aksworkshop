@@ -6,13 +6,11 @@ parent-id: upandrunning
 title: Deploy the Order Capture API and MongoDB
 ---
 
-You need to deploy the order capture API. This requires an external endpoint, exposing the API on port 80 and
-needs to write to MongoDB.
+You need to deploy the order capture API. This requires an external endpoint, exposing the API on port 80 and needs to write to MongoDB.
 
 ![](media/51744cdc31c555b1d76c71f5e2693471.png)
 
 Once deployed, create a DNS (Azure traffic manager) endpoint. Then, provide your proctor with the domain name of your Order Capture API so service availability and performance can be monitored.
-
 
 1.  Deploy an instance of MongoDB to your cluster
 
