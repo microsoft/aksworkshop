@@ -35,6 +35,8 @@ with Kubernetes.
 
 -   <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>
 
+- <https://docs.microsoft.com/gl-es/azure/aks/azure-files-dynamic-pv?wt.mc_id=CSE_(606698)>
+
 -   <https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file>
 
 

@@ -29,7 +29,7 @@ NB: There are two flavors of captureorder application. One in golang and another
 - GitHub Repo: <https://github.com/sabbour/captureorderack-netcore>
 
 GoLang:
-- Docker Image: <https://hub.docker.com/r/sabbour/captureorderack-netcore/>
+- Docker Image: <https://hub.docker.com/r/sabbour/captureorderack/>
 - GitHub Repo: <https://github.com/sabbour/captureorderack>
 
 Required Environment Variables:
