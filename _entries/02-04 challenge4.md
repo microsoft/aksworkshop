@@ -10,7 +10,7 @@ the Kubernetes infrastructure.
 
 1.Implement a monitoring solution of your choice. Resources (suggestions, there are many others you may prefer to use):
 
-- Grafana and Prometheus. To access Grafana dashboard, change the service type to LoadBalancer or use port-forward
+- Grafana and Prometheus. To access Grafana dashboard, change the service type to LoadBalancer or use port-forward. Also if RBAC is not enabled, make sure you install **prometheus-operator** with `rbacEnable=false` and **kube-prometheus** with the option `global.rbacEnable=false`
     <https://github.com/coreos/prometheus-operator/tree/master/helm>
 
 - CoScale:
