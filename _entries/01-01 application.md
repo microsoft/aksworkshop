@@ -19,7 +19,7 @@ Our application consists of 5 components, namely:
 
 The order capture API is available at  http://[PublicEndpoint].[namespace]:[port]/v1/order, and via swagger at http://[PublicEndpoint].[namespace]:[port]/swagger/.
 
-Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations sepcified. 
+Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations specified. 
 
 **Order Capture API**
 - Docker Image: <https://hub.docker.com/r/shanepeckham/captureorderack/>
