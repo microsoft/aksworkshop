@@ -1,5 +1,5 @@
 full_rebuild: true
-name: "The Azure Challenge: Kubernetes"
+name: "The Azure Challenge: Service Fabric"
 author: Microsoft
 encoding: utf-8
 defaults:
