@@ -1,7 +1,7 @@
 ---
 sectionid: redundancy
 sectionclass: h2
-parent-id: advanced
+parent-id: enhancing
 title: Global Redundancy
 
 ---
@@ -9,11 +9,9 @@ title: Global Redundancy
 Your application needs to tolerate failure of an Azure region. You must take
 special care not to lose any data.
 
-1.  Deploy a second service fabric cluster
+1.  Deploy a second ACS cluster
 
 2.  Implement a data replication solution for MongoDB or CosmosDB
-
-3. Ensure that XXX Blob??
 
 3.  Deploy application
 

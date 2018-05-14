@@ -1,8 +1,6 @@
 ---
 sectionid: upandrunning
 sectionclass: h1
-title: Gettting up and running
+title: Getting up and running
 is-parent: yes
 ---
-
-
