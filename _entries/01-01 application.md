@@ -18,59 +18,58 @@ Our application consists of 5 components, namely:
 * A MongoDB database
 
 The order capture API is available at  http://[PublicEndpoint]:[port]/v1/order, and via swagger at http://[PublicEndpoint]:[port]/swagger/.
+Health method is available at http://[PublicEndpoint]:[port]/healthz
 
 Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations specified. 
 
-**Order Capture API**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/captureorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/captureorderack/>
-
-Required Environment Variables:
-
-*Challenge Logging*
+**Mandatory for all deployments**
 
 ENV TEAMNAME=[YourTeamName]
 
-*Mongo*
+ENV CHALLENGEAPPINSIGHTS_KEY=[AsSpecifiedAtTheEvent]
 
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
-
-*RabbitMQ*
-
-ENV RABBITMQHOST=amqp://[url]:5672
-
-**Event Listener**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/rabbitmqlistenerack/>
-- GitHub Repo: <https://github.com/shanepeckham/rabbitmqlistenerack/> 
+**Order Capture API**
+- Docker Image: <https://hub.docker.com/r/torosent/captureorderack/>
+- GitHub Repo: <https://github.com/torosent/captureorderack/>
 
 Required Environment Variables:
 
-*Challenge Logging*
+*Mongo*
 
-ENV TEAMNAME= Your team name
+ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
+
+**Hint**
+SSL and Username/Password
 
 *RabbitMQ*
 
-ENV RABBITMQHOST=amqp://[url]:5672
-ENV PARTITIONKEY=[0,1,2] ** If you want to use partitions specify a number on your listener
+ENV AMQPURL=amqp://[url]:5672
+
+**Event Listener**
+- Docker Image: <https://hub.docker.com/r/torosent/rabbitmqlistenerack/>
+- GitHub Repo: <https://github.com/torosent/rabbitmqlistenerack/> 
+
+Required Environment Variables:
+
+*RabbitMQ*
+
+ENV AMQPURL=amqp://[url]:5672
 
 *Internal Fulfill order endpoint*
 
 ENV PROCESSENDPOINT=http://[yourfulfillordername].[namespace]:8080/v1/order
 
 **Order Fulfill API**
-- Docker Image: <https://hub.docker.com/r/shanepeckham/fulfillorderack/>
-- GitHub Repo: <https://github.com/shanepeckham/fulfillorderack/>
+- Docker Image: <https://hub.docker.com/r/torosent/fulfillorderack/>
+- GitHub Repo: <https://github.com/torosent/fulfillorderack/>
+
+Health method is available at http://[ServiceEndpoint]:[port]/healthz
 
 Required Environment Variables:
 
-*ACK Logging*
-
-ENV TEAMNAME=[YourTeamName]
-
 *For Mongo*
 
-ENV MONGOHOST="mongodb://[mongoinstance].[namespace]"
+ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
 
 *Order Storage Location*
 
