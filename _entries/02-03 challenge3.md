@@ -19,23 +19,13 @@ with Kubernetes.
 
 Once deployed please provide your proctor with a Public IP for your Order Capture API so service availability and performance can be monitored.
 
-1.  Deploy Rabbit MQ
+1. Deploy Rabbit MQ
+1. Configure captureorder to connect to RabbitMQ. Authentication needs to be configured to connect successfully.
+1. Provision Order Fulfillment and event listener containers. **Ensure you are using the most recent version of the image**
+1. Configure Order Fulfillment to store data to Azure Files
 
-2.  Configure captureorder to connect to RabbitMQ. Authentication needs to be configured to connect successfully.
-
-3.  Provision Order Fulfillment and event listener containers. **Ensure you are using the most recent version of the image**
-
-4.  Configure Order Fulfillment to store data to Azure Files
-
-**Resources:**
-
--   <https://kubeapps.com/charts/stable/rabbitmq>
-
--   <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>
-
-- <https://docs.microsoft.com/gl-es/azure/aks/azure-files-dynamic-pv?wt.mc_id=CSE_(606698)>
-
--   <https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file>
-
-
-
+> **Resources**
+> * <https://kubeapps.com/charts/stable/rabbitmq>
+> * <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>
+> * <https://docs.microsoft.com/gl-es/azure/aks/azure-files-dynamic-pv?wt.mc_id=CSE_(606698)>
+> * <https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file>
