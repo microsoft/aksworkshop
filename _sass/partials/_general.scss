@@ -22,7 +22,7 @@ body{
 
 .content{
     counter-reset: h1-counter;
-    width: calc(100% - 320px);
+    width: calc(100% - 350px);
     position: absolute;
     right: 0;
     
@@ -48,7 +48,6 @@ section{
     > ol,
     > div{
         text-align: justify;
-        padding-left: 5%;
         padding-right: 5%;
         box-sizing: border-box;
     }
@@ -63,20 +62,17 @@ section{
 }
 
 h1, h2, h3, h4, h5, h6{
-    text-transform: uppercase;
     font-weight: $bold;
     line-height: 1;
     color: $blue;
 }
 
+
 h1 {
     font-size: 2.8em;
-    padding: 30px 30px 30px 30px;
     text-align: left;
-    border-bottom: $blue 9px solid;
     width: calc(100% - 60px);;
     line-height: 1;
-    margin: 0 0 20px;
 
     &:before {
         content: counter(h1-counter) " ";
@@ -86,16 +82,17 @@ h1 {
 .h1{
     counter-increment: h1-counter;
     counter-reset: h2-counter;
-    padding-top: 80px;
+}
+
+h1.nocount:before {
+    content: none;
+    counter-increment: none;
 }
 
 h2 {
     font-size: 2em;
-    padding: 30px 30px 0 0;
     width: 90%;
     text-align: left;
-    // border-bottom: 5px solid $green;
-    margin: 0 auto 20px;
     line-height: 1;
 
     &:before {
@@ -103,20 +100,21 @@ h2 {
     }
 }
 
+h2.nocount:before {
+    content: none;
+    counter-increment: none;
+}
+
 .h2{
     counter-increment: h2-counter;
     counter-reset: h3-counter;
-    padding-top: 60px;
 }
 
 
 h3{
     font-size: 1.7em;
-    padding: 20px 0 0;
     width: 90%;
     text-align: left;
-    border-bottom: 4px solid $green;
-    margin: 0 auto 20px;
     line-height: 1;
 
     &:before {
@@ -124,19 +122,20 @@ h3{
     }
 }
 
+h3.nocount:before {
+    content: none;
+    counter-increment: none;
+}
+
 .h3{
     counter-increment: h3-counter;
     counter-reset: h4-counter;
-    padding-top: 40px;
 }
 
 h4{
     font-size: 1.5em;
-    padding: 18px 0 0;
     width: 90%;
     text-align: left;
-    border-bottom: 3px solid $green;
-    margin: 0 auto 18px;
     line-height: 1;
 
     &:before {
@@ -147,17 +146,13 @@ h4{
 .h4{
     counter-increment: h4-counter;
     counter-reset: h5-counter 1;
-    padding-top: 30px;
 }
 
 
 h5{
     font-size: 1.3em;
-    padding: 40px 0 0;
     width: 90%;
     text-align: left;
-    border-bottom: 2px solid $green;
-    margin: 0 auto 15px;
     line-height: 1;
 
     &:before {
@@ -172,7 +167,6 @@ a{
     text-decoration: none;
 
     .content &{
-        border-bottom: $darkgreen 1px solid;
         padding: 0px 2px;
 
         &:hover{

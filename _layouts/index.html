@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% include head.html %}
-    </head>
 
-    <body>
-        <div class="container">
-            <div class="overview">
-                <span class="toggle">close</span>
-                {% include header.html %}
-                {% include nav.html %}
-            </div>
+<head>
+    {% include head.html %}
+</head>
 
-            <div class="content">
-                <span class="toggle">open</span>
-                <span style="font-size:3em;font-weight:bold;padding-left:30px;">{{ site.name }}</span>
-                <section><p>Please do not share the content of this document with people who are not participants in the hack. 
-                    We would like to reuse the content and would like the challenges to remain a suprise.</p></section>
-                {{ content }}
-            </div>
+<body>
+    <div class="container">
+        <div class="overview">
+            <span class="toggle">close</span>
+            {% include header.html %}
+            {% include nav.html %}
         </div>
 
-        <script src="js/jquery-2.1.1.min.js"></script>
-        <script scr="js/jquery.scrollTo.js"></script>
-        <script src="js/jquery.nav.js"></script>
-        <script src="js/scripts.js"></script>
-    </body>
+        <div class="content">
+            <span class="toggle">open</span>
+            <article class="markdown-body">
+                {{ content }}
+            </article>
+        </div>
+    </div>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script scr="js/jquery.scrollTo.js"></script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
 </html>
