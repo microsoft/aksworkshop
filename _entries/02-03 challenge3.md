@@ -17,7 +17,7 @@ with Kubernetes.
 
 ![](/media/91e5586b630e88d67ecd28bc42ae92b2.png)
 
-Once deployed please provide your proctor with a Public IP for your Order Capture API so service availability and performance can be monitored.
+> **Hint** Once deployed please provide your proctor with a Public IP for your Order Capture API so service availability and performance can be monitored.
 
 1. Deploy Rabbit MQ
 1. Configure captureorder to connect to RabbitMQ. Authentication needs to be configured to connect successfully.
