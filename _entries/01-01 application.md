@@ -32,7 +32,7 @@ In the table below, you will find the Docker container images provided by the de
 
 > **Hint:** You will not be using all container images at the same time.
 
-### Required environment variables
+### Environment variables
 
 Each container image requires certain environment variables to properly run and track your progress.
 
@@ -41,6 +41,7 @@ Make sure you set those environment variables.
 * **All Containers**
   * `TEAMNAME="[YourTeamName]"`, track your team's progress. Use your assigned team name
   * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`, Application Insights key provided by proctors
+  * `APPINSIGHTS_KEY="[YourOwnKey]"`, your own Application Insights key, if you want to track application metrics
 * **Order Capture API**
   * `MONGOURL="mongodb://[mongoinstance].[namespace]"`, MongoDB connection endpoint. Don't forget to set the username/password
   * `AMQPURL="amqp://[url]:5672"`, RabbitMQ connection endpoint
