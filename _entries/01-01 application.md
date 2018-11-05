@@ -34,16 +34,21 @@ In the table below, you will find the Docker container images provided by the de
 
 ### Required environment variables
 
-Each container image requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
+Each container image requires certain environment variables to properly run and track your progress.
 
-| Component         | Environment Variables                               | Description |
-|-------------------|-----------------------------------------------------|----------------------------------------------------------|
-| **All Containers**   |  `TEAMNAME="[YourTeamName]"`                          | Track your team's progress. Use your assigned team name. |
-|                   |  `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"` | Global Application Insights key provided by proctors.    |
-| **Order Capture API**    |  `MONGOURL="mongodb://[mongoinstance].[namespace]"`  | MongoDB connection endpoint. Don't forget to set the username/password.|
-|                   |  `AMQPURL="amqp://[url]:5672"` | RabbitMQ connection endpoint.    |
-| **Order Fulfillment API**    |  `MONGOURL="mongodb://[mongoinstance].[namespace]"`  | MongoDB connection endpoint. Don't forget to set the username/password.|
-| **Event Listener (RabbitMQ)**    |  `AMQPURL="amqp://[url]:5672"` | RabbitMQ connection endpoint.    |
-|                   |  `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"` | Order Fulfillment API endpoint.    |
-| **Event Listener (Event Hub)**   |  `EVENTHUBCONNSTRING="Endpoint=sb://[youreventhub].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"` | Azure Event Hub connection endpoint.    |
-|                   |  `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"` | Order Fulfillment API endpoint.    |
+Make sure you set those environment variables.
+
+* **All Containers**
+  * `TEAMNAME="[YourTeamName]"`, track your team's progress. Use your assigned team name
+  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`, Application Insights key provided by proctors
+* **Order Capture API**
+  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`, MongoDB connection endpoint. Don't forget to set the username/password
+  * `AMQPURL="amqp://[url]:5672"`, RabbitMQ connection endpoint
+* **Order Fulfillment API**
+  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`, MongoDB connection endpoint. Don't forget to set the username/password
+* **Event Listener (RabbitMQ)**
+  * `AMQPURL="amqp://[url]:5672"`, RabbitMQ connection endpoint
+  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`, Order Fulfillment API endpoint
+* **Event Listener (Event Hub)**
+  * `EVENTHUBCONNSTRING="Endpoint=sb://[youreventhub].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"`, Azure Event Hub connection endpoint.
+  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`, Order Fulfillment API endpoint.
