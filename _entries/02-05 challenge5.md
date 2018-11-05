@@ -21,4 +21,4 @@ queue. Try using partitions.
 
 -   <https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/>
 
--   <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(606698)>
+-   <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(433127)>

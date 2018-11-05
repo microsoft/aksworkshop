@@ -10,7 +10,7 @@ You need to deploy the order capture API. This requires an external endpoint, ex
 
 ![](media/51744cdc31c555b1d76c71f5e2693471.png)
 
-Once deployed, create a DNS (Azure traffic manager) endpoint. Then, provide your proctor with the domain name of your Order Capture API so service availability and performance can be monitored.
+**Note, any changes to your public IP during the hack may cause downtime. It is recommended that you deploy it in a manner that will ensure it does not change.**
 
 1.  Deploy an instance of MongoDB to your cluster
 
