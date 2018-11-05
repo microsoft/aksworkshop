@@ -5,72 +5,45 @@ title: Application Overview
 parent-id: intro
 ---
 
-
 You will be deploying a customer-facing order placement and fulfilment application that is containerised and is architected for a microservice implementation.
 
-![](media/302a7509f056cd57093c7a3de32dbb04.png)
+![Application diagram](media/302a7509f056cd57093c7a3de32dbb04.png)
 
-Our application consists of 5 components, namely: 
+The application consists of 5 components, namely:
+
 * A public facing Order Capture swagger enabled API
 * A messaging queue to provide reliable message delivery
 * An event listener that picks up events from the messaging queue and brokers requests to a 'legacy application'
 * An internal Order Fulfill legacy API.
 * A MongoDB database
 
-The order capture API is available at  http://[PublicEndpoint]:[port]/v1/order, and via swagger at http://[PublicEndpoint]:[port]/swagger/.
-Health method is available at http://[PublicEndpoint]:[port]/healthz
+> **Hint:** The Order Capture API exposes the following endpoint for health-checks: `http://[PublicEndpoint]:[port]/healthz`
 
-Initial versions of the Docker containers have been provided by the development team and are available on Docker Hub at the locations specified. 
+In the table below, you will find the Docker container images provided by the development team on Docker Hub as well as their corresponding source code on GitHub.
 
-**Mandatory for all deployments**
+### Container images and source code
 
-ENV TEAMNAME=[YourTeamName]
+| Component                    | Docker Image                                                     | Source Code                                                       |
+|------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------|
+| Order Capture API            | [azch/captureorder](https://hub.docker.com/r/azch/captureorder/) | [source-code](https://github.com/Azure/azch-captureorder)         |
+| Order Fulfillment API        | [azch/fulfillorder](https://hub.docker.com/r/azch/fulfillorder/) | [source-code](https://github.com/Azure/azch-fulfillorder)         |
+| Event Listener (RabbitMQ)    | [azch/rabbitmqlistener](https://hub.docker.com/r/azch/rabbitmqlistener/) | [source-code](https://github.com/Azure/azch-rabbitmqlistener)         |
+| Event Listener (Event Hub)    | [azch/eventhublistener](https://hub.docker.com/r/azch/eventhublistener/) | [source-code](https://github.com/Azure/azch-eventhublistener)         |
 
-ENV CHALLENGEAPPINSIGHTS_KEY=[AsSpecifiedAtTheEvent]
+> **Hint:** You will not be using all container images at the same time.
 
-**Order Capture API**
-- Docker Image: <https://hub.docker.com/r/torosent/captureorderack/>
-- GitHub Repo: <https://github.com/torosent/captureorderack/>
+### Required environment variables
 
-Required Environment Variables:
+Each container image requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
 
-*Mongo*
-
-ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
-
-**Hint**
-SSL and Username/Password
-
-*RabbitMQ*
-
-ENV AMQPURL=amqp://[url]:5672
-
-**Event Listener**
-- Docker Image: <https://hub.docker.com/r/torosent/rabbitmqlistenerack/>
-- GitHub Repo: <https://github.com/torosent/rabbitmqlistenerack/> 
-
-Required Environment Variables:
-
-*RabbitMQ*
-
-ENV AMQPURL=amqp://[url]:5672
-
-*Internal Fulfill order endpoint*
-
-ENV PROCESSENDPOINT=http://[yourfulfillordername].[namespace]:8080/v1/order
-
-**Order Fulfill API**
-- Docker Image: <https://hub.docker.com/r/torosent/fulfillorderack/>
-- GitHub Repo: <https://github.com/torosent/fulfillorderack/>
-
-Health method is available at http://[ServiceEndpoint]:[port]/healthz
-
-Required Environment Variables:
-
-*For Mongo*
-
-ENV MONGOURL="mongodb://[mongoinstance].[namespace]"
-
-*Order Storage Location*
-
-/orders
+| Component         | Environment Variables                               | Description |
+|-------------------|-----------------------------------------------------|----------------------------------------------------------|
+| **All Containers**   |  `TEAMNAME="[YourTeamName]"`                          | Track your team's progress. Use your assigned team name. |
+|                   |  `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"` | Global Application Insights key provided by proctors.    |
+| **Order Capture API**    |  `MONGOURL="mongodb://[mongoinstance].[namespace]"`  | MongoDB connection endpoint. Don't forget to set the username/password.|
+|                   |  `AMQPURL="amqp://[url]:5672"` | RabbitMQ connection endpoint.    |
+| **Order Fulfillment API**    |  `MONGOURL="mongodb://[mongoinstance].[namespace]"`  | MongoDB connection endpoint. Don't forget to set the username/password.|
+| **Event Listener (RabbitMQ)**    |  `AMQPURL="amqp://[url]:5672"` | RabbitMQ connection endpoint.    |
+|                   |  `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"` | Order Fulfillment API endpoint.    |
+| **Event Listener (Event Hub)**   |  `EVENTHUBCONNSTRING="Endpoint=sb://[youreventhub].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"` | Azure Event Hub connection endpoint.    |
+|                   |  `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"` | Order Fulfillment API endpoint.    |
