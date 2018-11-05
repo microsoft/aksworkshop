@@ -10,5 +10,5 @@ Create a serverless function to perform this task.
 
 **Resources:**
 
--   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-sendgrid?wt.mc_id=CSE_(606698)>
--   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?wt.mc_id=CSE_(606698)>
+-   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-sendgrid?wt.mc_id=CSE_(433127)>
+-   <https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings?wt.mc_id=CSE_(433127)>
