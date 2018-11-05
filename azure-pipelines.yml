@@ -8,7 +8,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  imageName: '$(dockerId)/$(projectName)'
+  imageName: '$(dockerId)/site'
 
 steps:
 - script: docker build -f Dockerfile -t $(imageName) .
@@ -16,10 +16,6 @@ steps:
   
 - script: docker login -u $(dockerId) -p $(dockerPassword)
   displayName: 'docker login'
-
-- script: docker push $(imageName)
-  displayName: 'docker push latest if this is the master branch'
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - script: |
         docker tag $(imageName) $(imageName):$(build.buildNumber)
