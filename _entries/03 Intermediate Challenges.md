@@ -5,16 +5,12 @@ title: Intermediate challenges
 is-parent: yes
 ---
 
-Now the application is running you need to work to make it a robust production ready service. 
-Despite the easiness and convenience of AKS, the service is still in preview and lacks some key functionalities, which should be available at GA. Luckily, we can leverage another Azure container service (ACS engine). An open source tool, that allows the deployment of a custom Kubernetes cluster on Azure infrastructure. 
-ACS is a test bed incubator for AKS, and its capabilities should be integrated to AKS over time.    
-During this phase, we will focus on:
-- Security at the different layers (Infrastructure, Application)
-- Advanced monitoring and alerting     
-- Business continuity...
+Now the application is running you need to work to make it a robust production ready service.
 
 You have been given a number of potential areas to work on to improve the application.
 
-***Each challenge, successfully implemented counts for 5 points.*** 
+> **Note** Some of those challenges would require you to re-provision the AKS cluster. We hope that you have already documented and saved the Kubernetes YAML files to enable you to quickly get back on track. Otherwise, have a look at using something like `kubectl get all --export=true --all-namespaces -o yaml > export.yaml`. If you try to `kubectl apply -f export.yaml`, your mileage may vary, use this as a last resort.
+
+***Each challenge, successfully implemented counts for 5 points.***
 
  **Discuss within your team which challenges you will attempt and consider splitting tasks. It is not anticipated that you will complete all the challenges so focus on those you feel are most relevant to your team.**
