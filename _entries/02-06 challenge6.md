@@ -1,23 +1,18 @@
 ---
+sectionid: eventhubs
 sectionclass: h2
-sectionid: cosmos
 parent-id: upandrunning
-title: Swap out MongoDB for CosmosDB
+title: Swap out Rabbit MQ for Event Hubs
 
 ---
+Your organisation has decided it wants to reduce the management overhead and improve the availability of the Order Capture process by utilising a native Azure Event Hub.
 
-Your organisation has decided it wants to reduce the management overhead, needs to introduce global replication and improve the availability of MongoDB. To do this you will take advantage of CosmosDB.
+![Application components](media/25a643873acbb18166772fc1ac25b15d.png)
 
-CosmosDB has a MongoAPI driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
+### Tasks
 
-> **Hint** Pay attention to how you can tune the throughout of CosmosDB.
+- Replace the Eventlistener RabbitMQ container with a prebuilt Azure Event Hub listener container with zero downtime.
 
-![Application components](media/bde613c3c8baba4692deae7155513cd9.png)
+> **Hint** Refer to the [container images and source code](#container-images-and-source-code) and [environment variables](#environment-variables) sections to use the correct images and configuration.
 
-1. Deploy CosmosDB
-1. Configure application to connect to CosmosDB
-
-> **Resources**
-> * <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction?wt.mc_id=CSE_(433127)>
-> * <https://docs.microsoft.com/en-us/azure/cosmos-db/connect-mongodb-account>
-> * <https://docs.microsoft.com/en-us/azure/cosmos-db/request-units>
+Azure Event Hubs enables you to use an event driven approach to incorporate first party Azure services. Pay attention to how you can tune the throughout of EventHubs.
