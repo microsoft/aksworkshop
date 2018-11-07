@@ -12,6 +12,8 @@ You need to deploy the **Order Capture API**. This requires an external endpoint
 
 ![Application components](media/51744cdc31c555b1d76c71f5e2693471.png)
 
+### Tasks
+
 1. Deploy an instance of MongoDB to your cluster
 1. Create Kubernetes YAML files to deploy the Capture Order service and expose a public endpoint.
 1. Ensure orders are successfully written to MongoDB

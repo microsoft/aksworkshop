@@ -39,17 +39,29 @@ Each container image requires certain environment variables to properly run and 
 Make sure you set those environment variables.
 
 * **All Containers**
-  * `TEAMNAME="[YourTeamName]"`, track your team's progress. Use your assigned team name
-  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`, Application Insights key provided by proctors
-  * `APPINSIGHTS_KEY="[YourOwnKey]"`, your own Application Insights key, if you want to track application metrics
+  * `TEAMNAME="[YourTeamName]"`
+    * Track your team's progress. Use your assigned team name
+  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
+    * Application Insights key provided by proctors
+  * `APPINSIGHTS_KEY="[YourOwnKey]"`
+    * Your own Application Insights key, if you want to track application metrics
 * **Order Capture API**
-  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`, MongoDB connection endpoint. Don't forget to set the username/password
-  * `AMQPURL="amqp://[url]:5672"`, RabbitMQ connection endpoint
+  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
+    * MongoDB connection endpoint. Don't forget to set the username/password
+  * `AMQPURL="amqp://[url]:5672"`
+    * RabbitMQ connection endpoint
+  * `AMQPURL="amqps://[policy name]:[policy key]@[youreventhub].servicebus.windows.net/[eventhubname]`"
+    * Azure Event Hub connection endpoint. **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
 * **Order Fulfillment API**
-  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`, MongoDB connection endpoint. Don't forget to set the username/password
+  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
+    * MongoDB connection endpoint. Don't forget to set the username/password
 * **Event Listener (RabbitMQ)**
-  * `AMQPURL="amqp://[url]:5672"`, RabbitMQ connection endpoint
-  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`, Order Fulfillment API endpoint
+  * `AMQPURL="amqp://[url]:5672"`
+    * RabbitMQ connection endpoint
+  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`
+    * Order Fulfillment API endpoint
 * **Event Listener (Event Hub)**
-  * `EVENTHUBCONNSTRING="Endpoint=sb://[youreventhub].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"`, Azure Event Hub connection endpoint. **Make sure your policy key is URL Encoded. Use a tool like: [https://www.url-encode-decode.com/]**
-  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`, Order Fulfillment API endpoint.
+  * `EVENTHUBCONNSTRING="Endpoint=sb://[youreventhub].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"`
+    * Azure Event Hub connection endpoint. **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
+  * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`
+    * Order Fulfillment API endpoint.

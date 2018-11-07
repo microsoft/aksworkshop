@@ -1,21 +1,25 @@
 ---
-sectionid: scaling
 sectionclass: h2
+sectionid: cosmos
 parent-id: upandrunning
-title: Scaling
+title: Swap out MongoDB for CosmosDB
+
 ---
 
-As popularity of the application grows the application needs to scale appropriately as demand changes.
-Ensure the application remains responsive as the number of order submissions increases. Consider the cost impact of scaling your infrastructure.
+Your organisation has decided it wants to reduce the management overhead, needs to introduce global replication and improve the availability of MongoDB. To do this you will take advantage of CosmosDB.
 
-> **Hint** The Eventlistener utilises a competing/compensating consumers routing pattern. This means that you can have more than one eventlistener instance listening to a specific
-queue. Try using partitions.
+CosmosDB has a MongoAPI driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
 
-1. Configure the Capture Order process to scale as load increases
-1. Ensure Capture Order can sustain the required load.
-1. Scale other parts of the application as required.
+> **Hint** Pay attention to how you can tune the throughout of CosmosDB.
+
+![Application components](media/bde613c3c8baba4692deae7155513cd9.png)
+
+### Tasks
+
+1. Deploy CosmosDB
+1. Configure application to connect to CosmosDB
 
 > **Resources**
-> * <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale>
-> * <https://docs.microsoft.com/en-us/azure/aks/autoscaler>
-> * <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(433127)>
+> * <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction?wt.mc_id=CSE_(433127)>
+> * <https://docs.microsoft.com/en-us/azure/cosmos-db/connect-mongodb-account>
+> * <https://docs.microsoft.com/en-us/azure/cosmos-db/request-units>
