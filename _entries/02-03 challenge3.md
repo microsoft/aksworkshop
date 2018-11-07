@@ -15,7 +15,7 @@ The fulfillorder container must be deployed as an internal only API. This contai
 order transaction files from all instances of order fulfillment must be written to a single location that also enables staff to inspect the log files without interacting
 with Kubernetes.
 
-![](/media/91e5586b630e88d67ecd28bc42ae92b2.png)
+![Application components](/media/91e5586b630e88d67ecd28bc42ae92b2.png)
 
 > **Hint** Once deployed please provide your proctor with a Public IP for your Order Capture API so service availability and performance can be monitored.
 
