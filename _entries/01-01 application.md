@@ -23,12 +23,12 @@ In the table below, you will find the Docker container images provided by the de
 
 ### Container images and source code
 
-| Component                    | Docker Image                                                     | Source Code                                                       |
-|------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------|
-| Order Capture API            | [azch/captureorder](https://hub.docker.com/r/azch/captureorder/) | [source-code](https://github.com/Azure/azch-captureorder)         |
-| Order Fulfillment API        | [azch/fulfillorder](https://hub.docker.com/r/azch/fulfillorder/) | [source-code](https://github.com/Azure/azch-fulfillorder)         |
-| Event Listener (RabbitMQ)    | [azch/rabbitmqlistener](https://hub.docker.com/r/azch/rabbitmqlistener/) | [source-code](https://github.com/Azure/azch-rabbitmqlistener)         |
-| Event Listener (Event Hub)    | [azch/eventhublistener](https://hub.docker.com/r/azch/eventhublistener/) | [source-code](https://github.com/Azure/azch-eventhublistener)         |
+| Component                    | Docker Image                                                     | Source Code                                                       | Build Status |
+|------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------|--------------|
+| Order Capture API            | [azch/captureorder](https://hub.docker.com/r/azch/captureorder/) | [source-code](https://github.com/Azure/azch-captureorder)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-captureorder)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=10) |
+| Order Fulfillment API        | [azch/fulfillorder](https://hub.docker.com/r/azch/fulfillorder/) | [source-code](https://github.com/Azure/azch-fulfillorder)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-fulfillorder)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=11) |
+| Event Listener (RabbitMQ)    | [azch/rabbitmqlistener](https://hub.docker.com/r/azch/rabbitmqlistener/) | [source-code](https://github.com/Azure/azch-rabbitmqlistener)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-rabbitmqlistener)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=12) |
+| Event Listener (Event Hub)    | [azch/eventhublistener](https://hub.docker.com/r/azch/eventhublistener/) | [source-code](https://github.com/Azure/azch-eventhublistener)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-eventhublistener)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=13) |
 
 > **Hint:** You will not be using all container images at the same time.
 
