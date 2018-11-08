@@ -20,6 +20,15 @@ body{
     font-size: 18px;
 }
 
+
+.build {
+    text-align: right;
+    padding: 10px 10px;
+    font-family: monospace;
+    font-size: x-small;
+    color: #ffffff;
+}
+
 .content{
     counter-reset: h1-counter;
     width: calc(100% - 350px);

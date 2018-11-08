@@ -9,7 +9,11 @@ title: index
         <section id="{{ entry.sectionid }}" class="{{ entry.sectionclass }}">
             {% case entry.sectionclass %}
                 {% when 'h1' %}
+                    {% if entry.type == 'nocount'%}
+                    <h1 class="nocount">{{ entry.title }}</h1>
+                    {% else %}
                     <h1>{{ entry.title }}</h1>
+                    {% endif %}
                 {% when 'h2' %}
                     <h2>{{ entry.title }}</h2>
                 {% when 'h3' %}

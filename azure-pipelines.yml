@@ -11,6 +11,9 @@ variables:
   imageName: '$(dockerId)/site'
 
 steps:
+- script: sed -i 's/#BUILD_ID#/$(build.buildNumber)/g' _includes/header.html
+  displayName: 'update site with build number'
+
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
   
