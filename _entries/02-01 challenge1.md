@@ -5,7 +5,7 @@ title: Deploy Kubernetes with Azure Kubernetes Service (AKS)
 parent-id: upandrunning
 ---
 
-Your organisation requires that the application is deployed to Kubernetes running on Azure. You will need to use features available in Kubernetes 1.11.
+Your organisation requires that the application is deployed to Kubernetes running on Azure. **You will need to use features available in Kubernetes 1.11.**
 
 You have found out that Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
