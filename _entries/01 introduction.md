@@ -2,6 +2,7 @@
 sectionid: intro
 sectionclass: h1
 title: The Azure Kubernetes Challenge
+type: nocount
 is-parent: yes
 ---
 
