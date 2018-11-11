@@ -21,6 +21,6 @@ You need to deploy the **Order Capture API** ([azch/captureorder](https://hub.do
 > **Resources**
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>
-> * <https://helm.sh/>
+> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
 > * <https://kubeapps.com/charts/stable/mongodb>
 > * <https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#exec>
