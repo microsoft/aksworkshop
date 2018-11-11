@@ -14,7 +14,7 @@ The challenge consists of core tasks plus extra advanced sections. You are expec
 The first few sections are focused on speed and simplicity. We will leverage Azure to get up and running with Kubernetes with minimal effort. The objective is to create an end to end minimal viable product. More specifically, we will focus on:
 
 - Deploying Kubernetes cluster as a managed service (AKS)
-- Deploying the different micro-services of our application, using public Docker images and helm charts
+- Deploying the different micro-services of our application, using public Docker images and Helm charts
 - Migrate some IaaS components to Azure managed services, to reduce the operational overhead
 
 The following sections will put more attention on the operational requirements such as monitoring, security, DevOps, redundancy...
@@ -24,10 +24,10 @@ At the end of the day, each team will be given 10mn to present its work. Topics 
 - Solution architecture
 - Key learnings, mistakes, challenges
 - Innovation, what makes your solution unique?  
-- What could you do in day 3?  
+- What could you do in day 2?  
 
 The first 3 challenges, under section 2, involve getting Kubernetes and the application provisioned and **must be carried out sequentially**. After this there is flexibility as to how you proceed.
 
-A Microsoft/Microsoft Partner team member will arrange for you to be added to theazurechallenge Azure Active Directory. When logging into Azure from the Azure CLI we recommend using ```az login --tenant YOUR-SUBSCRIPTION``` where your subscription is your corporate one, to ensure you are connected to the appropriate subscription.
+> A Microsoft/Microsoft Partner team member will arrange for you to be added to `theazurechallenge` Azure Active Directory. When logging into Azure from the Azure CLI we recommend using ```az login --tenant YOUR-SUBSCRIPTION``` where your subscription is your corporate one, to ensure you are connected to the appropriate subscription.
 
 If you feel you need assistance at any time, please ask a proctor.

@@ -2,7 +2,7 @@
 sectionid: osb
 sectionclass: h2
 parent-id: advanced
-title: Open Service Broker™ for Azure
+title: Advanced - Open Service Broker™ for Azure
 ---
 
 Your organisation wants to be able to deploy the application, including Azure components through Kubernetes.

@@ -8,11 +8,11 @@ title: Swap out MongoDB for CosmosDB
 
 Your organisation has decided it wants to reduce the management overhead, needs to introduce global replication and improve the availability of MongoDB. To do this you will take advantage of CosmosDB.
 
-CosmosDB has a MongoAPI driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
+CosmosDB has a Mongo API driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
 
-> **Hint** Pay attention to how you can tune the throughout of CosmosDB.
+> **Hint** Pay attention to how you can tune the throughput of CosmosDB.
 
-![Application components](media/bde613c3c8baba4692deae7155513cd9.png)
+![Application components](media/cosmosdb.png)
 
 ### Tasks
 
