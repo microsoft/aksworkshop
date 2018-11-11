@@ -2,14 +2,14 @@
 sectionid: keyvault
 sectionclass: h2
 parent-id: advanced
-title: Advanced - Storing secrets in HashiCorp Vault
+title: Advanced - Storing secrets in an external Key Vault
 ---
 
-*This is an advanced challenge with experimental features.*
+Your company is not comfortable with secrets being stored in Kubernetes and require them to be stored in a secure key vault.
 
+There are a couple of options including Azure Key Vault and HashiCorp Vault. Investigate how you can integrate either of them with Kubernetes Secrets.
 
-Your company is not comfortable with secrets being stored in Kubernetes and require them to be stored in a secure key vault. One of those vaults is HashiCorp Vault. Investigate how you can integrate HashiCorp Vault with Kubernetes Secrets.
-
-**Resources:**
-- <https://www.vaultproject.io/intro/getting-started/install.html>
-- <https://medium.com/qubit-engineering/kubernetes-up-integrated-secrets-configuration-5a15b9f5a6c6>
+> **Resources:**
+> * <https://github.com/Azure/kubernetes-keyvault-flexvol>
+> * <https://www.vaultproject.io/intro/getting-started/install.html>
+> * <https://medium.com/qubit-engineering/kubernetes-up-integrated-secrets-configuration-5a15b9f5a6c6>
