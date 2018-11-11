@@ -1,7 +1,7 @@
 ---
-sectionid:  enhancing
+sectionid:  devops
 sectionclass: h1
-title: Intermediate challenges
+title: DevOps challenges
 is-parent: yes
 ---
 

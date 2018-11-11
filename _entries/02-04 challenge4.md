@@ -14,4 +14,4 @@ Use a combination of the available tools to setup alerting capabilities for your
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/application-insights/app-insights-alerts?wt.mc_id=CSE_(606698)>
 > * <https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-insights-overview>
-> * <http://docs.grafana.org/alerting/rules/>
+> * <https://coreos.com/operators/prometheus/docs/latest/>
