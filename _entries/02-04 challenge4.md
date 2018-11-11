@@ -1,23 +1,17 @@
 ---
-sectionid: scaling
+sectionid: monitoring
 sectionclass: h2
 parent-id: upandrunning
-title: Scaling
+title: Monitoring
 ---
 
-As popularity of the application grows the application needs to scale appropriately as demand changes.
-Ensure the application remains responsive as the number of order submissions increases. Consider the cost impact of scaling your infrastructure.
+You would like to monitor the performance of different components in your application, view logs and get alerts whenever your application availability goes down or some components fail.
 
-> **Hint** The Eventlistener utilises a competing/compensating consumers routing pattern. This means that you can have more than one eventlistener instance listening to a specific
-queue. Try using partitions.
+> **Hint** The application compoments are provisioned to send telemetry to Azure Application Insights. You can create your own Azure Application Insights service and provide the instrumentation key as an environment variable named `APPINSIGHTS_KEY`.
 
-### Tasks
-
-1. Configure the Capture Order process to scale as load increases
-1. Ensure Capture Order can sustain the required load.
-1. Scale other parts of the application as required.
+Use a combination of the available tools to setup alerting capabilities for your application.
 
 > **Resources**
-> * <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale>
-> * <https://docs.microsoft.com/en-us/azure/aks/autoscaler>
-> * <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test?wt.mc_id=CSE_(433127)>
+> * <https://docs.microsoft.com/en-us/azure/application-insights/app-insights-alerts?wt.mc_id=CSE_(606698)>
+> * <https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-insights-overview>
+> * <http://docs.grafana.org/alerting/rules/>
