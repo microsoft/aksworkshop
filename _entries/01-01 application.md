@@ -27,7 +27,7 @@ In the table below, you will find the Docker container images provided by the de
 |------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------|--------------|
 | Order Capture API            | [azch/captureorder](https://hub.docker.com/r/azch/captureorder/) | [source-code](https://github.com/Azure/azch-captureorder)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-captureorder)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=10) |
 | Order Fulfillment API        | [azch/fulfillorder](https://hub.docker.com/r/azch/fulfillorder/) | [source-code](https://github.com/Azure/azch-fulfillorder)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-fulfillorder)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=11) |
-| Event Listener  | [azch/sblistener](https://hub.docker.com/r/azch/sblistener/) | [source-code](https://github.com/Azure/azch-sblistener)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-sblistener)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=12) |
+| Event Listener  | [azch/sblistener](https://hub.docker.com/r/azch/sblistener/) | [source-code](https://github.com/Azure/azch-sblistener)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-sblistener)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=15) |
 
 ### Environment variables
 
@@ -46,13 +46,15 @@ Make sure you set those environment variables.
   * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
     * MongoDB connection endpoint. Don't forget to set the username/password
   * `AMQPURL="amqps://[policy name]:[policy key]@[youreventhub].servicebus.windows.net/[queuename]`"
-    * Azure Service Bus Queue connection endpoint. **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
+    * Azure Service Bus Queue connection endpoint.
+    * **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
 * **Order Fulfillment API**
   * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
     * MongoDB connection endpoint. Don't forget to set the username/password
 * **Event Listener**
   * `SERVICEBUSCONNECTIONSTRING="Endpoint=sb://[yourservicebus].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"`
-    * Azure Service Bus namespace connection endpoint. **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
+    * Azure Service Bus namespace connection endpoint.
+    * **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
   * `SERVICEBUSQUEUENAME="[YourServiceBusQueueName]"`
     * Azure Service Bus queue name
   * `PROCESSENDPOINT="http://[yourfulfillordername].[namespace]:8080/v1/order"`
