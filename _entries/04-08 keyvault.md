@@ -7,7 +7,12 @@ title: Advanced - Storing secrets in an external Key Vault
 
 Your company is not comfortable with secrets being stored in Kubernetes and require them to be stored in a secure key vault.
 
-There are a couple of options including [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/) and [HashiCorp Vault](https://www.vaultproject.io/). Investigate how you can integrate either of them with Kubernetes Secrets.
+There are a couple of options including [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/) and [HashiCorp Vault](https://www.vaultproject.io/).
+
+### Tasks
+
+* Investigate how you can integrate either of them with Kubernetes Secrets.
+* Deploy a sample pod that uses a secret stored on the vault.
 
 > **Resources:**
 > * <https://github.com/Azure/kubernetes-keyvault-flexvol>
