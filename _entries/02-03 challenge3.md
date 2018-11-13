@@ -17,13 +17,15 @@ The Order Fulfilment process needs to be deployed. This includes:
 
 ### Tasks
 
-1. Create an Azure Service Bus Queue.
-1. Configure captureorder to connect to the Azure Service Bus Queue.
-1. Provision Order Fulfillment and event listener containers.
-1. Configure Order Fulfillment to store data to Azure Files. You need to write files in the `/orders` path.
+1. Create an Azure Service Bus Queue
+1. Configure `captureorder` to connect to the Azure Service Bus Queue
+1. Provision `fulfillorder` deployment, it **should not** be exposed to the internet
+1. Provision `sblistener` deployment
+1. Configure `fulfillorder` to store data to Azure Files. You need to write files in the `/orders` path
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues>
 > * <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>
 > * <https://docs.microsoft.com/gl-es/azure/aks/azure-files-dynamic-pv?wt.mc_id=CSE_(606698)>
 > * <https://kubernetes.io/docs/concepts/storage/storage-classes/#azure-file>
+> * <https://kubernetes.io/docs/concepts/configuration/secret/>
