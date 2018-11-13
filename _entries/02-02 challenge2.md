@@ -17,6 +17,7 @@ You need to deploy the **Order Capture API** ([azch/captureorder](https://hub.do
 1. Deploy an instance of MongoDB to your cluster
 1. Create Kubernetes YAML files to deploy the Capture Order service and expose a public endpoint.
 1. Ensure orders are successfully written to MongoDB
+1. Verify you're getting messages on your Service Bus Queue
 
 > **Resources**
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
