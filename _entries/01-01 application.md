@@ -43,14 +43,22 @@ Make sure you set those environment variables.
   * `APPINSIGHTS_KEY="[YourOwnKey]"`
     * Your own Application Insights key, if you want to track application metrics
 * **Order Capture API**
-  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
-    * MongoDB connection endpoint. Don't forget to set the username/password
+  * `MONGOHOST="<hostname of mongodb>"`
+    * MongoDB hostname.
+  * `MONGOUSER="<mongodb username>"`
+    * MongoDB username.
+  * `MONGOPASSWORD="<mongodb password>"`
+    * MongoDB password.
   * `AMQPURL="amqps://[policy name]:[policy key]@[youreventhub].servicebus.windows.net/[queuename]`"
     * Azure Service Bus Queue connection endpoint.
     * **Make sure your policy key is URL Encoded. Use a tool like: <https://www.url-encode-decode.com/>**
 * **Order Fulfillment API**
-  * `MONGOURL="mongodb://[mongoinstance].[namespace]"`
-    * MongoDB connection endpoint. Don't forget to set the username/password
+  * `MONGOHOST="<hostname of mongodb>"`
+    * MongoDB hostname.
+  * `MONGOUSER="<mongodb username>"`
+    * MongoDB username.
+  * `MONGOPASSWORD="<mongodb password>"`
+    * MongoDB password.
 * **Event Listener**
   * `SERVICEBUSCONNECTIONSTRING="Endpoint=sb://[yourservicebus].servicebus.windows.net/;SharedAccessKeyName=[keyname];SharedAccessKey=[key]"`
     * Azure Service Bus namespace connection endpoint.
