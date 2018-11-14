@@ -10,7 +10,7 @@ Your organisation has decided it wants to reduce the management overhead, needs 
 
 CosmosDB has a Mongo API driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
 
-> **Hint** Pay attention to how you can tune the throughput of CosmosDB.
+> **Hint** Pay attention to the Cosmos DB metrics, especially around throttling, and scale up as needed.
 
 ![Application components](media/cosmosdb.png)
 
@@ -18,6 +18,7 @@ CosmosDB has a Mongo API driver so that you do not need to change any applicatio
 
 1. Deploy CosmosDB
 1. Configure application to connect to CosmosDB
+1. Verify that the orders are making into your CosmosDB collection
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction?wt.mc_id=CSE_(433127)>
