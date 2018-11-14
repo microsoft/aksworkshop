@@ -22,6 +22,7 @@ The Order Fulfilment process needs to be deployed. This includes:
 1. Provision `fulfillorder` deployment, it **should not** be exposed to the internet
 1. Provision `sblistener` deployment
 1. Configure `fulfillorder` to store data to Azure Files. You need to write files in the `/orders` path
+1. Verify that the orders are written in the Azure File Share
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues>
