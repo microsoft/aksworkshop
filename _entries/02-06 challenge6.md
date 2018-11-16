@@ -10,7 +10,7 @@ Your organisation has decided it wants to reduce the management overhead, needs 
 
 CosmosDB has a Mongo API driver so that you do not need to change any application code to port a MongoDB application to CosmosDB.
 
-> **Hint** Pay attention to the Cosmos DB metrics, especially around throttling, and scale up as needed.
+> **Hint** Pay attention to the Cosmos DB metrics, especially around throttling, and scale up as needed. Use the capacity planner <https://www.documentdb.com/capacityplanner>
 
 ![Application components](media/cosmosdb.png)
 
