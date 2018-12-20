@@ -3,7 +3,7 @@ module Jekyll
 
     def render(context)
       text = super
-      "<button class=\"collapsible\">Show solution</button>"
+      "<button class=\"toggle-collapsible\">Show solution</button>"
       "<div class=\"collapsible-content\">""
         #{text}
       </div>"
