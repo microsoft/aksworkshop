@@ -15,3 +15,12 @@ The format of this workshop is a bit different. You'll notice that you won't fin
 We kindly ask you not to share this content outside of the challenge so as not to give it away for future participants :)
 
 Enjoy and have fun!
+
+{% collapsible %}
+This is hidden
+
+```
+This is hidden code
+```
+
+{% endcollapsible %}
