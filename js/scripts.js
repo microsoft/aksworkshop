@@ -6,4 +6,9 @@ $(document).ready(function(){
     $('.toggle').click(function(){
         $('.overview').toggleClass('open');
     });
+
+    $('.toggle-collapsible').click(function() {
+        $(this).toggleClass('active');
+        $(this).next().toggle();
+    });
 });

@@ -240,7 +240,7 @@ p + p{
   
 }
 
-button.collapsible {
+button.toggle-collapsible {
   background-color: #777;
   color: white;
   cursor: pointer;
@@ -252,7 +252,7 @@ button.collapsible {
   font-size: 15px;
 }
 
-button.active, button.collapsible:hover {
+button.active, button.toggle-collapsible:hover {
   background-color: #555;
 }
 
