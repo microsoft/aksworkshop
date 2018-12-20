@@ -2,11 +2,18 @@ module Jekyll
   class CollapsibleTagBlock < Liquid::Block
 
     def render(context)
-      text = super
-      "<button class=\"toggle-collapsible\">Show solution</button>"
-      "<div class=\"collapsible-content\">""
-        #{text}
-      </div>"
+      contents = super
+
+      # pipe param through liquid to make additional replacements possible
+      content = Liquid::Template.parse(contents).render context
+
+      output = '<button class="toggle-collapsible">Show solution</button>'
+      output += '<div class="collapsible-content">'
+      output += content
+      output += '</div>'
+
+      # return output
+      output
     end
 
   end
