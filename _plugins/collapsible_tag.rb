@@ -5,9 +5,11 @@ module Jekyll
       @text = super
 
       <<~COLLAPSIBLEBLOCK
-      <button class='toggle-collapsible'>Toggle solution</button>
-      <div class="collapsible-content">
-        #{@text}
+      <div>
+        <button class='toggle-collapsible'>Toggle solution</button>
+        <div class="collapsible-content">
+          #{@text}
+        </div>
       </div>
       COLLAPSIBLEBLOCK
 
