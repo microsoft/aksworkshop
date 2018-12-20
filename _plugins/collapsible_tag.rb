@@ -4,16 +4,11 @@ module Jekyll
     def render(context)
       contents = super
 
-      output = '<button class="toggle-collapsible">Toggle solution</button>'
-      output += '<div class="collapsible-content">'
-      output += contents
-      output += '</div>'
-
       # pipe param through liquid to make additional replacements possible
-      output = Liquid::Template.parse(output).render context
+      content = Liquid::Template.parse(contents).render context
 
-      # return output
-      output
+      %Q{<button class='toggle-collapsible'>Toggle solution</button><div class='collapsible-content'>@content</div>}
+
     end
 
   end
