@@ -5,13 +5,14 @@ module Jekyll
       @text = super
 
       # pipe param through liquid to make additional replacements possible
-      #text = Liquid::Template.parse(text).render context
+      @parsedText = Liquid::Template.parse(text).render context
+      #{@context.registers[:site].find_converter_instance(::Jekyll::Converters::Markdown).convert(@text)}
 
       <<~COLLAPSIBLEBLOCK
       <div>
         <button class='toggle-collapsible'>Toggle solution</button>
         <div class="collapsible-content">
-          #{@context.registers[:site].find_converter_instance(::Jekyll::Converters::Markdown).convert(@text)}
+          #{@parsedText}
         </div>
       </div>
       COLLAPSIBLEBLOCK
