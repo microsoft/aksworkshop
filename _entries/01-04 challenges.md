@@ -15,8 +15,4 @@ You are expected to at least complete the **Getting up and running** section. Th
 
 ### DevOps tasks
 
-Once you're done with the above, next would be to include some DevOps flair. You'll be moving to a private container repository on Azure Container Registry, setting up a Continuous Integration and Continuous Delivery pipeline for your application and then using Helm to deploy.
-
-### Optional tasks
-
-If you're not out of breath yet, you can take a stab at some challenges from this section. You'll find a variety between setting up Role Based Access Control, using Azure Key Vault to store secrets or using Terraform to deploy your cluster and application.
+Once you're done with the above, next would be to include some DevOps flair. **Complete as many tasks as you can**. You'll be moving to a private container repository on Azure Container Registry, setting up a Continuous Integration and Continuous Delivery pipeline for your application and then using Helm to deploy and optionally, using HashiCorp's Terraform to deploy AKS and your application.
