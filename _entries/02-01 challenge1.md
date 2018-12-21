@@ -35,7 +35,7 @@ Create a Resource Group
 az group create --name akschallenge --location eastus
 ```
 
-Create AKS using the latest version, using the Azure network plugin into a custom Virtual Network and enable the monitoring addon
+Create AKS using the latest version and enable the monitoring addon
 
 ```sh
 az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version 1.11.3 --generate-ssh-keys --location eastus
