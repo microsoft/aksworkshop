@@ -55,7 +55,7 @@ kubectl scale statefulset orders-mongo-mongodb-secondary --replicas=3
 
 {% endcollapsible %}
 
-#### Check if your cluster nodes needs to scale/auto-scale (optional)
+#### Check if your cluster nodes needs to scale/auto-scale
 
 {% collapsible %}
 
