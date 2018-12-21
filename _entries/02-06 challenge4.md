@@ -39,10 +39,9 @@ And deploy it using
 kubectl apply -f captureorder-deployment.yaml
 ```
 
+> **Important** For the Horizontal Pod Autoscaler to work, you **MUST** remove the explicit `replicas: 2` count from your `captureorder` deployment and redeploy it and your pods must define resource requests and resource limits.
 
 {% endcollapsible %}
-
-> **Important** For the Horizontal Pod Autoscaler to work, you **MUST** remove the explicit `replicas: 2` count from your `captureorder` deployment and redeploy it and your pods must define resource requests and resource limits.
 
 #### Scale MongoDB
 
