@@ -127,9 +127,9 @@ h3{
     text-align: left;
     line-height: 1;
 
-    &:before {
+    /*&:before {
         content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
-    }
+    }*/
 }
 
 h3.nocount:before {
@@ -148,9 +148,9 @@ h4{
     text-align: left;
     line-height: 1;
 
-    &:before {
+    /*&:before {
         content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
-    }
+    }*/
 }
 
 .h4{
@@ -165,9 +165,9 @@ h5{
     text-align: left;
     line-height: 1;
 
-    &:before {
+    /*&:before {
         content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
-    }
+    }*/
 }
 
 
@@ -256,9 +256,17 @@ button.active, button.toggle-collapsible:hover {
   background-color: #555;
 }
 
+.collapsible-content-container {
+  margin-bottom: 18px;
+}
 .collapsible-content {
-  padding: 0 18px;
+  padding: 18px 18px 0px 18px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
+  border: 0.25em solid#555;
+  text-align: left;
+}
+
+.collapsible-content pre.highlight {
+  margin: 0;
 }
