@@ -14,7 +14,7 @@ If you're intending to run the tasks on your personal machine, you'll need to in
 | Azure CLI    | <https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest> |
 | Docker       | <https://docs.docker.com/install/#supported-platforms>        |
 
-You can also opt to use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription.
+> **Note** You can also opt to use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription.
 
 ### Azure subscription
 
