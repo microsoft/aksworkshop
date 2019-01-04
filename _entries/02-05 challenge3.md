@@ -40,7 +40,7 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 {% collapsible %}
 
-If the cluster is RBAC enabled, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
+**If the cluster is RBAC enabled**, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
 
 Save the YAML below as `logreader-rbac.yaml` or download it from [logreader-rbac.yaml](yaml-solutions/01. challenge-03/logreader-rbac.yaml)
 
