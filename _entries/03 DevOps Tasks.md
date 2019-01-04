@@ -1,6 +1,6 @@
 ---
 sectionid:  devops
 sectionclass: h1
-title: DevOps challenges
+title: DevOps tasks
 is-parent: yes
 ---

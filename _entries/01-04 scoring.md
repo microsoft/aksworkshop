@@ -26,6 +26,6 @@ docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress
 
 You may also use Azure DevOps to do load testing.
 
-### Extra challenges
+### Extra tasks
 
-There will be a list of extra challenges, intermediate and advanced level. Each challenge, successfully accomplished, counts for extra bonus points.
+There will be a list of extra tasks, intermediate and advanced level. Each task, successfully accomplished, counts for extra bonus points.
