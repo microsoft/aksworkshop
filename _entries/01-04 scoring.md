@@ -5,7 +5,7 @@ title: Scoring
 parent-id: intro
 ---
 
-To add an element of competitiveness to the challenge your solutions will be evaluated using both remote monitoring and objective assessments. At the end of the challenge we will announce a winner. You will be scored under the following areas:
+To add an element of competitiveness to the workshop your solutions will be evaluated using both remote monitoring and objective assessments. At the end of the workshop we will announce a winner. You will be scored under the following areas:
 
 ### Availability
 
