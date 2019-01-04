@@ -1,5 +1,5 @@
 full_rebuild: true
-name: "The Azure Challenge: Kubernetes"
+name: "The Azure Kubernetes Workshop"
 author: Microsoft
 encoding: utf-8
 defaults:
