@@ -36,9 +36,9 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 {% endcollapsible %}
 
-{% collapsible %}
-
 #### View the live container logs
+
+{% collapsible %}
 
 If the cluster is RBAC enabled, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
 
