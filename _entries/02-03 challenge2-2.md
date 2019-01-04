@@ -1,6 +1,6 @@
 ---
 
-sectionid: apidb
+sectionid: api
 sectionclass: h2
 parent-id: upandrunning
 title: Deploy the Order Capture API

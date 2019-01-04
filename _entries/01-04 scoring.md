@@ -1,4 +1,5 @@
 ---
+sectionid: scoring
 sectionclass: h2
 title: Scoring
 parent-id: intro
