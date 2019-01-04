@@ -34,6 +34,10 @@ Use a combination of the available tools to setup alerting capabilities for your
 - Identify which pods are causing trouble
   ![Pod utilization](media/podmetrics.png)
 
+{% endcollapsible %}
+
+{% collapsible %}
+
 #### View the live container logs
 
 If the cluster is RBAC enabled, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
