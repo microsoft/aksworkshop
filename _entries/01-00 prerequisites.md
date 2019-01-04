@@ -32,7 +32,7 @@ az login
 
 If you have lab environment credentials similar to the below or you already have a Service Principal you will use with this workshop,
 
-![media/lab-env.png]
+![Lab environment credentials](media/lab-env.png)
 
 Please then perform an `az login` on your machine using the command below, passing in the `Application Id`, the `Application Secret Key` and the `Tenant Id`.
 

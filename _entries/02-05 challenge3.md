@@ -74,7 +74,7 @@ If you have a Kubernetes cluster that is not configured with Kubernetes RBAC aut
 
 Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Containers** tab and pick a container to view its live logs and debug what is going on.
 
-![media/livelogs.png]
+![Azure Monitor for Containers: Live Logs](media/livelogs.png)
 
 {% endcollapsible %}
 
