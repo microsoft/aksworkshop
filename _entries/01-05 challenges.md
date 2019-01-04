@@ -1,11 +1,11 @@
 ---
 sectionid: challenges
 sectionclass: h2
-title: Challenges
+title: Tasks
 parent-id: intro
 ---
 
-The challenges are intended to be a challenge! Useful resources are provided to help you work through each challenge. To ensure you progress at a good pace ensure workload is divided between team members where possible. This may mean anticipating work that might be required in a later challenge.
+Useful resources are provided to help you work through each task. To ensure you progress at a good pace ensure workload is divided between team members where possible. This may mean anticipating work that might be required in a later task.
 
 > **Hint**: If you get stuck, you can ask for help from the proctors. You may also choose to peek at the solutions.
 
