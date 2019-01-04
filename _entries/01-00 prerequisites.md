@@ -18,22 +18,24 @@ You can also opt to use the Azure Cloud Shell accessible at <https://shell.azure
 
 ### Azure subscription
 
-- If you have an Azure subscription
+#### If you have an Azure subscription
 
-  Please use your username and password to login to <https://portal.azure.com>.
+Please use your username and password to login to <https://portal.azure.com>.
 
-  Also please authenticate your Azure CLI by running the command below on your machine and following the instructions.
+Also please authenticate your Azure CLI by running the command below on your machine and following the instructions.
 
-  ```sh
-  az login
-  ```
+```sh
+az login
+```
 
-- If you have been given an access to a subscription as part of a lab environment (similar to the below), or you already have a Service Principal you want to use
+#### If you have been given an access to a subscription as part of a lab, or you already have a Service Principal you want to use
 
-  ![media/lab-env.png]
+If you have lab environment credentials similar to the below or you already have a Service Principal you will use with this workshop,
 
-  Please then perform an `az login` on your machine using the command below, passing in the `Application Id`, the `Application Secret Key` and the `Tenant Id`.
+![media/lab-env.png]
 
-  ```sh
-  az login --service-principal --username APP_ID --password "APP_SECRET" --tenant TENANT_ID
-  ```
+Please then perform an `az login` on your machine using the command below, passing in the `Application Id`, the `Application Secret Key` and the `Tenant Id`.
+
+```sh
+az login --service-principal --username APP_ID --password "APP_SECRET" --tenant TENANT_ID
+```
