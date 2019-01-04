@@ -1,6 +1,6 @@
 ---
 
-sectionid: apidb
+sectionid: db
 sectionclass: h2
 parent-id: upandrunning
 title: Deploy MongoDB

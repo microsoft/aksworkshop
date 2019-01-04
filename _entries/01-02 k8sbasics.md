@@ -1,5 +1,5 @@
 ---
-
+sectionid: k8sbasics
 sectionclass: h2
 title: Kubernetes basics
 parent-id: intro
