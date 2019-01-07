@@ -1,11 +1,14 @@
 header{
     background:{
         size: 100%;
-        repeat: repeat;
+        repeat: no-repeat;
         image: url(../media/azure.png);
         position-x: center;
         position-y: center;
     }
+    background-color: #0071cd;
+    padding-top: 45px;
+
     height: 150px;
     text-align: center;
     position: relative;
