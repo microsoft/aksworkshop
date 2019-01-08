@@ -1,5 +1,6 @@
 full_rebuild: true
 name: "The Azure Kubernetes Workshop"
+tracking: "aksworkshop"
 author: Microsoft
 encoding: utf-8
 defaults:
