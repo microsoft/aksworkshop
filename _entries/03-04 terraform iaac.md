@@ -22,6 +22,6 @@ You can follow the guide on <https://docs.microsoft.com/en-us/azure/terraform/te
 {% collapsible %}
 Once you have the AKS cluster deployed, you can also use Terraform to deploy Helm charts <https://www.terraform.io/docs/providers/helm/index.html>
 
-> **Hint** Create a seperate folder for this Terraform code. Terraform treats each folder entirely seperate, and this should simplify dependancies.
+> **Hint** Create a seperate folder for this Terraform code. Terraform treats each folder entirely seperate, and this should simplify dependencies.
 
 {% endcollapsible %}
