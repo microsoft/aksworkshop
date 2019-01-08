@@ -67,6 +67,6 @@ kubectl get nodes
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough?wt.mc_id=CSE_(433127)>
-> * <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create?wt.mc_id=CSE_(433127)>
-> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal?wt.mc_id=CSE_(433127)>
+> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough>
+> * <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create>
+> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal>

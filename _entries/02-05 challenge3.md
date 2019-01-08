@@ -83,7 +83,7 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 {% endcollapsible %}
 
 > **Resources**
-> - <https://docs.microsoft.com/en-us/azure/application-insights/app-insights-alerts?wt.mc_id=CSE_(606698)>
+> - <https://docs.microsoft.com/en-us/azure/application-insights/app-insights-alerts>
 > - <https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs>
 > - <https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-insights-overview>
 > - <https://coreos.com/operators/prometheus/docs/latest/>
