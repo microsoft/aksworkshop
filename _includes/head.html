@@ -24,6 +24,7 @@
   // mscc will only exist if written by the server
   if (typeof(mscc) === 'undefined' || mscc.hasConsent()) {
     addTelemetryTag();
+    $("#msccBanner").hide();
   } else {
     mscc.on('consent', addTelemetryTag);
   }
