@@ -36,7 +36,7 @@ spec:
 And deploy it using
 
 ```sh
-kubectl apply -f captureorder-deployment.yaml
+kubectl apply -f captureorder-hpa.yaml
 ```
 
 > **Important** For the Horizontal Pod Autoscaler to work, you **MUST** remove the explicit `replicas: 2` count from your `captureorder` deployment and redeploy it and your pods must define resource requests and resource limits.
