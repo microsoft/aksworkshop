@@ -31,3 +31,7 @@ docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress
 ### Extra tasks
 
 There will be a list of extra tasks, intermediate and advanced level. Each task, successfully accomplished, counts for extra bonus points.
+
+### Team
+
+You should have been provided a team name. If not, come up with a unique name and make sure to set it in the enviornment variables to be able to properly track your progress.
