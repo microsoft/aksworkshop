@@ -10,10 +10,13 @@ To add an element of competitiveness to the workshop your solutions will be eval
 ### Availability
 
 Application uptime over period of the workshop. We will be continuously making HTTP requests to your API.
+Availability monitoring using Azure Application Insights (<https://docs.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability>) will be used.
+
+> **Note** Provide your proctor with the public endpoint of your `captureorder` service. The proctor will setup [URL ping tests using Azure Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-monitor-web-app-availability) to each team's swagger endpoint, typically this would be something like `http://<public endpoint>/swagger/`.
 
 ### Throughput
 
-Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 2000 users to your application.
+Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 300 concurrent users to your application.
 
 You can run Docker image below to send off a number of POST requests and get the results.
 
