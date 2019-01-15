@@ -67,7 +67,7 @@ helm init --service-account tiller
 After you Tiller initialized in the cluster, wait for a short while then install the MongoDB chart, **then take note of the username, password and endpoints created. The command below creates a user called `orders-user` and a password of `orders-password`**
 
 ```sh
-helm install --name orders-mongo stable/mongodb --set replicaSet.enabled=true mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+helm install stable/mongodb --name orders-mongo --set replicaSet.enabled=true,mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 ```
 
 > **Hint**
