@@ -67,14 +67,16 @@ helm init --service-account tiller
 After you Tiller initialized in the cluster, wait for a short while then install the MongoDB chart, **then take note of the username, password and endpoints created. The command below creates a user called `orders-user` and a password of `orders-password`**
 
 ```sh
-curl -O https://raw.githubusercontent.com/kubernetes/charts/master/stable/mongodb/values-production.yaml
-helm install --name orders-mongo -f ./values-production.yaml stable/mongodb --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+helm install --name orders-mongo stable/mongodb --set replicaSet.enabled=true mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 ```
 
-> **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
+> **Hint**
+> * The command above installs the MongoDB Helm chart with replica-set support. It creates a Kubernetes StatefulSet for the MongoDB secondaries that you can scale.
+> * By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
+
 You'll need to use the user created in the command above when configuring the deployment environment variables.
 {% endcollapsible %}
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
-> * <https://github.com/helm/charts/tree/master/stable/mongodb#production-settings-and-horizontal-scaling>
+> * <https://github.com/helm/charts/tree/master/stable/mongodb#replication>
