@@ -16,7 +16,7 @@ Availability monitoring using Azure Application Insights (<https://docs.microsof
 
 ### Throughput
 
-Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 300 concurrent users to your application.
+Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 2000 concurrent users to your application.
 
 You can run Docker image below to send off a number of POST requests and get the results.
 
@@ -25,7 +25,7 @@ You can run Docker image below to send off a number of POST requests and get the
 ```sh
 export URL=http://<public ip of capture order service>/v1/order
 export DURATION=1m
-export CONCURRENT=300
+export CONCURRENT=2000
 docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -m POST $URL
 ```
 
