@@ -76,12 +76,13 @@ echo "\nService is up, sending a request"
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://$SERVICEIP/v1/order
 sleep 5
 
-echo "\n"
+echo
 read -p "Initiate load test with $CONCURRENT users for $DURATION? Type Y to confirm: " -n 1 -r
-echo    # (optional) move to a new line
+echo 
+
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -m POST http://$SERVICEIP/v1/order
 else
-  echo "\Done."
+  echo "Done."
 fi
