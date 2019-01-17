@@ -7,6 +7,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: captureorder
-  minReplicas: 4
+  minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 50
