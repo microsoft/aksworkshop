@@ -43,6 +43,33 @@ kubectl apply -f captureorder-hpa.yaml
 
 {% endcollapsible %}
 
+#### Run a load test
+
+{% collapsible %}
+
+You can run the script below to send off a number of POST requests and get the results.
+
+> **Note**
+> * You'll need to run this on your local machine on a BASH terminal. It will not work on Azure Cloud Shell.
+> * You may tweak it after downloading to your liking.
+> * The Horizontal Pod Autoscaler (HPA) has a default cooldown period of 5 minutes, so keep this into consideration when you're doing the tests.
+
+```sh
+curl -o loadtest.sh http://aka.ms/aks/workshop/loadtest.sh
+chmod +x loadtest.sh
+./loadtest.sh <public ip of the capture order service>
+```
+
+You should see an experience similar to the below:
+
+<video width="100%" controls>
+  <source src="media/autoscale-in-action.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+
+{% endcollapsible %}
+
 #### Scale MongoDB
 
 {% collapsible %}
