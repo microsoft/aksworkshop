@@ -18,15 +18,14 @@ Availability monitoring using Azure Application Insights (<https://docs.microsof
 
 Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 2000 concurrent users to your application.
 
-You can run Docker image below to send off a number of POST requests and get the results.
+You can run the script below to send off a number of POST requests and get the results.
 
-> **Note** You'll need to run this on your local machine. It will not work on Azure Cloud Shell.
+> **Note** You'll need to run this on your local machine on a BASH terminal. It will not work on Azure Cloud Shell. You may tweak it after downloading to your liking.
 
 ```sh
-export URL=http://<public ip of capture order service>/v1/order
-export DURATION=1m
-export CONCURRENT=2000
-docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -m POST $URL
+curl -o loadtest.sh http://aka.ms/aks/workshop/loadtest.sh
+chmod +x loadtest.sh
+./loadtest.sh <public ip of the capture order service>
 ```
 
 > **Note** You may also use Azure DevOps to do load testing.
