@@ -23,7 +23,7 @@ You can run the script below to send off a number of POST requests and get the r
 > **Note** You'll need to run this on your local machine on a BASH terminal. It will not work on Azure Cloud Shell. You may tweak it after downloading to your liking.
 
 ```sh
-curl -o loadtest.sh http://aka.ms/aks/workshop/loadtest.sh
+curl -o loadtest.sh -L http://aka.ms/aks/workshop/loadtest.sh
 chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
