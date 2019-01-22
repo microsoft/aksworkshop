@@ -55,7 +55,7 @@ You can run the script below to send off a number of POST requests and get the r
 > * The Horizontal Pod Autoscaler (HPA) has a default cooldown period of 5 minutes, so keep this into consideration when you're doing the tests.
 
 ```sh
-curl -o loadtest.sh http://aka.ms/aks/workshop/loadtest.sh
+curl -o loadtest.sh -L http://aka.ms/aks/workshop/loadtest.sh
 chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
@@ -66,7 +66,6 @@ You should see an experience similar to the below:
   <source src="media/autoscale-in-action.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-
 
 {% endcollapsible %}
 

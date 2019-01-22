@@ -34,8 +34,6 @@ spec:
           env:
           - name: TEAMNAME
             value: "team-azch"
-          - name: APPINSIGHTS_KEY
-            value: ""
           - name: MONGOHOST
             value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER
