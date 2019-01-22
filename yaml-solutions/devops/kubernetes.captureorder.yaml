@@ -33,8 +33,6 @@ spec:
         env:
         - name: TEAMNAME
           value: "team-azch"
-        - name: APPINSIGHTS_KEY
-          value: "5d44bbd0-87c0-4b73-8e35-e16a07583ba2"
         - name: AMQPURL
           valueFrom:
             secretKeyRef:

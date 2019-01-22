@@ -10,6 +10,7 @@ You would like to monitor the performance of different components in your applic
 Use a combination of the available tools to setup alerting capabilities for your application.
 
 ### Tasks
+<!--
 
 #### Instrument the application with Azure Application Insights to track how requests move within the application
 
@@ -23,6 +24,7 @@ Use a combination of the available tools to setup alerting capabilities for your
   ![Application map](media/applicationmap.png)
 
 {% endcollapsible %}
+-->
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out why requests are failing, inspect logs and monitor your cluster health
 
