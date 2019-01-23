@@ -270,3 +270,20 @@ button.active, button.toggle-collapsible:hover {
 .collapsible-content pre.highlight {
   margin: 0;
 }
+
+.github-contributor {
+  margin: 2px;
+}
+
+.github-contributors {
+  display: flex;
+  flex-flow: wrap;
+  align-content: flex-start;
+}
+
+img.github-avatar {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  display: inline;
+}
