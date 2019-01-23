@@ -33,6 +33,21 @@ The Order Capture API requires certain environment variables to properly run and
 
 > **Hint:** The Order Capture API exposes the following endpoint for health-checks: `http://[PublicEndpoint]:[port]/healthz`
 
+> **Proctor Hint:** You can quickly create the ChallengeAppInsights piece by running the below code:
+
+{% collapsible %}
+
+```
+az resource create \
+    --resource-group akschallenge \
+    --resource-type "Microsoft.Insights/components" \
+    --name akschallengeproctor \
+    --location eastus \
+    --properties '{"Application_Type":"web"}'  
+```
+Provide the Instrumentation Key to the attendees
+{% endcollapsible %}
+
 ### Tasks
 
 #### Provision the `captureorder` deployment and expose a public endpoint
@@ -80,6 +95,8 @@ spec:
           env:
           - name: TEAMNAME
             value: "team-azch"
+          - name: CHALLENGEAPPINSIGHTS_KEY
+            value: ""
           - name: MONGOHOST
             value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER

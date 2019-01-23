@@ -20,10 +20,10 @@ Ability to cope with periodic load tests, through the number of processed reques
 
 You can run the script below to send off a number of POST requests and get the results.
 
-> **Note** You'll need to run this on your local machine on a BASH terminal. It will not work on Azure Cloud Shell. You may tweak it after downloading to your liking.
+> **Note** You'll need to run this on your local machine from a *nix (bash, zsh, etc.) shell. It will not work on Azure Cloud Shell. You may tweak it after downloading to your liking.
 
 ```sh
-curl -o loadtest.sh -L http://aka.ms/aks/workshop/loadtest.sh
+wget http://aka.ms/aks/workshop/loadtest.sh
 chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
