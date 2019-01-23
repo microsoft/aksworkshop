@@ -50,12 +50,13 @@ kubectl apply -f captureorder-hpa.yaml
 You can run the script below to send off a number of POST requests and get the results.
 
 > **Note**
-> * You'll need to run this on your local machine on a BASH terminal. It will not work on Azure Cloud Shell.
+> * You'll need to run this on your local machine from a *nix (bash, zsh, etc.) shell. It will not work on Azure Cloud Shell. You will need to have Docker installed and running in order to use this script.
 > * You may tweak it after downloading to your liking.
+> * Just as with any script, we recommend reading the script thoroughly prior to running it on your machine.
 > * The Horizontal Pod Autoscaler (HPA) has a default cooldown period of 5 minutes, so keep this into consideration when you're doing the tests.
 
 ```sh
-curl -o loadtest.sh -L http://aka.ms/aks/workshop/loadtest.sh
+wget http://aka.ms/aks/workshop/loadtest.sh
 chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
