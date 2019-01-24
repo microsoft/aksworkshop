@@ -43,7 +43,7 @@ kubectl apply -f captureorder-hpa.yaml
 
 {% endcollapsible %}
 
-#### Run a load test
+#### Run a load test using Azure Container Instances
 
 {% collapsible %}
 There is a a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
