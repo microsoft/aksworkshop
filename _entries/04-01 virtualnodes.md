@@ -199,7 +199,7 @@ virtual-node-aci-linux     Ready    agent   11m   v1.13.1-vk-v0.7.4-44-g4f3bd20e
 
 #### Deploy the original application from the first challenge
 
-This will require you to re-deploy MongoDB and a Capture Order API in your cluster. Repeat labs 2.2 and 2.3.
+This will require you to re-deploy MongoDB and a Capture Order API in your cluster. Repeat labs [2.2](#db) and [2.3](#api).
 
 
 #### Create a new Capture Order API deployment targeting the virtual node
