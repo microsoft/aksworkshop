@@ -49,7 +49,7 @@ kubectl apply -f captureorder-hpa.yaml
 There is a a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
 
 ```sh
-az container create -g akschallenge --n loadtest --image azch/loadtest -e SERVICE_IP=<public ip of order capture service> --restart-policy Never --no-wait
+az container create -g akschallenge -n loadtest --image azch/loadtest -e SERVICE_IP=<public ip of order capture service> --restart-policy Never --no-wait
 ```
 
 This will fire off a series of increasing loads of concurrent users (100, 200, 400, 800, 1600) POSTing requests to your Order Capture API endpoint with some wait time in between to simulate an increased pressure on your application.
@@ -57,7 +57,7 @@ This will fire off a series of increasing loads of concurrent users (100, 200, 4
 You may attach to the Azure Container Instance streaming logs by running the command below
 
 ```sh
-az container attach -g akschallenge --n loadtest
+az container attach -g akschallenge -n loadtest
 ```
 
 Make note of results (sample below) for each of the load tests to figure out where you need to optimize to increase the throughtput (requests/sec), reduce the average latency and error count.
