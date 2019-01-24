@@ -6,6 +6,8 @@ This is the repository for the AKS Workshop website.
 
 - The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder.
 - If you’re on a Mac/Linux machine, you can preview your edits locally if you run `make build-run` inside the repo root.
+- The build pipeline builds Docker images of the site and hosts it as a private repository on Docker Hub <https://hub.docker.com/u/azch>.
+- The release pipeline deploys the Docker image to an Azure Web App.
 
 ## Branching and contribution
 
@@ -13,4 +15,4 @@ This is the repository for the AKS Workshop website.
 - The branch [`aksworkshop-staging`](https://dev.azure.com/theazurechallenge/Kubernetes/_git/Challenges?version=GBaksworkshop-staging) gets published to [staging.aksworkshop.io](http://staging.aksworkshop.io).
 - Publishing to [aksworkshop.io](http://aksworkshop.io) happens through merges only, through merging into `aksworkshop-master` from the `aksworkshop-staging` branch.
 - Please branch off `aksworkshop-staging` if you want to contribute, then submit a Pull Request to `aksworkshop-staging`.
-- If you want your name to show up in the [contributors](http://aksworkshop.io/#contributors), please add your GitHub username to `_entries/04 Contributors.md` in alphabetical order.
+- If you want your name to show up in the [contributors](http://aksworkshop.io/#contributors), please add your GitHub username to `_entries/05 Contributors.md` in alphabetical order.
