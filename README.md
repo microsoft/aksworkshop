@@ -1,19 +1,16 @@
-# Docster
-![docster preview](https://raw.githubusercontent.com/DigitalMindCH/docster-jekyll-theme/gh-pages/img/docster_preview.jpg)
+# aksworkshop.io
 
-## simple and easy
-That's how we would describe working with docster.
-We first created it, when we needed an index file for a theme documentation. jekyll offered collections which made the organization into smaller chunks of documentation optimal. Especially because the collections did not generate outputs for themselves.
-This theme was created to generate an organized output. It does not require any plugins, which means you can host on GitHub without much effort.
+This is the repository for the AKS Workshop website.
 
-## Features
-* Nice syntax highlighting
-* dynamic multi-level navigation
-* Sass stylesheets
+## Technology
 
-### Documentation
-We don't believe in delivering Code without explanation. Especially not for a documentation theme. So the [Demo](http://digitalmind.ch/themes/docster-jekyll-theme/demo/) doubles as the documentation for Docster, that should help you set up your own docs without any problems.
+- The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder.
+- If you’re on a Mac/Linux machine, you can preview your edits locally if you run `make build-run` inside the repo root.
 
-### Feedback, Wishes, Problems
-If you run into any trouble or have a request please do so by opening up an issue on the theme's GitHub page.
-If you just want to give us a general feedback feel free to [contact us!](http://digitalmind.ch/contact/)
+## Branching and contribution
+
+- The branch [`aksworkshop-master`](https://dev.azure.com/theazurechallenge/Kubernetes/_git/Challenges?version=GBaksworkshop-master) gets published to [aksworkshop.io](http://aksworkshop.io).
+- The branch [`aksworkshop-staging`](https://dev.azure.com/theazurechallenge/Kubernetes/_git/Challenges?version=GBaksworkshop-staging) gets published to [staging.aksworkshop.io](http://staging.aksworkshop.io).
+- Publishing to [aksworkshop.io](http://aksworkshop.io) happens through merges only, through merging into `aksworkshop-master` from the `aksworkshop-staging` branch.
+- Please branch off `aksworkshop-staging` if you want to contribute, then submit a Pull Request to `aksworkshop-staging`.
+- If you want your name to show up in the [contributors](http://aksworkshop.io/#contributors), please add your GitHub username to `_entries/04 Contributors.md` in alphabetical order.
