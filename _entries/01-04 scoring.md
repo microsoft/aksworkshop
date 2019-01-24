@@ -28,7 +28,9 @@ chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
 
-> **Proctor Hint:** You can quickly create the Application Insights resource required to track the challenge progress and plot the results by running the below code:
+#### Note to proctors
+
+You can quickly create the Application Insights resource required to track the challenge progress and plot the results by running the below code:
 
 ```sh
 az resource create \
