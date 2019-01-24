@@ -17,7 +17,7 @@ spec:
           imagePullPolicy: Always
           env:
           - name: TEAMNAME
-            value: "brian-team-azch"
+            value: "team-azch"
           - name: CHALLENGEAPPINSIGHTS_KEY
             value: ""
           - name: MONGOHOST
