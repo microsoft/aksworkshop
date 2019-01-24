@@ -2,7 +2,7 @@
 sectionid: virtualnodes
 sectionclass: h2
 title: Azure Kubernetes Service Virtual Nodes using ACI
-parent-id: advanced
+parent-id: advancedclustersetup
 ---
 
 To rapidly scale application workloads in an Azure Kubernetes Service (AKS) cluster, you can use Virtual Nodes. With Virtual Nodes, you have quick provisioning of pods, and only pay per second for their execution time. You don't need to wait for Kubernetes cluster autoscaler to deploy VM compute nodes to run the additional pods.
