@@ -235,7 +235,7 @@ spec:
           imagePullPolicy: Always
           env:
           - name: TEAMNAME
-            value: "brian-team-azch"
+            value: "team-azch"
           - name: CHALLENGEAPPINSIGHTS_KEY
             value: ""
           - name: MONGOHOST
@@ -262,6 +262,8 @@ Deploy it.
 ```bash
 kubectl apply -f captureorder-deployment-aci.yaml
 ```
+
+> **Note** the added `nodeSelector` and `tolerations` sections that basically tell Kubernetes that this deployment will run on the Virtual Node on Azure Container Instances (ACI).
 
 {% endcollapsible %}
 
