@@ -18,15 +18,7 @@ Availability monitoring using Azure Application Insights (<https://docs.microsof
 
 Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 2000 concurrent users to your application.
 
-You can run the script below to send off a number of POST requests and get the results.
-
-> **Note** You'll need to run this on your local machine from a *nix (bash, zsh, etc.) shell. It will not work on Azure Cloud Shell. You may tweak it after downloading to your liking.
-
-```sh
-wget http://aka.ms/aks/workshop/loadtest.sh
-chmod +x loadtest.sh
-./loadtest.sh <public ip of the capture order service>
-```
+Refer to the [scaling section for guidance on how to run the load test](#scaling).
 
 #### Note to proctors
 
