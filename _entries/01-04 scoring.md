@@ -28,7 +28,35 @@ chmod +x loadtest.sh
 ./loadtest.sh <public ip of the capture order service>
 ```
 
-> **Note** You may also use Azure DevOps to do load testing.
+> **Proctor Hint:** You can quickly create the Application Insights resource required to track the challenge progress and plot the results by running the below code:
+
+```sh
+az resource create \
+    --resource-group akschallenge \
+    --resource-type "Microsoft.Insights/components" \
+    --name akschallengeproctor \
+    --location eastus \
+    --properties '{"Application_Type":"web"}'  
+```
+
+Provide the Instrumentation Key to the attendees that they can use to fill in the `CHALLENGEAPPINSIGHTS_KEY` environment variables.
+
+On the Azure Portal, navigate to the Application Insights resource you created, click on **Analytics**
+
+![Click on Analytics](media/challenge-tracking-analytics.png)
+
+Then you can periodically run the query below, to view how many orders each team has processed, especially after you load test one of the teams.
+
+```
+customEvents
+| where name == "CaptureOrder to MongoDB"
+| where customDimensions["team"] != "team-azch"
+| where customDimensions["team"] != ""
+| summarize count() by tostring(customDimensions["team"])
+| render barchart
+```
+
+![Bar chart of orders processed](media/challenge-tracking.png)
 
 ### Extra tasks
 
