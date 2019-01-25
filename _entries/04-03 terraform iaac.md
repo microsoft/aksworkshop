@@ -1,8 +1,8 @@
 ---
 sectionid: terraform-iaac
 sectionclass: h2
-parent-id: devops
-title: DevOps - Terraform
+parent-id: advancedclustersetup
+title: Terraform
 ---
 
 Deploying the Azure Infrastructure and the container workload may seem like two different problems, but they are both infrastructure deployment concerns. Wouldn't it be great to be able to use one tool to recreate the entire environment?
