@@ -1,6 +1,6 @@
 ---
 sectionid: advancedclustersetup
 sectionclass: h1
-title: Advanced cluster setup
+title: Advanced tasks
 is-parent: yes
 ---
