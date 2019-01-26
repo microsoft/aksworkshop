@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: captureorder-aci
+spec:
+  selector:
+      matchLabels:
+        app: captureorder
+  template:
+      metadata:
+        labels:
+            app: captureorder
+      spec:
+        containers:
+        - name: captureorder
+          image: azch/captureorder
+          imagePullPolicy: Always
+          env:
+          - name: TEAMNAME
+            value: "team-azch"
+          - name: CHALLENGEAPPINSIGHTS_KEY
+            value: ""
+          - name: MONGOHOST
+            value: "orders-mongo-mongodb.default.svc.cluster.local"
+          - name: MONGOUSER
+            value: "orders-user"
+          - name: MONGOPASSWORD
+            value: "orders-password"
+          ports:
+          - containerPort: 80
+        nodeSelector:
+          kubernetes.io/role: agent
+          beta.kubernetes.io/os: linux
+          type: virtual-kubelet
+        tolerations:
+        - key: virtual-kubelet.io/provider
+          operator: Exists
+        - key: azure.com/aci
+          effect: NoSchedule 
