@@ -1,6 +1,6 @@
 ---
 
-sectionid: api
+sectionid: frontend
 sectionclass: h2
 parent-id: upandrunning
 title: Deploy the frontend
