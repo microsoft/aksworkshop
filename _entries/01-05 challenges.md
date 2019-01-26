@@ -19,4 +19,4 @@ Once you're done with the above, next would be to include some DevOps. **Complet
 
 ### Advanced cluster tasks
 
-If you're up to it, explore configuring the Azure Kubernetes Service cluster with Virtual Nodes, enabling RBAC and Active Directory Authentication, using HashiCorp's Terraform to deploy AKS and your application and more.
+If you're up to it, explore configuring the Azure Kubernetes Service cluster with Virtual Nodes, enabling MongoDB replication, using HashiCorp's Terraform to deploy AKS and your application and more.
