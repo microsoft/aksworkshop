@@ -136,47 +136,6 @@ kubectl get pods -l
 Your browser does not support the video tag.
 </video>
 
-You may view the logs of the Azure Container Instance streaming logs by running the command below. You may need to wait for a few minutes to get the full logs, or run this command multiple times.
-
-```sh
-az container logs -g akschallenge -n loadtest
-```
-
-You'll probably get slightly better results. Note the increased requests/second and reduced number of errors.
-
-```
-Phase 5: Load test - 30 seconds, 6400 users.
-
-Summary:
-  Total:	32.6932 secs
-  Slowest:	24.4630 secs
-  Fastest:	1.5258 secs
-  Average:	8.5458 secs
-  Requests/sec:	713.2071
-
-  Total data:	999879 bytes
-  Size/request:	43 bytes
-
-Response time histogram:
-  1.526 [1]	|
-  3.819 [8006]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  6.113 [2149]	|■■■■■■■■■■■
-  8.407 [2231]	|■■■■■■■■■■■
-  10.701 [2137]	|■■■■■■■■■■■
-  12.994 [2030]	|■■■■■■■■■■
-  15.288 [2972]	|■■■■■■■■■■■■■■■
-  17.582 [3032]	|■■■■■■■■■■■■■■■
-  19.876 [655]	|■■■
-  22.169 [36]	|
-  24.463 [4]	|
-
-Status code distribution:
-  [200]	23253 responses
-
-Error distribution:
-  [64]	Post http://23.96.91.35/v1/order: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-```
-
 {% endcollapsible %}
 
 #### Deploy MongoDB as a StatefulSet
