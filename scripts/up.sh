@@ -76,13 +76,21 @@ echo "\nService is up, sending a request"
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://$SERVICEIP/v1/order
 sleep 5
 
-echo
-read -p "Initiate load test with $CONCURRENT users for $DURATION? Type Y to confirm: " -n 1 -r
-echo 
+echo "\nDeploying frontend deployment"
+curl -o fed.yaml http://aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-deployment.yaml
+sed -i "s/_PUBLIC_IP_CAPTUREORDERSERVICE_/$SERVICEIP/g" fed.yaml
+kubectl apply -f fed.yaml
 
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -m POST http://$SERVICEIP/v1/order
-else
-  echo "Done."
-fi
+echo "\nDeploying frontend service"
+kubectl apply -f http://aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-service.yaml
+
+echo "\nEnabling HTTP routing add-on"
+az aks enable-addons --resource-group $RGNAME --name $AKSNAME --addons http_application_routing
+
+echo "\Retrieving cluster DNS zone name"
+export DNSZONENAME=$(az aks show --resource-group $RGNAME --name $AKSNAME --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o csv)
+
+echo "\nDeploying frontend ingress"
+curl -o fei.yaml http://aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-ingress.yaml
+sed -i "s/_CLUSTER_SPECIFIC_DNS_ZONE_/$DNSZONENAME/g" fei.yaml
+kubectl apply -f fei.yaml

@@ -24,7 +24,7 @@ The frontend requires certain environment variables to properly run and track yo
 
 ### Tasks
 
-#### Provision the `frontend` deployment and expose a public endpoint
+#### Provision the `frontend` deployment
 
 {% collapsible %}
 
@@ -87,9 +87,30 @@ kubectl get pods -l app=frontend
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
 
+{% endcollapsible %}
+
+#### Expose the frontend on a hostname
+
+Instead of accessing the frontend through an IP address, you would like to expose the frontend over a hostname. Explore using [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) with [AKS HTTP Application Routing add-on](https://docs.microsoft.com/en-us/azure/aks/http-application-routing) to achieve this purpose.
+
+When you enable the add-on, this deploys two components:a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
+
+* **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches and implements Kubernetes Ingress resources, which creates routes to application endpoints.
+* **External-DNS controller**: Watches for Kubernetes Ingress resources and creates DNS A records in the cluster-specific DNS zone using Azure DNS.
+
+{% collapsible %}
+
+##### Enable the HTTP routing add-on on your cluster
+
+```sh
+az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons http_application_routing
+```
+
 ##### Service
 
 Save the YAML below as `frontend-service.yaml` or download it from [frontend-service.yaml](yaml-solutions/01. challenge-02/frontend-service.yaml)
+
+> **Note** Since you're going to expose the deployment using an Ingress, there is no need to use a public IP for the Service, hence you can set the type of the service to be `ClusterIP` instead of `LoadBalancer`.
 
 ```yaml
 apiVersion: v1
@@ -103,7 +124,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP
 ```
 
 And deploy it using
@@ -112,24 +133,60 @@ And deploy it using
 kubectl apply -f frontend-service.yaml
 ```
 
-##### Retrieve the External-IP of the Service
+##### Ingress
 
-Use the command below. Make sure to allow a couple of minutes for the Azure Load Balancer to assign a public IP.
+The HTTP application routing add-on may only be triggered on Ingress resources that are annotated as follows:
+
+```yaml
+annotations:
+  kubernetes.io/ingress.class: addon-http-application-routing
+```
+
+Retrieve your cluster specific DNS zone name by running the command below
 
 ```sh
-kubectl get service frontend -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+az aks show --resource-group akschallenge --name <unique-aks-cluster-name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+```
+
+You should get back something like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
+
+Create an Ingress resource that is annotated with the required annotation and make sure to replace `<CLUSTER_SPECIFIC_DNS_ZONE>` with the DNS zone name you retrieved from the previous command.
+
+Additionally, make sure that the `serviceName` and `servicePort` are pointing to the correct values as the Service you deployed previously.
+
+Save the YAML below as `frontend-ingress.yaml` or download it from [frontend-ingress.yaml](yaml-solutions/01. challenge-02/frontend-ingress.yaml)
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: frontend.<CLUSTER_SPECIFIC_DNS_ZONE>
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
+        path: /
+```
+
+And create it using
+
+```sh
+kubectl apply -f frontend-ingress.yaml
 ```
 
 {% endcollapsible %}
 
-#### Browse to the public IP of the frontend and watch as the number of orders change
+#### Browse to the public hostname of the frontend and watch as the number of orders change
 
-{% collapsible %}
-Browse to <http://[frontend public service ip]/>
+Once the Ingress is deployed, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
 
 ![Orders frontend](media/ordersfrontend.png)
-
-{% endcollapsible %}
 
 > **Resources**
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
