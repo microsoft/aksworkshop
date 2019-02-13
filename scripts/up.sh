@@ -1,12 +1,11 @@
 export LOCATION=eastus
 export RGNAME=akschallenge
 export AKSNAME=akstest
-export K8SVERSION=1.11.5
-export DURATION=1m
-export CONCURRENT=1000
+export K8SVERSION=1.12.4
+export EMAIL=asabbour@microsoft.com
 
-echo "Logging in to Azure CLI"
-az login
+#echo "Logging in to Azure CLI"
+#az login
 
 echo "\nCreating Resource Group"
 az group create --name $RGNAME --location $LOCATION
@@ -27,10 +26,10 @@ echo "\nRetrieving nodes"
 kubectl get nodes
 
 echo "\nSetting up Tiller Service Account"
-kubectl apply -f http://aksworkshop.io/yaml-solutions/01.%20challenge-02/helm-rbac.yaml
+kubectl apply -f http://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/helm-rbac.yaml
 
 echo "\nSetting up Log Reader Service Account"
-kubectl apply -f http://aksworkshop.io/yaml-solutions/01.%20challenge-03/logreader-rbac.yaml
+kubectl apply -f http://staging.aksworkshop.io/yaml-solutions/01.%20challenge-03/logreader-rbac.yaml
 
 echo "\nInitializing Helm"
 helm init --service-account tiller
@@ -57,10 +56,10 @@ do
 done
 
 echo "\nDeploying captureorder deployment"
-kubectl apply -f http://aksworkshop.io/yaml-solutions/01.%20challenge-02/captureorder-deployment.yaml
+kubectl apply -f https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/captureorder-deployment.yaml
 
 echo "\nDeploying captureorder service"
-kubectl apply -f http://aksworkshop.io/yaml-solutions/01.%20challenge-02/captureorder-service.yaml
+kubectl apply -f https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/captureorder-service.yaml
 
 
 echo "\nWaiting to get an external service ip"
@@ -76,13 +75,23 @@ echo "\nService is up, sending a request"
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://$SERVICEIP/v1/order
 sleep 5
 
-echo
-read -p "Initiate load test with $CONCURRENT users for $DURATION? Type Y to confirm: " -n 1 -r
-echo 
+echo "\nDeploying frontend deployment"
+curl -o fed.yaml -L https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-deployment.yaml
+sed -i -e "s/_PUBLIC_IP_CAPTUREORDERSERVICE_/$SERVICEIP/g" fed.yaml
+kubectl apply -f fed.yaml
 
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  docker run --rm -it azch/loadtest -z $DURATION -c $CONCURRENT -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -m POST http://$SERVICEIP/v1/order
-else
-  echo "Done."
-fi
+echo "\nDeploying frontend service"
+kubectl apply -f https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-service.yaml
+
+echo "\nEnabling HTTP routing add-on"
+az aks enable-addons --resource-group $RGNAME --name $AKSNAME --addons http_application_routing
+
+echo "\Retrieving cluster DNS zone name"
+export DNSZONENAME=$(az aks show --resource-group $RGNAME --name $AKSNAME --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv)
+
+echo "\nDeploying frontend ingress"
+curl -o fei.yaml -L https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-ingress.yaml
+sed -i -e  "s/_CLUSTER_SPECIFIC_DNS_ZONE_/$DNSZONENAME/g" fei.yaml
+kubectl apply -f fei.yaml
+
+echo "\nGo to http://frontend.$DNSZONENAME to test"

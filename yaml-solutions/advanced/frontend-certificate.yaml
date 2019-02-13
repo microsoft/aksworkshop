@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: frontend
+spec:
+  secretName: frontend-tls-secret
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+  - frontend._CLUSTER_SPECIFIC_DNS_ZONE_ # replace cluster specific dns zone with your HTTP Routing DNS Zone name
+  acme:
+    config:
+    - http01:
+        ingressClass: addon-http-application-routing
+      domains:
+      - frontend._CLUSTER_SPECIFIC_DNS_ZONE_  # replace cluster specific dns zone with your HTTP Routing DNS Zone name
