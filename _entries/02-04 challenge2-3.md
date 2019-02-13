@@ -70,7 +70,7 @@ spec:
           - name: CAPTUREORDERSERVICEIP
             value: "<public IP of order capture service>"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
 ```
 
 And deploy it using
@@ -184,9 +184,34 @@ kubectl apply -f frontend-ingress.yaml
 
 {% endcollapsible %}
 
+#### Verify that the DNS records are created
+
+{% collapsible %}
+
+View the logs of the External DNS pod
+
+```sh
+kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
+```
+
+It should say something about updating the A record. It may take a few minutes.
+
+```sh
+time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' to '13.90.199.8' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
+time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
+```
+
+You should also be able to find the new records created in the Azure DNS zone for your cluster.
+
+![Azure DNS](media/dns.png)
+
+{% endcollapsible %}
+
 #### Browse to the public hostname of the frontend and watch as the number of orders change
 
-Once the Ingress is deployed, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
+Once the Ingress is deployed and the DNS records propagated, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
+
+If it doesn't work from the first trial, give it a few more minutes or try a different browser.
 
 ![Orders frontend](media/ordersfrontend.png)
 
