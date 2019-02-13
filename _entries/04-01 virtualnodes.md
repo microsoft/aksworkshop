@@ -237,8 +237,8 @@ spec:
           env:
           - name: TEAMNAME
             value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY
-          #  value: ""
+          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
+          #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
             value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER
