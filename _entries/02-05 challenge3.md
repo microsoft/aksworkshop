@@ -13,6 +13,12 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect logs and monitor your cluster health
 
+If you didn't create an AKS cluster with monitoring enabled, you can enable the add-on by running:
+
+```sh
+az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons monitoring
+```
+
 {% collapsible %}
 
 - Check the cluster utilization under load
