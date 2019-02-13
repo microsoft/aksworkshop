@@ -3,7 +3,7 @@
 sectionid: frontend
 sectionclass: h2
 parent-id: upandrunning
-title: Deploy the frontend
+title: Deploy the frontend using Ingress
 ---
 
 You need to deploy the **Frontend** ([azch/frontend](https://hub.docker.com/r/azch/frontend/)). This requires an external endpoint, exposing the website on port 80 and needs to write to connect to the Order Capture API public IP.
@@ -106,6 +106,8 @@ When you enable the add-on, this deploys two components:a [Kubernetes Ingress co
 az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons http_application_routing
 ```
 
+This will take a few minutes.
+
 ##### Service
 
 Save the YAML below as `frontend-service.yaml` or download it from [frontend-service.yaml](yaml-solutions/01. challenge-02/frontend-service.yaml)
@@ -184,7 +186,7 @@ kubectl apply -f frontend-ingress.yaml
 
 #### Browse to the public hostname of the frontend and watch as the number of orders change
 
-Once the Ingress is deployed, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
+Once the Ingress is deployed, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
 
 ![Orders frontend](media/ordersfrontend.png)
 
