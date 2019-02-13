@@ -201,6 +201,10 @@ time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' t
 time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
 ```
 
+You should also be able to find the new records created in the Azure DNS zone for your cluster.
+
+![Azure DNS](media/dns.png)
+
 {% endcollapsible %}
 
 #### Browse to the public hostname of the frontend and watch as the number of orders change
