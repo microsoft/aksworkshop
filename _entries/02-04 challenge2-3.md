@@ -70,7 +70,7 @@ spec:
           - name: CAPTUREORDERSERVICEIP
             value: "<public IP of order capture service>"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
 ```
 
 And deploy it using
