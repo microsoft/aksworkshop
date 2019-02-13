@@ -23,7 +23,7 @@ The Order Capture API requires certain environment variables to properly run and
   * `TEAMNAME="[YourTeamName]"`
     * Track your team's progress. **Use your assigned team name**.
   * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
-    * Application Insights key **if provided by proctors**. This is used to track your team's progress.
+    * Application Insights key **if provided by proctors**. This is used to track your team's progress. If not provided, just delete it.
   * `MONGOHOST="<hostname of mongodb>"`
     * MongoDB hostname.
   * `MONGOUSER="<mongodb username>"`
@@ -80,8 +80,8 @@ spec:
           env:
           - name: TEAMNAME
             value: "team-azch"
-          - name: CHALLENGEAPPINSIGHTS_KEY
-            value: ""
+          #- name: CHALLENGEAPPINSIGHTS_KEY
+          #  value: ""
           - name: MONGOHOST
             value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER

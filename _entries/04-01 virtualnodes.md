@@ -237,8 +237,8 @@ spec:
           env:
           - name: TEAMNAME
             value: "team-azch"
-          - name: CHALLENGEAPPINSIGHTS_KEY
-            value: ""
+          #- name: CHALLENGEAPPINSIGHTS_KEY
+          #  value: ""
           - name: MONGOHOST
             value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER
@@ -246,7 +246,7 @@ spec:
           - name: MONGOPASSWORD
             value: "orders-password"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
         nodeSelector:
           kubernetes.io/role: agent
           beta.kubernetes.io/os: linux
@@ -255,7 +255,7 @@ spec:
         - key: virtual-kubelet.io/provider
           operator: Exists
         - key: azure.com/aci
-          effect: NoSchedule 
+          effect: NoSchedule
 ```
 
 Deploy it.
