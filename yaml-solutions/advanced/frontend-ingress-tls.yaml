@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+    kubernetes.io/tls-acme: 'true' # enable TLS
+spec:
+  tls:
+  - hosts:
+    - frontend._CLUSTER_SPECIFIC_DNS_ZONE_ # replace cluster specific dns zone with your HTTP Routing DNS Zone name
+    secretName: frontend-tls-secret
+  rules:
+  - host: frontend._CLUSTER_SPECIFIC_DNS_ZONE_ # replace cluster specific dns zone with your HTTP Routing DNS Zone name
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
+        path: /
