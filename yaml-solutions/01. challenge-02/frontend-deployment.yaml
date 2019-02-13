@@ -35,4 +35,4 @@ spec:
           - name: CAPTUREORDERSERVICEIP
             value: "_PUBLIC_IP_CAPTUREORDERSERVICE_"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
