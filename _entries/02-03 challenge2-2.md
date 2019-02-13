@@ -89,7 +89,7 @@ spec:
           - name: MONGOPASSWORD
             value: "orders-password"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
 ```
 
 And deploy it using
