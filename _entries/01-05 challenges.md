@@ -13,9 +13,9 @@ Useful resources are provided to help you work through each task. To ensure you 
 
 You are expected to at least complete the **Getting up and running** section. This involves setting up a Kubernetes cluster, deploying the application containers from Docker Hub, setting up monitoring and scaling your application.
 
-### DevOps tasks
+### DevSecOps tasks
 
-Once you're done with the above, next would be to include some DevOps. **Complete as many tasks as you can**. You'll be setting up a Continuous Integration and Continuous Delivery pipeline for your application and then using Helm to deploy it.
+Once you're done with the above, next would be to include some DevSecOps. **Complete as many tasks as you can**. You'll be setting up a Continuous Integration and Continuous Delivery pipeline for your application and then using Helm to deploy it. You will also see how you can scan your images for security issues.
 
 ### Advanced cluster tasks
 

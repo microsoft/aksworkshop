@@ -1,6 +1,6 @@
 ---
 sectionid:  devops
 sectionclass: h1
-title: DevOps tasks
+title: DevSecOps tasks
 is-parent: yes
 ---
