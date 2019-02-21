@@ -36,15 +36,16 @@ On the Azure Portal, navigate to the Application Insights resource you created, 
 
 ![Click on Analytics](media/challenge-tracking-analytics.png)
 
-Then you can periodically run the query below, to view how many orders each team has processed, especially after you load test one of the teams.
+Then you can periodically run the query below, to view which team has the highest successful requests per second (RPS).
 
 ```
-customEvents
-| where name == "CaptureOrder to MongoDB"
+requests
+| where success == "True"
 | where customDimensions["team"] != "team-azch"
-| where customDimensions["team"] != ""
-| summarize count() by tostring(customDimensions["team"])
+| summarize rps = count(id) by bin(timestamp, 1s), tostring(customDimensions["team"])
+| summarize maxRPS = max(rps) by customDimensions_team
+| order by maxRPS desc
 | render barchart
 ```
 
-![Bar chart of orders processed](media/challenge-tracking.png)
+![Bar chart of requests per second](media/rps.png)
