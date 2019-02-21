@@ -109,12 +109,12 @@ steps:
         version: '2'
         services:
           targetimage:
-            image: codefresh/cli
+            image: azch/frontend:latest
             command: sh -c "exit 0"
       composition_candidates:
         scan_service:
           image: registry.aquasec.com/scanner:3.5
-          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --local codefresh/cli
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --local azch/frontend:latest
           environment:
           - AQUA_URL=${{AQUA_URL}}
           - AQUA_SCANNER_USER=${{AQUA_SCANNER_USER}}
@@ -127,13 +127,15 @@ steps:
 {% endraw %}            
 ```
 
-In the example above we are scanning the [Codefresh CLI image](https://hub.docker.com/r/codefresh/cli/tags). Feel free to replace the image with any other public one such as:
+In the example above we are scanning the [FrontEnd image](https://hub.docker.com/r/azch/frontend/tags). Feel free to replace the image with any other public one such as:
 
 * `alpine:latest`
 * `postgres:latest`
 * `mongo:latest`
+* `codefresh/cli:latest`
 * `azch/captureorder:latest`
-* `azch/frontend:latest`
+
+
 
 Click the *Save* button to apply your changes and then click the *Build* button to start the scan.
 
