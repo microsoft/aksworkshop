@@ -1,0 +1,24 @@
+version: '1.0'
+steps:
+  AquaScanPublicImage:
+      title: Aqua Public scan
+      type: composition
+      composition:
+        version: '2'
+        services:
+          targetimage:
+            image: codefresh/cli
+            command: sh -c "exit 0"
+      composition_candidates:
+        scan_service:
+          image: registry.aquasec.com/scanner:3.5
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --local codefresh/cli
+          environment:
+          - AQUA_URL=${{AQUA_URL}}
+          - AQUA_SCANNER_USER=${{AQUA_SCANNER_USER}}
+          - AQUA_SCANNER_PASSWORD=${{AQUA_SCANNER_PASSWORD}}
+          depends_on:
+            - targetimage
+          volumes: # Volumes required to run DIND
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /var/lib/docker:/var/lib/docker

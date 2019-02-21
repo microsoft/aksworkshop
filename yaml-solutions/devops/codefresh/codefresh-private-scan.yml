@@ -1,0 +1,44 @@
+version: '1.0'
+stages:
+- checkout
+- build
+- scan
+steps:
+  main_clone:
+    image: alpine/git:latest
+    stage: checkout
+    commands:
+      - rm -rf python-flask-sample-app
+      - git clone https://github.com/codefresh-contrib/python-flask-sample-app.git
+  BuildDockerImage:
+    title: Building Docker Image
+    type: build
+    stage: build
+    image_name: my-private-image
+    tag: latest
+    working_directory: ${{main_clone}}/python-flask-sample-app
+    dockerfile: Dockerfile    
+  AquaScanPrivateImage:
+      title: Aqua Private scan
+      type: composition
+      stage: scan
+      composition:
+        version: '2'
+        services:
+          targetimage:
+            image: my-private-image:latest
+            command: sh -c "exit 0"
+      composition_candidates:
+        scan_service:
+          image: registry.aquasec.com/scanner:3.5
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" kostis-codefresh/my-private-image:latest
+          depends_on:
+            - targetimage
+          volumes: # Volumes required to run DIND
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /var/lib/docker:/var/lib/docker
+      on_success: # Execute only once the step succeeded
+        metadata: # Declare the metadata attribute
+          set: # Specify the set operation
+            - ${{BuildDockerImage.imageId}}: 
+              - SECURITY_SCAN: true   

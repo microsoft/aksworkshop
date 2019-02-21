@@ -96,7 +96,7 @@ Expand the *Environment variables* and add the following variables (you can also
 
 ![Aqua Variables](media/codefresh/aqua-variables.png)
 
-In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following into the editor (removing its previous contents):
+In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following  [codefresh.yml](yaml-solutions/devops/codefresh/codefresh-public-scan.yml) into the editor (removing its previous contents):
 
 ```yaml
 {% raw %}
@@ -207,13 +207,13 @@ Name the pipeline *aqua-scan-private-image* or something similar.
 
 Expand the *Environment variables* and add the following variables (you can also delete the `PORT` one as it is not needed).
 
-* `AQUA_URL` - the Aqua server from the previous section including port (http://example.com:80)
+* `AQUA_URL` - the Aqua server from the previous section including port (`http://example.com:80`)
 * `AQUA_SCANNER_USER` - an Aqua user with scanner role
 * `AQUA_SCANNER_PASSWORD` - the password of the Aqua user with scanner role.
 
 ![Aqua Variables](media/codefresh/aqua-variables.png)
 
-In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following into the editor (removing its previous contents):
+In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following [codefresh.yml](yaml-solutions/devops/codefresh/codefresh-private-scan.yml) into the editor (removing its previous contents):
 
 ```yaml
 {% raw %}
