@@ -99,6 +99,7 @@ Expand the *Environment variables* and add the following variables (you can also
 In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following into the editor (removing its previous contents):
 
 ```yaml
+{% raw %}
 version: '1.0'
 steps:
   AquaScanPublicImage:
@@ -123,6 +124,7 @@ steps:
           volumes: # Volumes required to run DIND
             - /var/run/docker.sock:/var/run/docker.sock
             - /var/lib/docker:/var/lib/docker
+{% endraw %}            
 ```
 
 In the example above we are scanning the [Codefresh CLI image](https://hub.docker.com/r/codefresh/cli/tags). Feel free to replace the image with any other public one such as:
@@ -160,25 +162,26 @@ You can connect any supported private registry in Aqua, but since Codefresh alre
 First you will create a Codefresh Registry Access Token. From the left sidebar click on *User Settings*.
 Scroll down until you see the Codefresh Registry section.
 
-IMAGE HERE
+![Codefresh registry](media/codefresh/registry-tokens.png)
 
 Click on the *Generate* button to create a new access token. Give it any arbitrary name (e.g. `aqua-access`)
 and click *Create* to get the token. Copy it into your clipboard by clicking the *Copy Docker login command to clipboard*
 
-IMAGE HERE
+![Registry token](media/codefresh/create-registry-token.png)
 
 Paste the clipboard contents into an empty text file (you can use any text editor for this purpose). Finally 
 click *OK* to close the dialog.
 
 Now you are ready to give these credentials to Aqua.
-Login into your Aqua account and select *Integrations*. There go to Docker registries. Click on the dropdown
+Login into your Aqua account and expand *System* on the bottom of the left sidebar. The click on *Integrations*. On the right hand side click the *Add Registry* button. Click on the dropdown
 *Docker v1/v1 Registry* and enter the following details:
 
-* Name - Codefresh (user defined)
-* Username - your Codefresh username
-* Password - the Codefresh registry token 
+* *Registry Name* - Codefresh (user defined)
+* *Registry URL* - `http://r.cfcr.io`
+* *Username* - your Codefresh username
+* *Password* - the Codefresh registry token you created before
 
-IMAGE here
+![Adding Codefresh registry to Aqua](media/codefresh/adding-codefresh-registry-to-aqua.png)
 
 Then click the *Save* button. 
 The Aqua scanner is now able to access your Codefresh private registry.
@@ -208,27 +211,36 @@ Expand the *Environment variables* and add the following variables (you can also
 * `AQUA_SCANNER_USER` - an Aqua user with scanner role
 * `AQUA_SCANNER_PASSWORD` - the password of the Aqua user with scanner role.
 
-IMAGE HERE
+![Aqua Variables](media/codefresh/aqua-variables.png)
 
 In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following into the editor (removing its previous contents):
 
 ```yaml
+{% raw %}
 version: '1.0'
+stages:
+- checkout
+- build
+- scan
 steps:
   main_clone:
     image: alpine/git:latest
+    stage: checkout
     commands:
+      - rm -rf python-flask-sample-app
       - git clone https://github.com/codefresh-contrib/python-flask-sample-app.git
   BuildDockerImage:
     title: Building Docker Image
     type: build
+    stage: build
     image_name: my-private-image
     tag: latest
-    working_directory: ${{main_clone}}
+    working_directory: ${{main_clone}}/python-flask-sample-app
     dockerfile: Dockerfile    
   AquaScanPrivateImage:
       title: Aqua Private scan
       type: composition
+      stage: scan
       composition:
         version: '2'
         services:
@@ -238,7 +250,7 @@ steps:
       composition_candidates:
         scan_service:
           image: registry.aquasec.com/scanner:3.5
-          command: scan -H $AQUA_URL -U $AQUA_SCANNER_USER -P $AQUA_SCANNER_PASSWORD --registry "Codefresh" my-private-image:latest
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" kostis-codefresh/my-private-image:latest
           depends_on:
             - targetimage
           volumes: # Volumes required to run DIND
@@ -248,28 +260,35 @@ steps:
         metadata: # Declare the metadata attribute
           set: # Specify the set operation
             - ${{BuildDockerImage.imageId}}: 
-              - SECURITY_SCAN: true      
+              - SECURITY_SCAN: true          
+{% endraw %}            
 ```
 
-In the example above we are building a Dockerfile and then scanning it with Aqua.
+Replace the `kostis-codefresh` string with the name of your own Codefresh account.
+
+In the example above we are building a Dockerfile and then scanning it with Aqua. We are also
+using the custom [Codefresh meta-data](https://codefresh.io/docs/docs/docker-registries/metadata-annotations/) to mark the image with a boolean variable that shows it is scanned.
 
 
 Click the *Save* button to apply your changes and then the *Build* button to start the scan.
 
-IMAGE here
+![Codefresh private scan pipeline](media/codefresh/pipeline-private-scan.png)
 
 Wait for the scan to be finished. You can click on the pipeline step to see the log. Once done,
 go back to your Aqua Server instance, click on *Images*, then on *CI/CD* and take a look at the scan results.
 
-IMAGE here
+![Private scan results](media/codefresh/private-security-scan.png)
 
 You can also see the Docker image in the Codefresh registry if you click on *Images* in the Codefresh UI.
 
-IMAGE here 
+![Private Docker registry](media/codefresh/codefresh-registry.png)
 
 Clicking on the image will also you that it is marked as scanned.
 
-IMAGE here
+![Image metadata](media/codefresh/image-metadata.png)
+
+
+This concludes the scanning tasks. You have successfully used the Codefresh CI/CD platform to scan Docker images with the Aqua Security solution.
 
 {% endcollapsible %}
 
