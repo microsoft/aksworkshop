@@ -7,11 +7,12 @@ title: Security scanning with Codefresh
 
 As your application is growing and new libraries are being added, it is important to know of any security vulnerabilities before reaching production.
 
-You will create a Codefresh pipeline that will use the Aqua Security platform you setup in the previous section for security scanning.
+You will create a Codefresh pipeline that will use the Aqua Security platform you configured in the previous section for security scanning.
 
-[Codefresh](https://codefresh.io/features/) is CI/CD solution for containers and Kubernetes/Helm. We will use the CI part in this section. Codefresh offers free accounts in the cloud, which are fully functional and can be connected with any git repository and any Kubernetes cluster.
+[Codefresh](https://codefresh.io/features/) is a CI/CD solution for containers and Kubernetes/Helm. You will use the CI part in this section. Codefresh offers free accounts in the cloud, which are fully functional and can be connected with any Git repository and any Kubernetes cluster.
 
 Make sure that you have the following at hand:
+
 * Your Aqua account username
 * Your Aqua account password
 * The URL of your Aqua server installation
@@ -31,13 +32,15 @@ Make sure that you have the following at hand:
 You can create a free Codefresh account (free forever and fully functional) by signing up at [https://g.codefresh.io/signup](https://g.codefresh.io/signup). You can use any of the supported providers
 shown such as Azure or Github.
 
+![Codefresh signup](media/codefresh/codefresh-signup.png)
+
 You will be asked to confirm the permissions requests for your GIT provider. Codefresh does not commit
 anything in your GIT repositories (it only reads them to check out code) and the privileges needed are mostly
 for automatic triggers (i.e. starting a pipeline when a commit happens).
 
 You will also be asked to provide a username for your Codefresh account. Once that is done you will see the main Codefresh User Interface
 
-IMAGE HERE
+![Codefresh User Interface](media/codefresh/codefresh-ui.png)
 
 
 > **Hint**
@@ -56,6 +59,8 @@ In order for Codefresh to be able to scan images for vulnerabilities, it needs a
 
 In the Codefresh UI, select *Account Settings* on the left sidebar and then click on *Configure* next to [Docker Registry](https://g.codefresh.io/account-admin/account-conf/integration/registry).
 
+![Codefresh Integrations](media/codefresh/integrations.png)
+
 Click the *Add Registry* dropdown and then select *Other Registries*
 
 Fill in the details for the Aqua registry with the following information:
@@ -65,7 +70,7 @@ Fill in the details for the Aqua registry with the following information:
 * Password: Your Aqua password
 * Domain: `registry.aquasec.com`
 
-IMAGE HERE
+![Integrating Aqua Registry](media/codefresh/connect-aqua-registry.png)
 
 Click the *Test* button to make sure that your credentials are correct and finally the *Save* button to apply your changes.
 Codefresh is now connected to your Aqua Docker registry and can pull images from it.
@@ -87,9 +92,9 @@ Expand the *Environment variables* and add the following variables (you can also
 
 * `AQUA_URL` - the Aqua server from the previous section including port (http://example.com:80)
 * `AQUA_SCANNER_USER` - an Aqua user with scanner role
-* `AQUA_SCANNER_PASSWORD` - the password of the Aqua user with scanner role.
+* `AQUA_SCANNER_PASSWORD` - the password of the Aqua user with scanner role. (click the encrypt checkbox)
 
-IMAGE HERE
+![Aqua Variables](media/codefresh/aqua-variables.png)
 
 In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following into the editor (removing its previous contents):
 
@@ -108,7 +113,11 @@ steps:
       composition_candidates:
         scan_service:
           image: registry.aquasec.com/scanner:3.5
-          command: scan -H $AQUA_URL -U $AQUA_SCANNER_USER -P $AQUA_SCANNER_PASSWORD --local codefresh/cli
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --local codefresh/cli
+          environment:
+          - AQUA_URL=${{AQUA_URL}}
+          - AQUA_SCANNER_USER=${{AQUA_SCANNER_USER}}
+          - AQUA_SCANNER_PASSWORD=${{AQUA_SCANNER_PASSWORD}}
           depends_on:
             - targetimage
           volumes: # Volumes required to run DIND
@@ -124,16 +133,16 @@ In the example above we are scanning the [Codefresh CLI image](https://hub.docke
 * `azch/captureorder:latest`
 * `azch/frontend:latest`
 
-Click the *Save* button to apply your changes and then the *Build* button to start the scan.
+Click the *Save* button to apply your changes and then click the *Build* button to start the scan.
 
-IMAGE here
+![Codefresh pipelines](media/codefresh/pipeline.png)
 
-Wait for the scan to be finished. You can click on the pipeline step to see the log. Once done,
+Wait for the scan to finish. You can click on the pipeline step to see the log. Once done,
 go back to your Aqua Server instance, click on *Images*, then on *CI/CD* and take a look at the scan results.
 
-IMAGE here
+![Security result](media/codefresh/public-security-scan.png)
 
-For more information see the documentation on available [Codefresh steps](https://codefresh.io/docs/docs/codefresh-yaml/steps/).
+For more information see the documentation on available [Codefresh steps](https://codefresh.io/docs/docs/codefresh-yaml/steps/). You have now successfully used Codefresh to scan a Docker image on the Aqua security platform.
 
 
 
