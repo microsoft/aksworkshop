@@ -16,7 +16,7 @@ Availability monitoring using Azure Application Insights (<https://docs.microsof
 
 ### Throughput
 
-Ability to cope with periodic load tests, through the number of processed requests. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 6400 concurrent users to your application.
+Ability to cope with periodic load tests, through the maximum number of successful requests per second. These will be order submissions to `http://<your endpoint>:80/v1/order/`. We will be directing up to 6400 concurrent users to your application.
 
 Refer to the [scaling section for guidance on how to run the load test](#scaling).
 
