@@ -17,22 +17,18 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 {% collapsible %}
 
-Get the latest available Kubernetes version
-
-```sh
-az aks get-versions -l eastus -o table
-```
-
-Create a Resource Group
+Create a Resource Group for your AKS cluster
 
 ```sh
 az group create --name akschallenge --location eastus
 ```
 
-Create AKS using the latest version and enable the monitoring addon
+Create a new cluster using the and enable the monitoring addon
 
 ```sh
-az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version 1.12.4 --generate-ssh-keys --location eastus
+az aks create --resource-group akschallenge --name akschallenge \
+    --enable-addons monitoring \
+    --kubernetes-version 1.12.5 --generate-ssh-keys
 ```
 
 > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
