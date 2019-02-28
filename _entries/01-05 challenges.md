@@ -15,8 +15,4 @@ You are expected to at least complete the **Getting up and running** section. Th
 
 ### DevSecOps tasks
 
-Once you're done with the above, next would be to include some DevSecOps. **Complete as many tasks as you can**. You'll be setting up a Continuous Integration and Continuous Delivery pipeline for your application and then using Helm to deploy it. You will also see how you can scan your images for security issues.
-
-### Advanced cluster tasks
-
-If you're up to it, explore configuring the Azure Kubernetes Service cluster with Virtual Nodes, enabling MongoDB replication, using HashiCorp's Terraform to deploy AKS and your application and more.
+Once you're done with the above you will move on to some DevSecOps challenges. **Complete as many tasks as you can**. You'll be setting up a Continuous Integration and Continuous Delivery pipeline for your application and use Helm for deploys You will also see how you scan your images for security issues.
