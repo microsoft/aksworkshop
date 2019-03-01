@@ -67,7 +67,7 @@ Install MongoDB using Helm.
 
 {% collapsible %}
 
-After running `helm init` the server side process tiller will start in the background. Kubernetes will take a few moments to download the tiller image and launch the process.
+After running `helm init` tiller will start in the background. Kubernetes will take a few moments to download the tiller image and launch the process.
 
 When `helm version` returns without an error tiller is ready to install charts.
 
