@@ -52,7 +52,7 @@ az aks install-cli
 
 {% collapsible %}
 
-Authenticate to the cluster by downloading cluster credentials from AKS
+Authenticate with Azure and obtain a `kubeconfig` file with credentials to access the cluster
 
 ```sh
 az aks get-credentials --resource-group akschallenge --name akschallenge
