@@ -83,7 +83,7 @@ kubectl apply -f fed.yaml
 echo "\nDeploying frontend service"
 kubectl apply -f https://staging.aksworkshop.io/yaml-solutions/01.%20challenge-02/frontend-service.yaml
 
-echo "\nEnabling HTTP routing add-on"
+echo "\nEnabling HTTP routing addon"
 az aks enable-addons --resource-group $RGNAME --name $AKSNAME --addons http_application_routing
 
 echo "\Retrieving cluster DNS zone name"
