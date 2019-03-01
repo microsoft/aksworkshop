@@ -6,7 +6,7 @@ parent-id: upandrunning
 title: Deploy MongoDB
 ---
 
-Our applicaiton needs access to an instance of MongoDB for persistence. This section will walk you through installing MongoDB using Helm, a package manager for Kubenretes.
+Our application needs access to an instance of MongoDB for persistence. This section will walk you through installing MongoDB using Helm, a package manager for Kubenretes.
 
 > **Hints**
 > * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password and database.
