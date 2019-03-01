@@ -116,24 +116,24 @@ kind: Service
 metadata:
   name: captureorder
 spec:
+  type: LoadBalancer
   selector:
     app: captureorder
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
-  type: LoadBalancer
 ```
 
-And deploy it using
+Create the service with `kubectl`
 
 ```sh
 kubectl apply -f captureorder-service.yaml
 ```
 
-##### Retrieve the External-IP of the Service
+##### Retrieve the External IP of the Service
 
-Use the command below. Make sure to allow a couple of minutes for the Azure Load Balancer to assign a public IP.
+Kubernetes automatically requests Azure to create a load balancer and provision and attach a public IP address. This process can take a few minutes. Wait for the External-IP field to transition from `pending` to an IP address before continuing.
 
 ```sh
 kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
@@ -144,13 +144,15 @@ kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].i
 #### Ensure orders are successfully written to MongoDB
 
 {% collapsible %}
-Send a `POST` request using [Postman](https://www.getpostman.com/) or curl to the IP of the service you got from the previous command
+
+Send a `POST` request using curl to the capture order service IP
 
 ```sh
-curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://[Your Service Public LoadBalancer IP]/v1/order
+SERVICE_IP=$(kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://${SERVICE_IP}/v1/order
 ```
 
-You should get back the created order ID
+The capture order service returns an order ID
 
 ```json
 {
@@ -161,5 +163,6 @@ You should get back the created order ID
 {% endcollapsible %}
 
 > **Resources**
+>
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>

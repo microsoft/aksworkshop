@@ -5,7 +5,7 @@ title: Application Overview
 parent-id: intro
 ---
 
-You will be deploying a customer-facing order placement and fulfilment application that is containerised and is architected for a microservice implementation.
+You will be deploying a customer-facing order placement and fulfillment application that is based on a containerized, microservice architecture
 
 ![Application diagram](media/overview.png)
 

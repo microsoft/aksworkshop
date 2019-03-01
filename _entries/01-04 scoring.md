@@ -26,4 +26,4 @@ There will be a list of extra tasks, intermediate and advanced level. Each task,
 
 ### Team
 
-You should have been provided a team name. If not, come up with a unique name and make sure to set it in the enviornment variables to be able to properly track your progress.
+You should have been provided a team name. If not, come up with a unique name and make sure to set it in the environment variables to be able to properly track your progress.

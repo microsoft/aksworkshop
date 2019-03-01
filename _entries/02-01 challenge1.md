@@ -9,7 +9,7 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 **Deploy the latest Kubernetes version available in AKS**
 
-> **Hint** Enable Kubernetes Role-based access control (RBAC) which provides fine-grained control over cluster resources when creating the cluster because **you can't enable it post cluster creation**. RBAC enabled clusters by default have degraded Kubernetes Dashboard functionality. This is a good security practice because it avoids unintended privelage escalation.
+> **Hint** Enable Kubernetes Role-based access control (RBAC), which provides fine-grained control over cluster resources when creating the cluster because **you can't enable it post cluster creation**. RBAC enabled clusters by default have degraded Kubernetes Dashboard functionality. This is a good security practice because it avoids unintended privilege escalation.
 
 ### Tasks
 
@@ -17,27 +17,26 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 {% collapsible %}
 
-Get the latest available Kubernetes version
-
-```sh
-az aks get-versions -l eastus -o table
-```
-
-Create a Resource Group
+Create a Resource Group for your AKS cluster
 
 ```sh
 az group create --name akschallenge --location eastus
 ```
 
-Create AKS using the latest version and enable the monitoring addon
+Create a new cluster using the latest version and enable the monitoring and HTTP application routing addons
 
 ```sh
-az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version 1.12.4 --generate-ssh-keys --location eastus
+az aks create --resource-group akschallenge --name akschallenge \
+    --enable-addons monitoring,http_application_routing \
+    --kubernetes-version 1.12.5 --generate-ssh-keys
 ```
 
 > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
 > ```sh
-> az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version 1.12.4 --generate-ssh-keys --location eastus --service-principal APP_ID --client-secret "APP_SECRET"
+> az aks create --resource-group akschallenge --name akschallenge \
+>   --enable-addons monitoring,http_application_routing \
+>   --kubernetes-version 1.12.5 --generate-ssh-keys \
+>   --service-principal <APP_ID> --client-secret <APP_SECRET>
 > ```
 
 Install the Kubernetes CLI
@@ -54,13 +53,13 @@ az aks install-cli
 
 {% collapsible %}
 
-Authenticate
+Authenticate with Azure and obtain a `kubeconfig` file with credentials to access the cluster
 
 ```sh
-az aks get-credentials --resource-group akschallenge --name <unique-aks-cluster-name>
+az aks get-credentials --resource-group akschallenge --name akschallenge
 ```
 
-List the available nodes
+Check cluster connectivity by listing the nodes in your cluster
 
 ```sh
 kubectl get nodes
@@ -69,6 +68,7 @@ kubectl get nodes
 {% endcollapsible %}
 
 > **Resources**
+>
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough>
 > * <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create>
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal>

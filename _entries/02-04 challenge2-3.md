@@ -91,22 +91,14 @@ kubectl get pods -l app=frontend
 
 #### Expose the frontend on a hostname
 
-Instead of accessing the frontend through an IP address, you would like to expose the frontend over a hostname. Explore using [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) with [AKS HTTP Application Routing add-on](https://docs.microsoft.com/en-us/azure/aks/http-application-routing) to achieve this purpose.
+Instead of accessing the frontend through an IP address, expose the app using a DNS hostname. When we first created the AKS cluster we enabled the [HTTP Application Routing addon](https://docs.microsoft.com/en-us/azure/aks/http-application-routing).
 
-When you enable the add-on, this deploys two components:a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
+The application routing addon deploys two components to your cluster: a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
 
-* **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches and implements Kubernetes Ingress resources, which creates routes to application endpoints.
-* **External-DNS controller**: Watches for Kubernetes Ingress resources and creates DNS A records in the cluster-specific DNS zone using Azure DNS.
+* **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches for Ingress resources, which map external hostnames to internal application endpoints.
+* **External-DNS controller**: Watches for Ingress resources and creates DNS records using Azure DNS.
 
 {% collapsible %}
-
-##### Enable the HTTP routing add-on on your cluster
-
-```sh
-az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons http_application_routing
-```
-
-This will take a few minutes.
 
 ##### Service
 
@@ -120,13 +112,13 @@ kind: Service
 metadata:
   name: frontend
 spec:
+  type: ClusterIP
   selector:
     app: frontend
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
-  type: ClusterIP
 ```
 
 And deploy it using
@@ -137,7 +129,7 @@ kubectl apply -f frontend-service.yaml
 
 ##### Ingress
 
-The HTTP application routing add-on may only be triggered on Ingress resources that are annotated as follows:
+The HTTP application routing addon watches for Ingress resources that carry a special annotation:
 
 ```yaml
 annotations:
@@ -147,14 +139,13 @@ annotations:
 Retrieve your cluster specific DNS zone name by running the command below
 
 ```sh
-az aks show --resource-group akschallenge --name <unique-aks-cluster-name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+az aks show --resource-group akschallenge --name akschallenge \
+  --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv
 ```
 
-You should get back something like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
+The `show` command will return a cluster-specific hostname like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
 
-Create an Ingress resource that is annotated with the required annotation and make sure to replace `<CLUSTER_SPECIFIC_DNS_ZONE>` with the DNS zone name you retrieved from the previous command.
-
-Additionally, make sure that the `serviceName` and `servicePort` are pointing to the correct values as the Service you deployed previously.
+Next, create an Ingress resource that contains the application routing annotation and contains your cluster DNS zone.
 
 Save the YAML below as `frontend-ingress.yaml` or download it from [frontend-ingress.yaml](yaml-solutions/01. challenge-02/frontend-ingress.yaml)
 
@@ -216,5 +207,6 @@ If it doesn't work from the first trial, give it a few more minutes or try a dif
 ![Orders frontend](media/ordersfrontend.png)
 
 > **Resources**
+>
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>

@@ -6,26 +6,23 @@ parent-id: upandrunning
 title: Deploy MongoDB
 ---
 
-You need to deploy MongoDB in a way that is scalable and production ready. There are a couple of ways to do so.
+Our application needs access to an instance of MongoDB for persistence. This section will walk you through installing MongoDB using Helm, a package manager for Kubenretes.
 
 > **Hints**
 > * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password and database.
-> * **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those claims using `kubectl get pvc`.
+> * **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those volume claims using `kubectl get pvc`.
 
 ### Tasks
 
-#### Deploy an instance of MongoDB to your cluster. The application expects a database called `akschallenge`
+#### Deploy MongoDB to your cluster
 
-{% collapsible %}
 The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes application package manager and it has a [MongoDB Helm chart](https://github.com/helm/charts/tree/master/stable/mongodb#production-settings-and-horizontal-scaling) that is replicated and horizontally scalable.
 
-##### Install Helm on your developer machine
 
-Follow the instructions here <https://docs.helm.sh/using_helm/#from-the-binary-releases>
+#### Install Helm on the AKS cluster
+{% collapsible %}
 
-##### Initialize the Helm components on the AKS cluster (RBAC enabled AKS cluster, default behaviour of CLI, optional behavior from the Azure Portal)
-
-If the cluster is RBAC enabled, you have to create the appropriate `ServiceAccount` for Tiller (the server side Helm component) to use.
+Tiller, the server-side component with which Helm communicates, needs to use a `ServiceAccount` to authenticate to your AKS cluster. For this lab, the `ServiceAccount` will have full cluster access:
 
 Save the YAML below as `helm-rbac.yaml` or download it from [helm-rbac.yaml](yaml-solutions/01. challenge-02/helm-rbac.yaml)
 
@@ -50,30 +47,46 @@ subjects:
     namespace: kube-system
 ```
 
-And deploy it using
+And create the `ServiceAccount` and RBAC roles using `kubectl apply`
 
 ```sh
 kubectl apply -f helm-rbac.yaml
 ```
 
-Initialize Tiller (ommit the ``--service-account`` flag if your cluster is **not** RBAC enabled)
+Use `helm init` to install Tiller
 
 ```sh
 helm init --service-account tiller
 ```
 
-##### Install the MongoDB Helm chart
+{% endcollapsible %}
 
-After you Tiller initialized in the cluster, wait for a short while then install the MongoDB chart, **then take note of the username, password and endpoints created. The command below creates a user called `orders-user` and a password of `orders-password`**
+#### Install the MongoDB Helm chart
+
+Install MongoDB using Helm.
+
+{% collapsible %}
+
+After running `helm init` tiller will start in the background. Kubernetes will take a few moments to download the tiller image and launch the process.
+
+When `helm version` returns without an error tiller is ready to install charts.
+
+Install MongoDB in your cluster, using an upstream MongoDB chart. The following helm command creates a user called `orders-user` and a password of `orders-password`.
+
+Note that application expects a database named `akschallenge`.
+
 
 ```sh
-helm install stable/mongodb --name orders-mongo --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+helm install stable/mongodb --name orders-mongo \
+  --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+
 ```
 
 > **Hint**
-> * By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
+> * By default, MongoDB will be available within your cluster with the hostname `orders-mongo-mongodb.default.svc.cluster.local`
 
-You'll need to use the user created in the command above when configuring the deployment environment variables.
+Later, configure your application with the username and password used in the `helm install` command.
+
 {% endcollapsible %}
 
 > **Resources**
