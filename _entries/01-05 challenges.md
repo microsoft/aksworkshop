@@ -15,4 +15,4 @@ You are expected to at least complete the **Getting up and running** section. Th
 
 ### DevSecOps tasks
 
-Once you're done with the above you will move on to some DevSecOps challenges. **Complete as many tasks as you can**. You'll be setting up a Continuous Integration and Continuous Delivery pipeline for your application and use Helm for deploys You will also see how you scan your images for security issues.
+Once you're done with *getting up and running*, you will move on to some DevSecOps challenges. **Complete as many tasks as you can**. You'll set up a continuous integration and continuous delivery pipeline (CI/CD), for your application and use Helm for deploys You will also see to scan your images for security issues.
