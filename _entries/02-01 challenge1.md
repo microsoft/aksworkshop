@@ -23,7 +23,7 @@ Create a Resource Group for your AKS cluster
 az group create --name akschallenge --location eastus
 ```
 
-Create a new cluster using the and enable the monitoring addon
+Create a new cluster using the latest verision and enable the monitoring and HTTP application routing addons
 
 ```sh
 az aks create --resource-group akschallenge --name akschallenge \
