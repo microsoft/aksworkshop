@@ -163,5 +163,6 @@ The capture order service returns an order ID
 {% endcollapsible %}
 
 > **Resources**
+>
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>

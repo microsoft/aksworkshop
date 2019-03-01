@@ -23,7 +23,7 @@ Create a Resource Group for your AKS cluster
 az group create --name akschallenge --location eastus
 ```
 
-Create a new cluster using the latest verision and enable the monitoring and HTTP application routing addons
+Create a new cluster using the latest version and enable the monitoring and HTTP application routing addons
 
 ```sh
 az aks create --resource-group akschallenge --name akschallenge \
@@ -68,6 +68,7 @@ kubectl get nodes
 {% endcollapsible %}
 
 > **Resources**
+>
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough>
 > * <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create>
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal>

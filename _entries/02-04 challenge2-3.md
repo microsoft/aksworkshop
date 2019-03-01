@@ -207,5 +207,6 @@ If it doesn't work from the first trial, give it a few more minutes or try a dif
 ![Orders frontend](media/ordersfrontend.png)
 
 > **Resources**
+>
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>
