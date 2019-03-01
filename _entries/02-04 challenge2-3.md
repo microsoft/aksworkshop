@@ -139,10 +139,11 @@ annotations:
 Retrieve your cluster specific DNS zone name by running the command below
 
 ```sh
-az aks show --resource-group akschallenge --name akschallenge --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv
+az aks show --resource-group akschallenge --name akschallenge \
+  --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv
 ```
 
-The `az` command will return a cluster-specific hostname like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
+The `show` command will return a cluster-specific hostname like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
 
 Next, create an Ingress resource that contains the application routing annotation and contains your cluster DNS zone.
 
