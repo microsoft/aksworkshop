@@ -91,7 +91,7 @@ kubectl get pods -l app=frontend
 
 #### Expose the frontend on a hostname
 
-Instead of accessing the frontend through an IP address, expose the app via a DNS hostname. When we first created the AKS cluster we enabled the [HTTP Application Routing addon](https://docs.microsoft.com/en-us/azure/aks/http-application-routing).
+Instead of accessing the frontend through an IP address, expose the app using a DNS hostname. When we first created the AKS cluster we enabled the [HTTP Application Routing addon](https://docs.microsoft.com/en-us/azure/aks/http-application-routing).
 
 The application routing addon deploys two components to your cluster a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
 
