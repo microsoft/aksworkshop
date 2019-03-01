@@ -1,7 +1,7 @@
 export LOCATION=eastus
 export RGNAME=akschallenge
 export AKSNAME=akstest
-export K8SVERSION=1.12.4
+export K8SVERSION=1.12.5
 export EMAIL=asabbour@microsoft.com
 
 #echo "Logging in to Azure CLI"

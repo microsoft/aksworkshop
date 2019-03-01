@@ -33,8 +33,8 @@ az aks create --resource-group akschallenge --name akschallenge \
 
 > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
 > ```sh
-> az aks create --resource-group akschallenge --name <unique-aks-cluster-name> \
->   --enable-addons monitoring,http_application_routing --kubernetes-version 1.12.4 \
+> az aks create --resource-group akschallenge --name akschallenge \
+>   --enable-addons monitoring,http_application_routing --kubernetes-version 1.12.5 \
 >   --generate-ssh-keys --service-principal APP_ID --client-secret "APP_SECRET"
 > ```
 
