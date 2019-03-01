@@ -9,7 +9,7 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 **Deploy the latest Kubernetes version available in AKS**
 
-> **Hint** Enable Kubernetes Role-based access control (RBAC) which provides fine-grained control over cluster resources when creating the cluster because **you can't enable it post cluster creation**. RBAC enabled clusters by default have degraded Kubernetes Dashboard functionality. This is a good security practice because it avoids unintended privilege escalation.
+> **Hint** Enable Kubernetes Role-based access control (RBAC), which provides fine-grained control over cluster resources when creating the cluster because **you can't enable it post cluster creation**. RBAC enabled clusters by default have degraded Kubernetes Dashboard functionality. This is a good security practice because it avoids unintended privilege escalation.
 
 ### Tasks
 
