@@ -22,7 +22,7 @@ The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes
 #### Install Helm on the AKS cluster
 {% collapsible %}
 
-Tiller needs to use a `ServiceAccount` to authenticate to your AKS cluster. For this lab, the `ServiceAccount` will have full cluster access:
+Tiller, teh server-side component with which Helm communicates, needs to use a `ServiceAccount` to authenticate to your AKS cluster. For this lab, the `ServiceAccount` will have full cluster access:
 
 Save the YAML below as `helm-rbac.yaml` or download it from [helm-rbac.yaml](yaml-solutions/01. challenge-02/helm-rbac.yaml)
 
