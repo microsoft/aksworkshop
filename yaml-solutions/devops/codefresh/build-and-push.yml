@@ -1,0 +1,14 @@
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: azure-captureorder-api
+    working_directory: ./
+    dockerfile: Dockerfile
+  PushingDockerImage:
+    title: Pushing Docker Image to Azure
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: ${{CF_SHORT_REVISION}}
+    registry: myazureregistry

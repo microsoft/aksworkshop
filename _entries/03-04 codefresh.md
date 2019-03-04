@@ -65,7 +65,7 @@ Click the *Add Registry* dropdown and then select *Other Registries*.
 
 Fill in the details for the Aqua registry with the following information:
 
-* Registry name: `aquaregistry` (user defined)
+* Registry name: `aquaregistry` (user defined - lowercase)
 * Username: Your Aqua username
 * Password: Your Aqua password
 * Domain: `registry.aquasec.com`
