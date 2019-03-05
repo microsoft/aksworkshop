@@ -1,0 +1,29 @@
+version: '1.0'
+stages:
+- build
+- deploy
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    stage: build
+    type: build
+    image_name: captureorder
+    working_directory: ./
+    dockerfile: Dockerfile
+  PushingDockerImage:
+    title: Pushing Docker Image to Azure
+    stage: build
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: ${{CF_SHORT_REVISION}}
+    registry: myazureregistry
+  DeployMyChart:
+    image: 'codefresh/cfstep-helm:2.13.0'
+    title: Deploying Helm chart
+    environment:
+      - CHART_REF=captureorder
+      - RELEASE_NAME=captureorder-api
+      - KUBE_CONTEXT="<my-cluster-name>"
+      - VALUE_image_pullPolicy=Always
+      - VALUE_image_tag='${{CF_SHORT_REVISION}}'
+    
