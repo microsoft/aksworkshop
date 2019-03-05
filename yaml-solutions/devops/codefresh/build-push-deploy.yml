@@ -1,0 +1,34 @@
+version: '1.0'
+stages:
+- build
+- deploy
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    stage: build
+    type: build
+    image_name: captureorder
+    working_directory: ./
+    dockerfile: Dockerfile
+  PushingDockerImage:
+    title: Pushing Docker Image to Azure
+    stage: build
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: ${{CF_SHORT_REVISION}}
+    registry: myazureregistry
+  ReplaceDockerImage:
+    title: Setting correct docker image
+    stage: deploy
+    image: alpine
+    commands:
+     - sed -i "s/##BUILD_ID##/${CF_SHORT_REVISION}/g" captureorder-deployment.yaml
+  MyCustomKubectlCommands:
+    title: Running Kubectl
+    image: codefresh/kubectl
+    stage: deploy
+    commands: 
+      - kubectl config use-context <your-cluster-name-in-codefresh>
+      - kubectl apply -f  captureorder-deployment.yaml  
+      - kubectl apply -f  captureorder-hpa.yaml 
+      - kubectl apply -f  captureorder-service.yaml
