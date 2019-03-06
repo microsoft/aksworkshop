@@ -92,7 +92,7 @@ spec:
           - containerPort: 8080
 ```
 
-And deploy it using
+Deploy the capture order application using `kubectl apply`
 
 ```sh
 kubectl apply -f captureorder-deployment.yaml

@@ -121,7 +121,7 @@ spec:
     targetPort: 8080
 ```
 
-And deploy it using
+Deploy the frontend service using `kubectl apply`
 
 ```sh
 kubectl apply -f frontend-service.yaml
