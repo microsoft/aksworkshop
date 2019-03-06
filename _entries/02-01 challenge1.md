@@ -39,14 +39,6 @@ az aks create --resource-group akschallenge --name akschallenge \
 >   --service-principal <APP_ID> --client-secret <APP_SECRET>
 > ```
 
-Install the Kubernetes CLI
-
-```sh
-az aks install-cli
-```
-
-> **Note** If you're running this on the Azure Cloud Shell, you may receive a "Permission Denied" error as the Kubernetes CLI (`kubectl`) is already installed. If this is the case, just go to the next step.
-
 {% endcollapsible %}
 
 #### Ensure you and your colleagues can connect to the cluster using `kubectl`

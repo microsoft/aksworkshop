@@ -5,45 +5,18 @@ title: Prerequisites
 parent-id: intro
 ---
 
-### Tools
+### Access the Azure Portal
 
-If you're intending to run the tasks on your personal machine, you'll need to install the tools below:
-
-| Tool | URL     |
-|------|---------|
-| Azure CLI    | <https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest> |
-| Git    | <https://git-scm.com/downloads> |
-| Docker       | <https://docs.docker.com/install/#supported-platforms>        |
-
-> **Note** You can also opt to use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription. The Azure Cloud Shell has the Azure CLI pre-installed and configured to connect to your Azure subscription.
-
-### Azure subscription
-
-#### If you have an Azure subscription
-
-{% collapsible %}
-
-Please use your username and password to login to <https://portal.azure.com>.
-
-Also please authenticate your Azure CLI by running the command below on your machine and following the instructions.
-
-```sh
-az login
-```
-
-{% endcollapsible %}
-
-#### If you have been given an access to a subscription as part of a lab, or you already have a Service Principal you want to use
-
-{% collapsible %}
-If you have lab environment credentials similar to the below or you already have a Service Principal you will use with this workshop,
+Using the credentials provided by the lab environment screen, navigate to [Azure Portal](https://portal.azure.com) and authenticate with the provided username and password.
 
 ![Lab environment credentials](media/lab-env.png)
 
-Please then perform an `az login` on your machine using the command below, passing in the `Application Id`, the `Application Secret Key` and the `Tenant Id`.
+### Launch Cloud Shell
 
-```sh
-az login --service-principal --username APP_ID --password "APP_SECRET" --tenant TENANT_ID
-```
+[Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/) is a browser-based CLI tool integrated directly into the Azure portal. Cloud shell provides all of the tools you need to manage your Azure resources in a pre-configured, on-demand virtual machine.
 
-{% endcollapsible %}
+You may launch Cloud Shell from the Azure Portal or open a new browser window and navigate to [Azure Cloud Shell https://shell.azure.com](https://shell.azure.com).
+
+![Launch Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/media/overview/overview-bash-pic.png)
+
+The first time you launch Cloud Shell you will be prompted to create a resource group, storage account, and Azure Files share. This is a one-time step and will be automatically attached for all sessions. A single file share can be used by both Bash and PowerShell in Cloud Shell.
