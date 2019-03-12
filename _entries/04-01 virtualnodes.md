@@ -95,7 +95,7 @@ az aks create \
     --resource-group akschallenge \
     --name <unique-aks-cluster-name> \
     --node-count 3 \
-    --kubernetes-version 1.11.5 \
+    --kubernetes-version 1.12.6 \
     --network-plugin azure \
     --service-cidr 10.0.0.0/16 \
     --dns-service-ip 10.0.0.10 \
