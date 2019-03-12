@@ -95,7 +95,7 @@ az aks create \
     --resource-group akschallenge \
     --name <unique-aks-cluster-name> \
     --node-count 3 \
-    --kubernetes-version 1.11.5 \
+    --kubernetes-version 1.12.6 \
     --network-plugin azure \
     --service-cidr 10.0.0.0/16 \
     --dns-service-ip 10.0.0.10 \
@@ -207,7 +207,7 @@ Repeat the steps in the [Deploy Order Capture API](#api) to deploy the API on yo
 
 {% collapsible %}
 
-Save the YAML below as `captureorder-deployment-aci.yaml` or download it from [captureorder-deployment-aci.yaml](yaml-solutions/01. challenge-02/captureorder-deployment.yaml)
+Save the YAML below as `captureorder-deployment-aci.yaml` or download it from [captureorder-deployment-aci.yaml](yaml-solutions/advanced/captureorder-deployment-aci.yaml)
 
 Be sure to replace to environment variables in the yaml to match your environment:
 * TEAMNAME
