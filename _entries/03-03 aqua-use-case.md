@@ -1,18 +1,18 @@
 ---
-sectionid: aqua
+sectionid: aqua-usage
 sectionclass: h2
 parent-id: devops
 title: Using Aqua Security Platform
 ---
 
-We are now run through the following use cases with Aqua. 
+We are now run through the following use cases with Aqua.
 
     Image Assurance
         - Manually add image
         - Connect to your ACR
         - Scan an Image from your ACR
         - Create and edit Image Assurance Policy
-    Runtime Proctection
+    Runtime Protection
         - Block Unregistered Images
         - Block certain executable from running
         - Prevent Drift from happening
@@ -53,7 +53,7 @@ We will now add an image from the public docker hub registry.
 This is what it should look like: 
 ![Aqua Output](media/aqua/aqua-add-centos.png)
 
-This will start the scan of the latest centos image from Docker Hub.   It will not take long to scane the image.  Once finished scanning, feel free to view the results, and see how many vulnerbilies were detected by Aqua. 
+This will start the scan of the latest centos image from Docker Hub.   It will not take long to scan the image.  Once finished scanning, feel free to view the results, and see how many vulnerabilities were detected by Aqua.
 
 ![Aqua Output](media/aqua/aqua-result-centos.png)
 
@@ -80,7 +80,7 @@ This will start a scan of that image from your ACR.  Once finished scanning, you
 
 
 #### Create a Image Assurance Policy
-Whenever Aqua scans an image, it checks the image against the Image Assurance policy.  Currently we don't have a Policy so everything scanned will be in the approved state, even if it contains a vulnerbility.
+Whenever Aqua scans an image, it checks the image against the Image Assurance policy.  Currently we don't have a Policy so everything scanned will be in the approved state, even if it contains a vulnerability.
 
 Let's create a Policy now. 
 
@@ -90,10 +90,10 @@ Let's create a Policy now.
     
 We can add any Available Image Assurance Control from the right side, by clicking on the "+" icon next to the control we want.
 
-For this session, we will just add the "Vulnerbility Severity" control . 
+For this session, we will just add the "Vulnerability Severity" control .
 Once added, select the severity level "High" , and then click "Save Changes"
 
-This policy will mark any image as "Non-compliant" if it contains at least one high severity vulnerbility.
+This policy will mark any image as "Non-compliant" if it contains at least one high severity vulnerability.
 
 Click on the Images section now, and you open up the centos image we scanned.  Notice how it's marked as Non-compliant. Before it was marked as Approved. 
 
@@ -128,7 +128,7 @@ Save changes.
 
 Now this policy will Block any unregistered images, any non-compliant images, and block black listed executable and prevent drift.   To demo this, we will need to return to the Azure cloud shell. 
 
-From your Azure cloud shell, we are going to deploy a few applicaitons 
+From your Azure cloud shell, we are going to deploy a few applications
 
 Type the following command to run an nginx container
 
@@ -136,7 +136,7 @@ Type the following command to run an nginx container
 kubectl create deployment nginx --image=nginx
 ```
 
-This will try to deploy the nginx application, but Aqua will block it. 
+This will try to deploy the nginx application, but Aqua will block it.
 
 Type in:
 ```sh
@@ -169,19 +169,21 @@ kubectl create deployment nginx --image=nginx
 ```
 
 #### Block certain executable from running
+
 In our Default Runtime policy we had blocked date from running.  If we exec into the pod, we should not be able to execute the date command. 
 
-Run the following command, but replace <PODNAME> with the name of the nginx pod. 
+Run the following command, but replace <PODNAME> with the name of the nginx pod.
 ```sh
-kubectl exec -it <PODNAME> bash 
+kubectl exec -it <PODNAME> bash
 ```
-This will put us in the nginx pod.   Try to run the date command.  You will get permission deined.  This is because aqua is blocking that executable from running. 
+
+This will put us in the nginx pod.   Try to run the date command.  You will get permission denied.  This is because aqua is blocking that executable from running.
 
 #### Drift Protection
 
 Aqua’s image drift prevention ensures that containers remain immutable and do not deviate from their originating image, further limiting the potential of abuse. 
 
-To simulate a dirft, we will copy an allowed executable ,like ls, to another name sl .  
+To simulate a drift, we will copy an allowed executable, like `ls`, to another name `sl`.
 
 ```sh 
     cp /bin/ls /bin/sl
@@ -190,5 +192,4 @@ To simulate a dirft, we will copy an allowed executable ,like ls, to another nam
 When we try to run the sl command, Aqua will be blocking it, as sl was not in the original image, so you will get a "Permission Denied" error.
 
 
-There is a lot more that can be done with Aqua which we haven't touch upon due to the limited time.   Other controls are: Network Nano Segmentation, Secrets Managent, and Compliance report.
-
+There is a lot more that can be done with Aqua which we haven't touch upon due to the limited time.   Other controls are: Network Nano Segmentation, Secrets Management, and Compliance report.
