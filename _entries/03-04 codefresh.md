@@ -338,20 +338,6 @@ steps:
       - 'AQUA_USERNAME=${{AQUA_USERNAME}}'
       - IMAGE=codefresh/my-private-image
       - TAG=latest
-    on_success:
-      metadata:
-        set:
-          -
-            '${{BuildingDockerImage.imageId}}':
-              -
-                SECURITY_SCAN: true
-    on_fail:
-      metadata:
-        set:
-          -
-            '${{BuildingDockerImage.imageId}}':
-              -
-                SECURITY_SCAN: false
 
 {% endraw %}            
 ```
