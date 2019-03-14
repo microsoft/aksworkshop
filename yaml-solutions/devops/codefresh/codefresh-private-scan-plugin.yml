@@ -23,7 +23,7 @@ steps:
     image: codefresh/cfstep-aqua
     stage: scan
     environment:
-      - AQUA_URL=${{AQUA_URL}}
+      - AQUA_HOST=${{AQUA_HOST}}
       - AQUA_PASSWORD=${{AQUA_PASSWORD}}
       - AQUA_USERNAME=${{AQUA_USERNAME}}
       - REGISTRY=Codefresh #Name of Codefresh registry as defined in AQUA

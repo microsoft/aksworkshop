@@ -299,7 +299,7 @@ Name the pipeline *aqua-scan-private-image-plugin* or something similar.
 
 Expand the *Environment variables* and add the following variables (you can also delete the `PORT` one as it is not needed):
 
-* `AQUA_URL` - the Aqua server from the previous section including port (`http://example.com:80`)
+* `AQUA_HOST` - the Aqua server from the previous section including port (`http://example.com:80`)
 * `AQUA_USERNAME` - Your Aqua Username
 * `AQUA_PASSWORD` - Your Aqua password
 
@@ -333,7 +333,7 @@ steps:
     image: codefresh/cfstep-aqua
     stage: scan
     environment:
-      - AQUA_URL=${{AQUA_URL}}
+      - AQUA_HOST=${{AQUA_HOST}}
       - AQUA_PASSWORD=${{AQUA_PASSWORD}}
       - AQUA_USERNAME=${{AQUA_USERNAME}}
       - REGISTRY=Codefresh # Name of Codefresh registry as defined in AQUA
