@@ -75,11 +75,17 @@ Install MongoDB in your cluster, using an upstream MongoDB chart. The following 
 
 Note that application expects a database named `akschallenge`.
 
+```
+To reset mongodb run:
+	helm delete --purge orders-mongo
+```
+
+
 
 ```sh
-helm install stable/mongodb --name orders-mongo \
-  --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 
+helm install stable/mongodb --name orders-mongo \
+  --set persistence.enabled=false,mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 ```
 
 > **Hint**
