@@ -254,7 +254,7 @@ steps:
       composition_candidates:
         scan_service:
           image: registry.aquasec.com/scanner:3.5
-          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" kostis-codefresh/my-private-image:latest
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" ${{CF_ACCOUNT}}/my-private-image:latest
           depends_on:
             - targetimage
           volumes: # Volumes required to run DIND
@@ -268,7 +268,6 @@ steps:
 {% endraw %}            
 ```
 
-Replace the `kostis-codefresh` string with the name of your own Codefresh account.
 
 In the example above we are building a Dockerfile and then scanning it with Aqua. We are also
 using the custom [Codefresh meta-data](https://codefresh.io/docs/docs/docker-registries/metadata-annotations/) to mark the image with a boolean variable that shows it is scanned.
@@ -290,6 +289,61 @@ You can also see the Docker image in the Codefresh registry if you click on *Ima
 Clicking on the image will also show you that it is marked as scanned.
 
 ![Image metadata](media/codefresh/image-metadata.png)
+
+#### Using the Aqua Codefresh plugin
+
+An alternative way to scan images, it to instruct the Aqua server itself to scan the image (instead of scanning in the Codefresh pipeline) using the [Codefresh-Aqua plugin](https://hub.docker.com/r/codefresh/cfstep-aqua/tags).
+
+From the left sidebar in Codefresh click on *Pipelines*. Then click the *Add pipeline* button on the top right.
+Name the pipeline *aqua-scan-private-image-plugin* or something similar. 
+
+Expand the *Environment variables* and add the following variables (you can also delete the `PORT` one as it is not needed):
+
+* `AQUA_URL` - the Aqua server from the previous section including port (`http://example.com:80`)
+* `AQUA_USERNAME` - Your Aqua Username
+* `AQUA_PASSWORD` - Your Aqua password
+
+
+In the *Workflow* section make sure that the first option is selected - *Inline YAML* and paste the following [codefresh.yml](yaml-solutions/devops/codefresh/codefresh-private-scan-plugin.yml) into the editor (removing its previous contents):
+
+```yaml
+{% raw %}
+version: '1.0'
+stages:
+- checkout
+- build
+- scan
+steps:
+  main_clone:
+    image: alpine/git:latest
+    stage: checkout
+    commands:
+      - rm -rf python-flask-sample-app
+      - git clone https://github.com/codefresh-contrib/python-flask-sample-app.git
+  BuildDockerImage:
+    title: Building Docker Image
+    type: build
+    stage: build
+    image_name: my-private-image
+    tag: latest
+    working_directory: ${{main_clone}}/python-flask-sample-app
+    dockerfile: Dockerfile    
+  AquaSecurityScan:
+    title: Aqua Private scan
+    image: codefresh/cfstep-aqua
+    stage: scan
+    environment:
+      - AQUA_URL=${{AQUA_URL}}
+      - AQUA_PASSWORD=${{AQUA_PASSWORD}}
+      - AQUA_USERNAME=${{AQUA_USERNAME}}
+      - REGISTRY=Codefresh # Name of Codefresh registry as defined in AQUA
+      - IMAGE=my-private-image # Replace with your Docker image name
+      - TAG=latest       
+{% endraw %}            
+```
+
+Save and run the pipeline to get your security results.
+
 
 
 This concludes the scanning tasks. You have successfully used the Codefresh CI/CD platform to scan Docker images with the Aqua Security solution.

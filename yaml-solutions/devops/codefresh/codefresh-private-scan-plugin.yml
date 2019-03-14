@@ -1,0 +1,31 @@
+version: '1.0'
+stages:
+- checkout
+- build
+- scan
+steps:
+  main_clone:
+    image: alpine/git:latest
+    stage: checkout
+    commands:
+      - rm -rf python-flask-sample-app
+      - git clone https://github.com/codefresh-contrib/python-flask-sample-app.git
+  BuildDockerImage:
+    title: Building Docker Image
+    type: build
+    stage: build
+    image_name: my-private-image
+    tag: latest
+    working_directory: ${{main_clone}}/python-flask-sample-app
+    dockerfile: Dockerfile    
+  AquaSecurityScan:
+    title: Aqua Private scan
+    image: codefresh/cfstep-aqua
+    stage: scan
+    environment:
+      - AQUA_URL=${{AQUA_URL}}
+      - AQUA_PASSWORD=${{AQUA_PASSWORD}}
+      - AQUA_USERNAME=${{AQUA_USERNAME}}
+      - REGISTRY=Codefresh #Name of Codefresh registry as defined in AQUA
+      - IMAGE=my-private-image # Replace with your Docker image name
+      - TAG=latest

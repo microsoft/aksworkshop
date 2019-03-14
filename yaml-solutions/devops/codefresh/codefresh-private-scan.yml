@@ -31,7 +31,7 @@ steps:
       composition_candidates:
         scan_service:
           image: registry.aquasec.com/scanner:3.5
-          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" kostis-codefresh/my-private-image:latest
+          command: scan -H ${{AQUA_URL}} -U ${{AQUA_SCANNER_USER}} -P ${{AQUA_SCANNER_PASSWORD}} --registry "Codefresh" ${{CF_ACCOUNT}}/my-private-image:latest
           depends_on:
             - targetimage
           volumes: # Volumes required to run DIND
