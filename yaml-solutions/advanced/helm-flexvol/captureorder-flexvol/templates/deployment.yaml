@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "captureorder.fullname" . }}
+  labels:
+    app: {{ include "captureorder.name" . }}
+    chart: {{ include "captureorder.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+      matchLabels:
+        app: captureorder
+  template:
+      metadata:
+        labels:
+          app: {{ include "captureorder.name" . }}
+          release: {{ .Release.Name }}
+      spec:
+        containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /healthz
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /healthz
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          env:
+          - name: TEAMNAME
+            value: {{ .Values.teamName }}
+          - name: MONGOHOST
+            value: {{ .Values.mongoHost }}
+          - name: MONGOUSER
+            value: {{ .Values.mongoUser }}
+          - name: MONGOPASSWORD
+            value: {{ .Values.mongoPassword }}
+          ports:
+          - containerPort: 80
+          volumeMounts:
+          - name: mongosecret
+            mountPath: /kvmnt
+            readOnly: true
+        volumes:
+        - name: mongosecret
+          flexVolume:
+            driver: "azure/kv"
+            secretRef:
+              name: kvcreds
+            options: 
+              usepodidentity: "false"
+              keyvaultname: {{ .Values.flexVol.keyVaultName }}
+              keyvaultobjectnames: {{ .Values.flexVol.keyVaultSecretName }}  # list of KeyVault object names (semi-colon separated)
+              keyvaultobjecttypes: secret  # list of KeyVault object types: secret, key or cert (semi-colon separated)
+              keyvaultobjectversions: ""     # [OPTIONAL] list of KeyVault object versions (semi-colon separated), will get latest if empty
+              resourcegroup: {{ .Values.flexVol.keyVaultResourceGroup }}              # the resource group of the KeyVault
+              subscriptionid: {{ .Values.flexVol.subscriptionId }}             # the subscription ID of the KeyVault
+              tenantid: {{ .Values.flexVol.tenantId }} 
