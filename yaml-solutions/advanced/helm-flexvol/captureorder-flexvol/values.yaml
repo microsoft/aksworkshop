@@ -1,0 +1,31 @@
+minReplicaCount: 1
+maxReplicaCount: 15
+targetCPUUtilizationPercentage: 50
+teamName: azch-team
+mongoHost: "orders-mongo-mongodb.default.svc.cluster.local"
+mongoUser: "orders-user"
+mongoPassword: ""
+
+image:
+  repository: njeacr.azurecr.io/captureorder
+  tag: # Will be set at command runtime
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+flexVol:
+  keyVaultName: # Will be set at command runtime; Name of keyvault containing mongo password secret
+  keyVaultSecretName: # Will be set at command runtime; Name of secret container mongo password
+  keyVaultResourceGroup: # Will be set at command runtime; Name of resource group containing keyvault
+  subscriptionId: # Will be set at command runtime; target subscription id 
+  tenantId: # Will be set at command runtime; tenant ID of subscription 

@@ -17,4 +17,5 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor marrobi %}
 {% githubauthor sabbour %}
 {% githubauthor shanepeckham %}
+{% githubauthor knee-berts %}
 </div>
