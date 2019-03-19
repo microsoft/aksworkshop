@@ -25,7 +25,7 @@ Find the Key Vault FlexVolume project here  https://github.com/Azure/kubernetes-
 {% collapsible %}
 
 ```bash
-az keyvault creat -n kv-aks-challenge -g <resource-group>
+az keyvault create -n kv-aks-challenge -g <resource-group>
 az keyvault secret set --vault-name kv-aks-challenge --name mongo-password --value "orders-password"
 ```
 
