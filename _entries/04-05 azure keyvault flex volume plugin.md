@@ -12,11 +12,11 @@ So now you are probally asking yourself "why would I need and external Key Vault
 It is likely that your security team has tighter requirements on a key vault that Kubernetes secrets don't quite meet yet. Perhaps they want an audit trail of all interactions with the Keys, or version control, or FIPs compliance. If you find yourself answering these types of questions, it is likely that you need to use an external Key Vault. There are lots of great 3rd party Key Vaults to choose from, Hashicorp's Vault seems to be leading charge with features and user adoption rates. The downside of running Hashicorp's Vault, and there are not many, is that you take on the responsibility of managing the infrastructure required to run Vault. Azure Key Vault provides a PaaS Vault service with many of the same features as Hashicorps's Vault while removing the overhead of managing Infrastructure. 
 
 This Challenge is focused on configuring the capture order application running in AKS to load your mongoDB password from a secret stored in Azure Key Vault. There are a few ways this can be achieved. First, you could use the Azure Key Vault <"Insert programming language"> SDK in the application code to load secrets at app runtime. Great option, but in this lab we are trying to keep application modification to a minimum. Second, you can use the Kubernetes FlexVolume plugin for Azure, more on that in a bit. And lastly, a Kubernetes Container Storage Interface (CSI) for Azure Key Vault was built by the Azure Container Upstream SDEs. However, CSI is a Kubernetes Alpha feature and the Azure Key Vault implementation requires a version of Kubernetes not yet available to AKS, >1.13. If you are interested in the differences between FlexVolumes and CSIs, give this article a read.
-https://kubernetes.io/blog/2018/01/introducing-container-storage-interface/
+<https://kubernetes.io/blog/2018/01/introducing-container-storage-interface/>
 
 The second option earlier mentioned, offers us a stable solution which requires minimal changes to you application to leverage. In fact, if your app can already load configurations from a file, it requires zero changes. Key Vault FlexVolume for Azure allows you to mount multiple secrets, keys, and certs stored in Key Management Systems into pods as an in memory volume. Once the Volume is attached, the data in it is mounted into the container's file system in tmpfs.
 
-Find the Key Vault FlexVolume project here  https://github.com/Azure/kubernetes-keyvault-flexvol
+Find the Key Vault FlexVolume project here  <https://github.com/Azure/kubernetes-keyvault-flexvol>
 
 ### Tasks
 
