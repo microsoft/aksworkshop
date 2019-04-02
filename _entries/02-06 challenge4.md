@@ -128,7 +128,7 @@ az container create -g akschallenge -n loadtest --image azch/loadtest --restart-
 Observe your Kubernetes cluster reacting to the load by running
 
 ```sh
-kubectl get pods -l  app=frontend
+kubectl get pods -l  app=captureorder
 ```
 
 <video width="100%" controls>
