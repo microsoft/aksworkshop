@@ -9,6 +9,7 @@ The following people have contributed to this workshop, thanks!
 
 <div class="github-contributors">
 {% githubauthor chzbrgr71 %}
+{% githubauthor cloudmelon %}
 {% githubauthor evillgenius75 %}
 {% githubauthor jldeen %}
 {% githubauthor jschluchter %}
@@ -18,5 +19,6 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor sabbour %}
 {% githubauthor shanepeckham %}
 {% githubauthor knee-berts %}
-{% githubauthor cloudmelon %}
+{% githubauthor waltermyersiii %}
+
 </div>
