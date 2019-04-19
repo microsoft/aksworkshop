@@ -138,21 +138,31 @@ Your browser does not support the video tag.
 
 {% endcollapsible %}
 
-#### Check if your cluster nodes needs to scale/auto-scale
+#### Check if your cluster nodes needs to scale/autoscale
 
 {% collapsible %}
 
-Scale the cluster nodes using the command below to the required number of nodes
+If your AKS cluster is not configured with the cluster autoscaler, scale the cluster nodes using the command below to the required number of nodes
 
 ```sh
 az aks scale --resource-group akschallenge --name <unique-aks-cluster-name> --node-count 4
 ```
 
-You can also optionally configure the AKS cluster-autoscaler <https://docs.microsoft.com/en-us/azure/aks/autoscaler>.
+Otherwise, if you configured your AKS cluster with cluster autoscaler, you should see it dynamically adding and removing nodes based on the cluster utilization. To change the node count, use the `az aks update` command and specify a minimum and maximum value. The following example sets the `--min-count` to *1* and the `--max-count` to *5*:
+
+```sh
+az aks update \
+  --resource-group akschallenge \
+  --name <unique-aks-cluster-name> \
+  --update-cluster-autoscaler \
+  --min-count 1 \
+  --max-count 5
+```
+
+> **Note** During preview, you can't set a higher minimum node count than is currently set for the cluster. For example, if you currently have min count set to *1*, you can't update the min count to *3*.
 
 {% endcollapsible %}
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale>
 > * <https://docs.microsoft.com/en-us/azure/aks/autoscaler>
-> * <https://docs.microsoft.com/en-gb/vsts/load-test/get-started-simple-cloud-load-test>

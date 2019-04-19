@@ -7,45 +7,129 @@ parent-id: upandrunning
 
 Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
-> **Hint** Enable Kubernetes Role-based access control (RBAC) which provides fine-grained control over cluster resources when creating the cluster because **you can't enable it post cluster creation**. RBAC enabled clusters by default have degraded Kubernetes Dashboard functionality. This is a good security practice because it avoids unintended privilege escalation.
-
 ### Tasks
 
-#### Deploy Kubernetes to Azure, using CLI or Azure portal using the latest Kubernetes version available in AKS
+#### Get the latest Kubernetes version available in AKS
 
 {% collapsible %}
 
-Get the latest available Kubernetes version
+Get the latest available Kubernetes version in your preferred region into a bash variable
 
 ```sh
-region=<targeted AKS region>
-kubernetesversion=$(az aks get-versions -l ${region} --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
 ```
-
-Create a Resource Group
-
-```sh
-az group create --name akschallenge --location $region
-```
-
-Create AKS using the latest version and enable the monitoring addon
-
-```sh
-az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version $kubernetesversion --generate-ssh-keys --location $region
-```
-
-> **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
-> ```sh
-> az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version $kubernetesversion --generate-ssh-keys --location $region --service-principal APP_ID --client-secret "APP_SECRET"
-> ```
-
-> **Note** `kubectl`, the Kubernetes CLI, is already installed on the Azure Cloud Shell.
 
 {% endcollapsible %}
 
-#### Ensure you and your colleagues can connect to the cluster using `kubectl`
+#### Create a Resource Group
 
 {% collapsible %}
+
+```sh
+az group create --name akschallenge --location <region>
+```
+
+{% endcollapsible %}
+
+####  Now you need to create the AKS cluster
+
+> **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler). However, please note that the AKS cluster autoscaler is a preview feature, and enabling it is a more involved process. AKS preview features are self-service and opt-in. Previews are provided to gather feedback and bugs from our community. However, they are not supported by Azure technical support. If you create a cluster, or add these features to existing clusters, that cluster is unsupported until the feature is no longer in preview and graduates to general availability (GA).
+
+##### **Option 1:** Create an AKS cluster without the cluster autoscaler
+
+  {% collapsible %}
+
+  Create AKS using the latest version and enable the monitoring addon
+
+  ```sh
+  az aks create --resource-group akschallenge \
+    --name <unique-aks-cluster-name> \
+    --location <region> \
+    --enable-addons monitoring \
+    --kubernetes-version $version \
+    --generate-ssh-keys
+  ```
+
+  > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
+  > ```sh
+  > az aks create --resource-group akschallenge \
+  >   --name <unique-aks-cluster-name> \
+  >   --location <region> \
+  >   --enable-addons monitoring \
+  >   --kubernetes-version $version \
+  >   --generate-ssh-keys \
+  >   --service-principal <application ID> \
+  >   --client-secret "<application secret key>"
+  > ```
+
+  {% endcollapsible %}
+
+##### **Option 2 (*Preview*):** Create an AKS cluster with the cluster autoscaler
+
+  {% collapsible %}
+ 
+  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. This scale set support is in preview. To opt in and create clusters that use scale sets, first install the *aks-preview* Azure CLI extension using the `az extension add` command, as shown in the following example:
+
+  ```sh
+  az extension add --name aks-preview
+  ```
+
+  To create an AKS cluster that uses scale sets, you must also enable a feature flag on your subscription. To register the *VMSSPreview* feature flag, use the `az feature register` command as shown in the following example:
+
+  ```sh
+  az feature register --name VMSSPreview --namespace Microsoft.ContainerService
+  ```
+
+  It takes a few minutes for the status to show *Registered*. You can check on the registration status using the `az feature list` command:
+
+  ```sh
+  az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
+  ```
+
+  When ready, refresh the registration of the *Microsoft.ContainerService* resource provider using the `az provider register` command:
+
+  ```sh
+  az provider register --namespace Microsoft.ContainerService
+  ```
+
+  Use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
+
+  > **Note** During preview, you can't set a higher minimum node count than is currently set for the cluster. For example, if you currently have min count set to *1*, you can't update the min count to *3*.
+
+   ```sh
+  az aks create --resource-group akschallenge \
+    --name <unique-aks-cluster-name> \
+    --location <region> \
+    --enable-addons monitoring \
+    --kubernetes-version $version \
+    --generate-ssh-keys
+    --enable-cluster-autoscaler
+    --min-count 1
+    --max-count 3
+  ```
+
+  > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
+  > ```sh
+  > az aks create --resource-group akschallenge \
+  >   --name <unique-aks-cluster-name> \
+  >   --location <region> \
+  >   --enable-addons monitoring \
+  >   --kubernetes-version $version \
+  >   --generate-ssh-keys \
+  >   --enable-cluster-autoscaler
+  >   --min-count 1
+  >   --max-count 3
+  >   --service-principal <application ID> \
+  >   --client-secret "<application secret key>"
+  > ```
+
+  {% endcollapsible %}
+
+#### Ensure you can connect to the cluster using `kubectl`
+
+{% collapsible %}
+
+> **Note** `kubectl`, the Kubernetes CLI, is already installed on the Azure Cloud Shell.
 
 Authenticate
 
