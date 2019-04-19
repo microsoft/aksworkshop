@@ -1,7 +1,9 @@
 NS ?= azch
 IMAGE_NAME ?= site
 VERSION ?= latest
-PORTS = -p 8080:80
+LOCALPORT = 8080
+CONTAINERPORT = 80
+PORTS = -p $(LOCALPORT):$(CONTAINERPORT)
 
 .PHONY: build run
 
@@ -12,4 +14,6 @@ run:
 	docker run --rm $(PORTS) $(NS)/$(IMAGE_NAME):$(VERSION)
 
 build-run:
-	docker build -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile . && docker run --rm $(PORTS) $(NS)/$(IMAGE_NAME):$(VERSION)
+	docker build -t $(NS)/$(IMAGE_NAME):$(VERSION) -f Dockerfile .
+	echo http://localhost:$(LOCALPORT)
+	docker run --rm $(PORTS) $(NS)/$(IMAGE_NAME):$(VERSION)
