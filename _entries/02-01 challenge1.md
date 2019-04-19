@@ -11,39 +11,38 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 ### Tasks
 
-#### Deploy Kubernetes to Azure, using CLI or Azure portal using the latest Kubernetes version available in AKS
+#### Deploy Kubernetes to Azure, using latest Kubernetes version available in AKS
 
 {% collapsible %}
 
-Get the latest available Kubernetes version
+Get the latest available Kubernetes version in your preferred region into a bash variable
 
 ```sh
-region=<targeted AKS region>
-kubernetesversion=$(az aks get-versions -l ${region} --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
 ```
 
 Create a Resource Group
 
 ```sh
-az group create --name akschallenge --location $region
+az group create --name akschallenge --location <region>
 ```
 
 Create AKS using the latest version and enable the monitoring addon
 
 ```sh
-az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version $kubernetesversion --generate-ssh-keys --location $region
+az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --location <region> --enable-addons monitoring --kubernetes-version $version --generate-ssh-keys
 ```
 
 > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
 > ```sh
-> az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --enable-addons monitoring --kubernetes-version $kubernetesversion --generate-ssh-keys --location $region --service-principal APP_ID --client-secret "APP_SECRET"
+> az aks create --resource-group akschallenge --name <unique-aks-cluster-name> --location <region> --enable-addons monitoring --kubernetes-version $version --generate-ssh-keys --service-principal <application ID> --client-secret "<application secret key>"
 > ```
 
 > **Note** `kubectl`, the Kubernetes CLI, is already installed on the Azure Cloud Shell.
 
 {% endcollapsible %}
 
-#### Ensure you and your colleagues can connect to the cluster using `kubectl`
+#### Ensure you can connect to the cluster using `kubectl`
 
 {% collapsible %}
 
