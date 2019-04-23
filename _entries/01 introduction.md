@@ -14,4 +14,4 @@ Some of the things you’ll be going through:
 - Deploying MongoDB using Helm
 - Azure Monitor for Containers, Horizontal Pod Autoscaler and the Cluster Autoscaler
 - Building CI/CD pipelines using Azure DevOps and Azure Container Registry
-- Scaling using Virtual Nodes, setting up SSL/TLS for your deployments
+- Scaling using Virtual Nodes, setting up SSL/TLS for your deployments, using Azure Key Vault for secrets
