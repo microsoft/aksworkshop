@@ -54,12 +54,14 @@ az ad sp create-for-rbac --skip-assignment
 
 Output will look similar to below. You will use the `appID` and `password` in the next step.
 
-```bash
-"appId": "7248f250-0000-0000-0000-dbdeb8400d85",
-"displayName": "azure-cli-2017-10-15-02-20-15",
-"name": "http://azure-cli-2017-10-15-02-20-15",
-"password": "77851d2c-0000-0000-0000-cb3ebc97975a",
-"tenant": "72f988bf-0000-0000-0000-2d7cd011db47"
+```json
+{
+  "appId": "7248f250-0000-0000-0000-dbdeb8400d85",
+  "displayName": "azure-cli-2017-10-15-02-20-15",
+  "name": "http://azure-cli-2017-10-15-02-20-15",
+  "password": "77851d2c-0000-0000-0000-cb3ebc97975a",
+  "tenant": "72f988bf-0000-0000-0000-2d7cd011db47"
+}
 ```
 
 Assign permissions. We will use this same SP to create our AKS cluster.
@@ -299,6 +301,5 @@ Test the endpoint.
 ```bash
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://[Your Service Public LoadBalancer IP]/v1/order
 ```
-
 
 {% endcollapsible %}

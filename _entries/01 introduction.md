@@ -6,8 +6,12 @@ type: nocount
 is-parent: yes
 ---
 
-Welcome to the Azure Kubernetes Workshop. In this workshop, you'll go through increasingly robust tasks that will help you master the basic and more advanced topics required to deploy your applications to Kubernetes on Azure Kubernetes Service (AKS).
+Welcome to the Azure Kubernetes Workshop. In this lab, you'll go through tasks that will help you master the basic and more advanced topics required to deploy a multi-container application to Kubernetes on Azure Kubernetes Service (AKS).
 
-You'll need to find out some of the steps yourself, but rest assured you'll have the hints and links to the relevant documentation in each task.
+Some of the things you’ll be going through:
 
-If you are really stuck, you can ask the proctors for help or peek at the solution.
+- Kubernetes deployments, services and ingress
+- Deploying MongoDB using Helm
+- Azure Monitor for Containers, Horizontal Pod Autoscaler and the Cluster Autoscaler
+- Building CI/CD pipelines using Azure DevOps and Azure Container Registry
+- Scaling using Virtual Nodes, setting up SSL/TLS for your deployments, using Azure Key Vault for secrets

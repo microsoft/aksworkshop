@@ -7,15 +7,7 @@ parent-id: intro
 
 ### Tools
 
-If you're intending to run the tasks on your personal machine, you'll need to install the tools below:
-
-| Tool | URL     |
-|------|---------|
-| Azure CLI    | <https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest> |
-| Git    | <https://git-scm.com/downloads> |
-| Docker       | <https://docs.docker.com/install/#supported-platforms>        |
-
-> **Note** You can also opt to use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription. The Azure Cloud Shell has the Azure CLI pre-installed and configured to connect to your Azure subscription.
+You can use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription. The Azure Cloud Shell has the Azure CLI pre-installed and configured to connect to your Azure subscription as well as `kubectl` and `helm`.
 
 ### Azure subscription
 

@@ -10,7 +10,7 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 
 > **Hints**
 > * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password and database.
-> * **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those claims using `kubectl get pvc`.
+> * **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redeploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those claims using `kubectl get pvc`.
 
 ### Tasks
 
@@ -19,9 +19,7 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 {% collapsible %}
 The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes application package manager and it has a [MongoDB Helm chart](https://github.com/helm/charts/tree/master/stable/mongodb#production-settings-and-horizontal-scaling) that is replicated and horizontally scalable.
 
-##### Install Helm on your developer machine
-
-Follow the instructions here <https://docs.helm.sh/using_helm/#from-the-binary-releases>
+> **Note** Helm is installed on the Azure Cloud Shell.
 
 ##### Initialize the Helm components on the AKS cluster (RBAC enabled AKS cluster, default behaviour of CLI, optional behavior from the Azure Portal)
 
@@ -56,7 +54,7 @@ And deploy it using
 kubectl apply -f helm-rbac.yaml
 ```
 
-Initialize Tiller (ommit the ``--service-account`` flag if your cluster is **not** RBAC enabled)
+Initialize Tiller (omit the ``--service-account`` flag if your cluster is **not** RBAC enabled)
 
 ```sh
 helm init --service-account tiller
@@ -70,10 +68,10 @@ After you Tiller initialized in the cluster, wait for a short while then install
 helm install stable/mongodb --name orders-mongo --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 ```
 
-> **Hint**
-> * By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
+> **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
 
 You'll need to use the user created in the command above when configuring the deployment environment variables.
+
 {% endcollapsible %}
 
 > **Resources**

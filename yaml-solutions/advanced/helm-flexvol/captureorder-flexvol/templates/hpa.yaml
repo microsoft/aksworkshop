@@ -1,0 +1,17 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "captureorder.fullname" . }}
+  labels:
+    app: {{ include "captureorder.name" . }}
+    chart: {{ include "captureorder.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "captureorder.fullname" . }}
+  minReplicas: {{ .Values.minReplicaCount }}
+  maxReplicas: {{ .Values.maxReplicaCount }}
+  targetCPUUtilizationPercentage: {{ .Values.targetCPUUtilizationPercentage }}
