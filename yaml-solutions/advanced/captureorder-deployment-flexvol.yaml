@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: captureorder
+spec:
+  selector:
+      matchLabels:
+        app: captureorder
+  replicas: 2
+  template:
+      metadata:
+        labels:
+            app: captureorder
+      spec:
+        containers:
+        - name: captureorder
+          image: azch/captureorder
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /healthz
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /healthz
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+          - name: TEAMNAME
+            value: "team-azch"
+          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
+          #  value: "" # uncomment and set value only if you've been provided a key
+          - name: MONGOHOST
+            value: "orders-mongo-mongodb.default.svc.cluster.local"
+          - name: MONGOUSER
+            value: "orders-user"
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+          - name: mongosecret
+            mountPath: /kvmnt
+            readOnly: true
+        volumes:
+        - name: mongosecret
+          flexVolume:
+            driver: "azure/kv"
+            secretRef:
+              name: kvcreds
+            options:
+              usepodidentity: "false"
+              keyvaultname: <unique keyvault name>
+              keyvaultobjectnames: mongo-password # Name of Key Vault secret
+              keyvaultobjecttypes: secret
+              resourcegroup: <kv resource group>
+              subscriptionid: <kv azure subscription id>
+              tenantid: <kv azure tenant id>

@@ -13,7 +13,7 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 {% collapsible %}
 
-Get the latest available Kubernetes version in your preferred region into a bash variable
+Get the latest available Kubernetes version in your preferred region into a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`.
 
 ```sh
 version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
@@ -51,6 +51,7 @@ az group create --name akschallenge --location <region>
   ```
 
   > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
+  >
   > ```sh
   > az aks create --resource-group akschallenge \
   >   --name <unique-aks-cluster-name> \
