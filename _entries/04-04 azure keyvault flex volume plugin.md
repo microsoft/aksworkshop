@@ -44,7 +44,7 @@ The Key Vault FlexVolume driver offers two modes for accessing a Key Vault insta
 
 {% collapsible %}
 
-Choose a service principal name that is unique in your organization.
+Replace `<name>` with a service principal name that is unique in your organization.
 
 ```bash
 az ad sp create-for-rbac --name "http://<name>" --skip-assignment
