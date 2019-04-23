@@ -302,5 +302,4 @@ Test the endpoint.
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://[Your Service Public LoadBalancer IP]/v1/order
 ```
 
-
 {% endcollapsible %}
