@@ -2,7 +2,7 @@
 sectionid: azurekeyvault-flexvolumeplugin
 sectionclass: h2
 parent-id: advancedclustersetup
-title: Read MongoDB password from Azure Key Vault
+title: Use Azure Key Vault for secrets
 ---
 
 Kubernetes provides a primitive, [secrets](https://kubernetes.io/docs/concepts/configuration/secret/), which can be used to store sensitive information and later retrieve them as an environment variable or a mounted volume into memory. If you have tighter security requirements that Kubernetes secrets don't quite meet yet, for example you want an audit trail of all interactions with the keys, or version control, or FIPs compliance, you'll need to use an external key vault.
