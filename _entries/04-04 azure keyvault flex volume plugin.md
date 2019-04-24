@@ -68,10 +68,6 @@ You should get back something like the below, make note of the `appId` and `pass
 
 {% collapsible %}
 
-```sh
-az account show --query tenantId --output tsv
-```
-
 Retrieve your Azure Key Vault ID and store it in a variable `KEYVAULT_ID`,  replacing `<unique keyvault name>` with your Azure Key Vault name.
 
 ```sh
@@ -149,6 +145,10 @@ az account show --query id --output tsv
 ```
 
 Retrieve your Azure tenant ID and keep it.
+
+```sh
+az account show --query tenantId --output tsv
+```
 
 {% endcollapsible %}
 
