@@ -68,14 +68,6 @@ You should get back something like the below, make note of the `appId` and `pass
 
 {% collapsible %}
 
-Retrieve your Azure subscription ID and keep it.
-
-```sh
-az account show --query id --output tsv
-```
-
-Retrieve your Azure tenant ID and keep it.
-
 ```sh
 az account show --query tenantId --output tsv
 ```
@@ -141,6 +133,22 @@ keyvault-flexvolume-f7bx8   1/1       Running   0          3m
 keyvault-flexvolume-rcxbl   1/1       Running   0          3m
 keyvault-flexvolume-z6jm6   1/1       Running   0          3m
 ```
+
+{% endcollapsible %}
+
+#### Retrieve the Azure subscription/tenant ID where the Azure Key Vault is deployed
+
+You'll need both to configure the Key Vault FlexVolume driver in the next step.
+
+{% collapsible %}
+
+Retrieve your Azure subscription ID and keep it.
+
+```sh
+az account show --query id --output tsv
+```
+
+Retrieve your Azure tenant ID and keep it.
 
 {% endcollapsible %}
 
