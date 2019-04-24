@@ -68,18 +68,6 @@ You should get back something like the below, make note of the `appId` and `pass
 
 {% collapsible %}
 
-Retrieve your Azure subscription ID and keep it.
-
-```sh
-az account show --query id --output tsv
-```
-
-Retrieve your Azure tenant ID and keep it.
-
-```sh
-az account show --query tenantId --output tsv
-```
-
 Retrieve your Azure Key Vault ID and store it in a variable `KEYVAULT_ID`,  replacing `<unique keyvault name>` with your Azure Key Vault name.
 
 ```sh
@@ -140,6 +128,26 @@ You should see the keyvault flexvolume pods running on each agent node:
 keyvault-flexvolume-f7bx8   1/1       Running   0          3m
 keyvault-flexvolume-rcxbl   1/1       Running   0          3m
 keyvault-flexvolume-z6jm6   1/1       Running   0          3m
+```
+
+{% endcollapsible %}
+
+#### Retrieve the Azure subscription/tenant ID where the Azure Key Vault is deployed
+
+You'll need both to configure the Key Vault FlexVolume driver in the next step.
+
+{% collapsible %}
+
+Retrieve your Azure subscription ID and keep it.
+
+```sh
+az account show --query id --output tsv
+```
+
+Retrieve your Azure tenant ID and keep it.
+
+```sh
+az account show --query tenantId --output tsv
 ```
 
 {% endcollapsible %}
