@@ -18,7 +18,7 @@ az resource create \
     --properties '{"Application_Type":"web"}'  
 ```
 
-> **Note** Provide the **Instrumentation Key** to the attendees that they can use to fill in the `CHALLENGEAPPINSIGHTS_KEY` environment variables. If you're using the default built in Application Insights, just instruct attendees to delete the environment variable from their deployments.
+> **Note** Provide the **Instrumentation Key** to the attendees that they can use to fill in the `CHALLENGEAPPINSIGHTS_KEY` environment variables.
 
 <!--
 ## Availability scoring
