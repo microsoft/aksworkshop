@@ -31,7 +31,7 @@ The Order Capture API requires certain environment variables to properly run and
   * `MONGOPASSWORD="<mongodb password>"`
     * MongoDB password.
 
-> **Hint:** The Order Capture API exposes the following endpoint for health-checks: `http://[PublicEndpoint]:[port]/healthz`
+> **Hint:** The Order Capture API exposes the following endpoint for health-checks once you have completed the tasks below: `http://[PublicEndpoint]:[port]/healthz`
 
 ### Tasks
 
