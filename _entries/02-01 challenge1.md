@@ -104,6 +104,7 @@ az group create --name akschallenge --location <region>
     --enable-addons monitoring \
     --kubernetes-version $version \
     --generate-ssh-keys \
+    --enable-vmss \
     --enable-cluster-autoscaler \
     --min-count 1 \
     --max-count 3
@@ -117,6 +118,7 @@ az group create --name akschallenge --location <region>
   >   --enable-addons monitoring \
   >   --kubernetes-version $version \
   >   --generate-ssh-keys \
+  >   --enable-vmss \
   >   --enable-cluster-autoscaler
   >   --min-count 1 \
   >   --max-count 3 \
