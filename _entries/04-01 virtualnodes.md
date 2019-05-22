@@ -7,14 +7,16 @@ parent-id: advancedclustersetup
 
 To rapidly scale application workloads in an Azure Kubernetes Service (AKS) cluster, you can use Virtual Nodes. With Virtual Nodes, you have quick provisioning of pods, and only pay per second for their execution time. You don't need to wait for Kubernetes cluster autoscaler to deploy VM compute nodes to run the additional pods.
 
+
 > **Note**
 > - We will be using virtual nodes to scale out our API using Azure Container Instances (ACI).
 > - These ACI's will be in a private VNET, so we must deploy a new AKS cluster with advanced networking.
 
-
 ### Tasks
 
 #### Create a virtual network and subnet
+
+Virtual nodes enable network communication between pods that run in Azure Container Instances (ACI) and the AKS cluster. To provide this communication, a virtual network subnet is created and delegated permissions are assigned. Virtual nodes only work with AKS clusters created using advanced networking.
 
 {% collapsible %}
 
@@ -40,7 +42,6 @@ az network vnet subnet create \
 ```
 
 {% endcollapsible %}
-
 
 #### Create a service principal and assign permissions to VNET
 
@@ -77,6 +78,43 @@ az role assignment create --assignee $APPID --scope $VNETID --role Contributor
 
 {% endcollapsible %}
 
+#### Get the latest Kubernetes version available in AKS
+
+{% collapsible %}
+
+Get the latest available Kubernetes version in your preferred region into a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`.
+
+```sh
+VERSION=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+```
+
+{% endcollapsible %}
+
+#### Register the Azure Container Instances service provider
+
+{% collapsible %}
+
+If you have not previously used ACI, register the service provider with your subscription. You can check the status of the ACI provider registration using the `az provider list` command, as shown in the following example:
+
+```bash
+az provider list --query "[?contains(namespace,'Microsoft.ContainerInstance')]" -o table
+```
+
+The *Microsoft.ContainerInstance* provider should report as *Registered*, as shown in the following example output:
+
+```
+Namespace                    RegistrationState
+---------------------------  -------------------
+Microsoft.ContainerInstance  Registered
+```
+
+If the provider shows as *NotRegistered*, register the provider using the `az provider register` as shown in the following example:
+
+```bash
+az provider register --namespace Microsoft.ContainerInstance
+```
+
+{% endcollapsible %}
 
 #### Create the new AKS Cluster
 
@@ -97,7 +135,7 @@ az aks create \
     --resource-group akschallenge \
     --name <unique-aks-cluster-name> \
     --node-count 3 \
-    --kubernetes-version 1.12.6 \
+    --kubernetes-version $VERSION \
     --network-plugin azure \
     --service-cidr 10.0.0.0/16 \
     --dns-service-ip 10.0.0.10 \
@@ -120,8 +158,7 @@ kubectl get nodes
 
 {% endcollapsible %}
 
-
-##### Initialize the Helm components on the AKS cluster 
+##### Initialize the Helm components on the AKS cluster
 
 {% collapsible %}
 
