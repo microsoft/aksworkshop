@@ -1,7 +1,7 @@
 ---
 sectionid: virtualnodes
 sectionclass: h2
-title: Azure Kubernetes Service Virtual Nodes using ACI
+title: "New cluster: AKS with Virtual Nodes"
 parent-id: advancedclustersetup
 ---
 
@@ -11,6 +11,7 @@ To rapidly scale application workloads in an Azure Kubernetes Service (AKS) clus
 > **Note**
 > - We will be using virtual nodes to scale out our API using Azure Container Instances (ACI).
 > - These ACI's will be in a private VNET, so we must deploy a new AKS cluster with advanced networking.
+> - Take a look at documentation for [regional availability](https://docs.microsoft.com/en-us/azure/aks/virtual-nodes-cli#regional-availability) and [known limitations](https://docs.microsoft.com/en-us/azure/aks/virtual-nodes-cli#known-limitations)
 
 ### Tasks
 
@@ -158,50 +159,6 @@ kubectl get nodes
 
 {% endcollapsible %}
 
-##### Initialize the Helm components on the AKS cluster
-
-{% collapsible %}
-
-Assuming the cluster is RBAC enabled, you have to create the appropriate `ServiceAccount` for Tiller (the server side Helm component) to use.
-
-Save the YAML below as `helm-rbac.yaml` or download it from [helm-rbac.yaml](yaml-solutions/01. challenge-02/helm-rbac.yaml)
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-```
-
-And deploy it using
-
-```sh
-kubectl apply -f helm-rbac.yaml
-```
-
-Initialize Tiller (ommit the ``--service-account`` flag if your cluster is **not** RBAC enabled)
-
-```sh
-helm init --service-account tiller
-```
-
-{% endcollapsible %}
-
-
 #### Enable virtual nodes
 
 {% collapsible %}
@@ -240,7 +197,6 @@ virtual-node-aci-linux     Ready    agent   11m   v1.13.1-vk-v0.7.4-44-g4f3bd20e
 
 Repeat the steps in the [Deploy MongoDB](#db) to deploy the database on your new cluster.
 Repeat the steps in the [Deploy Order Capture API](#api) to deploy the API on your new cluster on traditional nodes.
-
 
 #### Create a new Capture Order API deployment targeting the virtual node
 
