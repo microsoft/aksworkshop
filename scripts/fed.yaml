@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+      matchLabels:
+        app: frontend
+  replicas: 1
+  template:
+      metadata:
+        labels:
+            app: frontend
+      spec:
+        containers:
+        - name: frontend
+          image: azch/frontend
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+          - name: CAPTUREORDERSERVICEIP
+            value: "40.118.167.245"
+          ports:
+          - containerPort: 8080
