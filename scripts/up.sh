@@ -1,8 +1,7 @@
-export LOCATION=eastus
+export LOCATION=westus
 export RGNAME=akschallenge
-export AKSNAME=akstest
-export K8SVERSION=1.12.4
-export EMAIL=asabbour@microsoft.com
+export AKSNAME=aksdelete
+export K8SVERSION=$(az aks get-versions -l $LOCATION --query 'orchestrators[-1].orchestratorVersion' -o tsv)
 
 #echo "Logging in to Azure CLI"
 #az login
@@ -11,7 +10,7 @@ echo "\nCreating Resource Group"
 az group create --name $RGNAME --location $LOCATION
 
 echo "\nCreating AKS cluster"
-az aks create --resource-group $RGNAME --name $AKSNAME --enable-addons monitoring --kubernetes-version $K8SVERSION --generate-ssh-keys --location $LOCATION
+az aks create --resource-group $RGNAME --name $AKSNAME --enable-addons monitoring --kubernetes-version $K8SVERSION --generate-ssh-keys --location $LOCATION --service-principal "88c0f4fa-c91f-4095-96db-462f942c0172" --client-secret "58b1983b-ed1a-49a9-a602-5c918003dd38"
 
 echo "\nSleeping for 10 seconds to wait for cluster to stabilize"
 sleep 10
