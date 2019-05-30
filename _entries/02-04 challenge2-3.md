@@ -3,7 +3,7 @@
 sectionid: frontend
 sectionclass: h2
 parent-id: upandrunning
-title: Deploy the frontend using Ingress
+title: Deploy the frontend
 ---
 
 You need to deploy the **Frontend** ([azch/frontend](https://hub.docker.com/r/azch/frontend/)). This requires an external endpoint, exposing the website on port 80 and needs to write to connect to the Order Capture API public IP.
@@ -26,11 +26,10 @@ The frontend requires certain environment variables to properly run and track yo
 
 #### Provision the `frontend` deployment
 
-{% collapsible %}
 
 ##### Deployment
 
-Save the YAML below as `frontend-deployment.yaml` or download it from [frontend-deployment.yaml](yaml-solutions/01. challenge-02/frontend-deployment.yaml)
+Save the YAML below as `frontend-deployment.yaml` or download it from [frontend-deployment.yaml](yaml-solutions/01. challenge-02/frontend-deployment.yaml). Make sure to update the `CAPTUREORDERSERVICEIP` with the IP address of the order capture service. This IP can be found by running `kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}")`
 
 ```yaml
 apiVersion: apps/v1
@@ -87,24 +86,10 @@ kubectl get pods -l app=frontend
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
 
-{% endcollapsible %}
-
-#### Expose the frontend on a hostname
-
-Instead of accessing the frontend through an IP address, expose the app using a DNS hostname. When we first created the AKS cluster we enabled the [HTTP Application Routing addon](https://docs.microsoft.com/en-us/azure/aks/http-application-routing).
-
-The application routing addon deploys two components to your cluster: a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
-
-* **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches for Ingress resources, which map external hostnames to internal application endpoints.
-* **External-DNS controller**: Watches for Ingress resources and creates DNS records using Azure DNS.
-
-{% collapsible %}
 
 ##### Service
 
 Save the YAML below as `frontend-service.yaml` or download it from [frontend-service.yaml](yaml-solutions/01. challenge-02/frontend-service.yaml)
-
-> **Note** Since you're going to expose the deployment using an Ingress, there is no need to use a public IP for the Service, hence you can set the type of the service to be `ClusterIP` instead of `LoadBalancer`.
 
 ```yaml
 apiVersion: v1
@@ -112,7 +97,7 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
@@ -127,80 +112,17 @@ Deploy the frontend service using `kubectl apply`
 kubectl apply -f frontend-service.yaml
 ```
 
-##### Ingress
+##### Retrieve the External IP of the frontend service
 
-The HTTP application routing addon watches for Ingress resources that carry a special annotation:
-
-```yaml
-annotations:
-  kubernetes.io/ingress.class: addon-http-application-routing
-```
-
-Retrieve your cluster specific DNS zone name by running the command below
+Kubernetes automatically requests Azure to create a load balancer and provision and attach a public IP address. This process can take a few minutes. Wait for the External-IP field to transition from `pending` to an IP address before continuing.
 
 ```sh
-az aks show --resource-group akschallenge --name akschallenge \
-  --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o tsv
+kubectl get service frontend -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
 ```
 
-The `show` command will return a cluster-specific hostname like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
+#### Browse to the public IP of the frontend and watch as the number of orders change
 
-Next, create an Ingress resource that contains the application routing annotation and contains your cluster DNS zone.
-
-Save the YAML below as `frontend-ingress.yaml` or download it from [frontend-ingress.yaml](yaml-solutions/01. challenge-02/frontend-ingress.yaml)
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: frontend
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-spec:
-  rules:
-  - host: frontend.<CLUSTER_SPECIFIC_DNS_ZONE>
-    http:
-      paths:
-      - backend:
-          serviceName: frontend
-          servicePort: 80
-        path: /
-```
-
-And create it using
-
-```sh
-kubectl apply -f frontend-ingress.yaml
-```
-
-{% endcollapsible %}
-
-#### Verify that the DNS records are created
-
-{% collapsible %}
-
-View the logs of the External DNS pod
-
-```sh
-kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
-```
-
-It should say something about updating the A record. It may take a few minutes.
-
-```sh
-time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' to '13.90.199.8' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
-time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
-```
-
-You should also be able to find the new records created in the Azure DNS zone for your cluster.
-
-![Azure DNS](media/dns.png)
-
-{% endcollapsible %}
-
-#### Browse to the public hostname of the frontend and watch as the number of orders change
-
-Once the Ingress is deployed and the DNS records propagated, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
+Once the service is deployed and an IP address is attached you should be able to access the frontend at <http://[frontend-ip]>, for example <http://52.40.40.40>
 
 If it doesn't work from the first trial, give it a few more minutes or try a different browser.
 
