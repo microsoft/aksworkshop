@@ -27,7 +27,6 @@ Make sure that you have the following at hand:
 
 #### Create a Codefresh account
 
-{% collapsible %}
 
 You can create a free Codefresh account (free forever and fully functional) by signing up at [https://g.codefresh.io/signup](https://g.codefresh.io/signup). You can use any of the supported providers
 shown such as Azure or Github.
@@ -49,13 +48,11 @@ You will also be asked to provide a username for your Codefresh account. Once th
 
 For more information see the [create account documentation](https://codefresh.io/docs/docs/getting-started/create-a-codefresh-account/).
 
-{% endcollapsible %}
 
 #### Integrate the Aqua Registry into Codefresh
 
 In order for Codefresh to be able to scan images for vulnerabilities, it needs access to the Aqua vulnerability scanner. The scanner is offered as a Docker image itself, deployed on the private Aqua Registry (which is not public like Dockerhub).
 
-{% collapsible %}
 
 In the Codefresh UI, select *Account Settings* on the left sidebar and then click on *Configure* next to [Docker Registry](https://g.codefresh.io/account-admin/account-conf/integration/registry).
 
@@ -77,13 +74,11 @@ Codefresh is now connected to your Aqua Docker registry and can pull images from
 
 For more information see the documentation on [external registries](https://codefresh.io/docs/docs/docker-registries/external-docker-registries/) and [custom registries](https://codefresh.io/docs/docs/docker-registries/external-docker-registries/other-registries/).
 
-{% endcollapsible %}
 
 #### Scan a public Docker image
 
 You will first use Codefresh to scan a public Docker image that already exists in Dockerhub.
 
-{% collapsible %}
 
 From the left sidebar in Codefresh click on *Pipelines*. The click the *Add pipeline* button on the top right.
 Name the pipeline *aqua-scan-public-image* or something similar. 
@@ -153,7 +148,6 @@ You have now successfully used Codefresh to scan a Docker image on the Aqua secu
 
 
 
-{% endcollapsible %}
 
 #### Connect the Codefresh Registry to the Aqua platform
 
@@ -161,7 +155,6 @@ In the previous task, you have scanned a public Docker image. In order to scan a
 
 You can connect any supported private registry in Aqua, but since Codefresh already includes a private Docker registry with each account, you will set up access for the Codefresh registry.
 
-{% collapsible %}
 
 First, you will create a Codefresh Registry Access Token. From the left sidebar click on *User Settings*.
 Scroll down until you see the Codefresh Registry section.
@@ -190,7 +183,6 @@ Login into your Aqua account and expand *System* on the bottom of the left sideb
 Then click the *Save* button. 
 The Aqua scanner is now able to access your Codefresh private registry.
 
-{% endcollapsible %}
 
 #### Scan a private Docker image
 
@@ -204,7 +196,6 @@ To scan a private Docker image, you will create a full Codefresh pipeline where:
 
 For this tutorial, you will scan the sample application at [https://github.com/codefresh-contrib/python-flask-sample-app](https://github.com/codefresh-contrib/python-flask-sample-app)
 
-{% collapsible %}
 
 From the left sidebar in Codefresh click on *Pipelines*. Then click the *Add pipeline* button on the top right.
 Name the pipeline *aqua-scan-private-image* or something similar. 
@@ -347,8 +338,6 @@ Save and run the pipeline to get your security results.
 
 
 This concludes the scanning tasks. You have successfully used the Codefresh CI/CD platform to scan Docker images with the Aqua Security solution.
-
-{% endcollapsible %}
 
 
 
