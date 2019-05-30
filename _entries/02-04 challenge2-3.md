@@ -29,7 +29,7 @@ The frontend requires certain environment variables to properly run and track yo
 
 ##### Deployment
 
-Save the YAML below as `frontend-deployment.yaml` or download it from [frontend-deployment.yaml](yaml-solutions/01. challenge-02/frontend-deployment.yaml)
+Save the YAML below as `frontend-deployment.yaml` or download it from [frontend-deployment.yaml](yaml-solutions/01. challenge-02/frontend-deployment.yaml). Make sure to update the `CAPTUREORDERSERVICEIP` with the IP address of the order capture service. This IP can be found by running `kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}")`
 
 ```yaml
 apiVersion: apps/v1
