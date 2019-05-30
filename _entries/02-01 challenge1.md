@@ -21,11 +21,10 @@ Create a Resource Group for your AKS cluster. When you joined the workshop, you 
 az group create --name akschallenge --location YOURREGION
 ```
 
-Create a new cluster using the latest version and enable the monitoring and HTTP application routing addons
+Create a new cluster using the latest version
 
 ```sh
 az aks create --resource-group akschallenge --name akschallenge \
-    --enable-addons monitoring,http_application_routing \
     --kubernetes-version 1.13.5 --generate-ssh-keys
 ```
 
