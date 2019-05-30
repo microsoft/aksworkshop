@@ -37,8 +37,6 @@ The Order Capture API requires certain environment variables to properly run and
 
 #### Provision the `captureorder` deployment and expose a public endpoint
 
-{% collapsible %}
-
 ##### Deployment
 
 Save the YAML below as `captureorder-deployment.yaml` or download it from [captureorder-deployment.yaml](yaml-solutions/01. challenge-02/captureorder-deployment.yaml)
@@ -139,11 +137,9 @@ Kubernetes automatically requests Azure to create a load balancer and provision 
 kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
 ```
 
-{% endcollapsible %}
 
 #### Ensure orders are successfully written to MongoDB
 
-{% collapsible %}
 
 Send a `POST` request using curl to the capture order service IP
 
@@ -160,7 +156,6 @@ The capture order service returns an order ID
 }
 ```
 
-{% endcollapsible %}
 
 > **Resources**
 >

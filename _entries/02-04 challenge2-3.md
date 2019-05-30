@@ -26,7 +26,6 @@ The frontend requires certain environment variables to properly run and track yo
 
 #### Provision the `frontend` deployment
 
-{% collapsible %}
 
 ##### Deployment
 
@@ -87,7 +86,6 @@ kubectl get pods -l app=frontend
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
 
-{% endcollapsible %}
 
 #### Expose the frontend on a hostname
 
@@ -98,7 +96,6 @@ The application routing addon deploys two components to your cluster: a [Kuberne
 * **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches for Ingress resources, which map external hostnames to internal application endpoints.
 * **External-DNS controller**: Watches for Ingress resources and creates DNS records using Azure DNS.
 
-{% collapsible %}
 
 ##### Service
 
@@ -173,11 +170,9 @@ And create it using
 kubectl apply -f frontend-ingress.yaml
 ```
 
-{% endcollapsible %}
 
 #### Verify that the DNS records are created
 
-{% collapsible %}
 
 View the logs of the External DNS pod
 
@@ -196,7 +191,6 @@ You should also be able to find the new records created in the Azure DNS zone fo
 
 ![Azure DNS](media/dns.png)
 
-{% endcollapsible %}
 
 #### Browse to the public hostname of the frontend and watch as the number of orders change
 

@@ -20,7 +20,6 @@ The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes
 
 
 #### Install Helm on the AKS cluster
-{% collapsible %}
 
 Tiller, the server-side component with which Helm communicates, needs to use a `ServiceAccount` to authenticate to your AKS cluster. For this lab, the `ServiceAccount` will have full cluster access:
 
@@ -59,13 +58,11 @@ Use `helm init` to install Tiller
 helm init --service-account tiller
 ```
 
-{% endcollapsible %}
 
 #### Install the MongoDB Helm chart
 
 Install MongoDB using Helm.
 
-{% collapsible %}
 
 After running `helm init` tiller will start in the background. Kubernetes will take a few moments to download the tiller image and launch the process.
 
@@ -93,7 +90,6 @@ helm install stable/mongodb --name orders-mongo \
 
 Later, configure your application with the username and password used in the `helm install` command.
 
-{% endcollapsible %}
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
