@@ -15,10 +15,10 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
 
 #### Deploy Kubernetes to Azure, using CLI or Azure portal using the latest Kubernetes version available in AKS
 
-Create a Resource Group for your AKS cluster
+Create a Resource Group for your AKS cluster. When you joined the workshop, you should have been assigned a location for your AKS cluster. Use the command below, and make sure you specify your assigned region.
 
 ```sh
-az group create --name akschallenge --location eastus
+az group create --name akschallenge --location YOURREGION
 ```
 
 Create a new cluster using the latest version and enable the monitoring and HTTP application routing addons
