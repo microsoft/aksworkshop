@@ -6,8 +6,14 @@ type: nocount
 is-parent: yes
 ---
 
-Welcome to the Azure Kubernetes Workshop. In this workshop, you'll go through tasks that help you master the basic more advanced topics required to deploy your applications to Azure Kubernetes Service (AKS).
+Welcome to the Azure Kubernetes Workshop. In this lab, you'll go through tasks that will help you master the basic and more advanced topics required to deploy an application to Kubernetes on Azure Kubernetes Service (AKS) and setup automated build, security scans, and deployments using Codefresh CI/CD and Aqua Security.
 
-You'll need to find out some of the steps yourself, but rest assured you'll have the hints and links to the relevant documentation in each task.
+Some of the things you’ll be going through:
 
-If you are really stuck, you can ask the proctors for help or peek at the solution.
+- Kubernetes deployments, services and ingress
+- Deploying MongoDB using Helm
+- Azure Monitor for Containers, Horizontal Pod Autoscaler and the Cluster Autoscaler
+- Building CI/CD pipelines using Codefresh and Azure Container Registry
+- Setting up security scans using Aqua and enforcing policy
+
+You can review the [changelog](#changelog) for what has recently changed.
