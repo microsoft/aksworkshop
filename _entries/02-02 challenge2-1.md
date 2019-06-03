@@ -3,21 +3,10 @@
 sectionid: db
 sectionclass: h2
 parent-id: upandrunning
-title: Deploy MongoDB
+title: Install Helm
 ---
 
-Our application needs access to an instance of MongoDB for persistence. This section will walk you through installing MongoDB using Helm, a package manager for Kubenretes.
-
-> **Hints**
-> * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password and database.
-> * **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those volume claims using `kubectl get pvc`.
-
-### Tasks
-
-#### Deploy MongoDB to your cluster
-
-The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes application package manager and it has a [MongoDB Helm chart](https://github.com/helm/charts/tree/master/stable/mongodb#production-settings-and-horizontal-scaling) that is replicated and horizontally scalable.
-
+To simplify application management in Kubernetes we're going to use Helm. Helm is a Kubernetes application package manager.
 
 #### Install Helm on the AKS cluster
 
@@ -58,39 +47,11 @@ Use `helm init` to install Tiller
 helm init --service-account tiller
 ```
 
-
-#### Install the MongoDB Helm chart
-
-Install MongoDB using Helm.
-
-
-After running `helm init` tiller will start in the background. Kubernetes will take a few moments to download the tiller image and launch the process.
-
-When `helm version` returns without an error tiller is ready to install charts.
-
-Install MongoDB in your cluster, using an upstream MongoDB chart. The following helm command creates a user called `orders-user` and a password of `orders-password`.
-
-Note that application expects a database named `akschallenge`.
-
-```
-To reset mongodb run:
-	helm delete --purge orders-mongo
-```
-
-
-
+Optional: To verify Helm has installed correctly use
 ```sh
-
-helm install stable/mongodb --name orders-mongo \
-  --set persistence.enabled=false,mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+helm version
 ```
-
-> **Hint**
-> * By default, MongoDB will be available within your cluster with the hostname `orders-mongo-mongodb.default.svc.cluster.local`
-
-Later, configure your application with the username and password used in the `helm install` command.
-
+This will show a server version which means Helm is up and running. 
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
-> * <https://github.com/helm/charts/tree/master/stable/mongodb#replication>

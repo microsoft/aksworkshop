@@ -5,12 +5,6 @@ title: Application overview
 parent-id: intro
 ---
 
-You will be deploying a customer-facing order placement and fulfillment application that is based on a containerized, microservice architecture
+You will be deploying a simple microservice to Kubernetes that displays different colors. This application is easy to understand, will have a simple ingress, and will help us look for and deal with security vulnerabilities. 
 
-![Application diagram](media/overview.png)
-
-The application consists of 3 components:
-
-* A public facing Order Capture swagger enabled API
-* A public facing frontend
-* A MongoDB database
+You can read more about the [colors app here](https://github.com/todaywasawesome/color-coded).

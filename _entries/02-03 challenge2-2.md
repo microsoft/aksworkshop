@@ -3,159 +3,112 @@
 sectionid: api
 sectionclass: h2
 parent-id: upandrunning
-title: Deploy the Order Capture API
+title: Deploy the colors application
 ---
 
-You need to deploy the **Order Capture API** ([azch/captureorder](https://hub.docker.com/r/azch/captureorder/)). This requires an external endpoint, exposing the API on port 80 and needs to write to MongoDB.
+We're going to deploy and expose our color-coded application which requires an external endpoint exposed on port 80. 
 
-### Container images and source code
-
-In the table below, you will find the Docker container images provided by the development team on Docker Hub as well as their corresponding source code on GitHub.
-
-| Component                    | Docker Image                                                     | Source Code                                                       | Build Status |
-|------------------------------|------------------------------------------------------------------|-------------------------------------------------------------------|--------------|
-| Order Capture API            | [azch/captureorder](https://hub.docker.com/r/azch/captureorder/) | [source-code](https://github.com/Azure/azch-captureorder)         | [![Build Status](https://dev.azure.com/theazurechallenge/Kubernetes/_apis/build/status/Code/Azure.azch-captureorder)](https://dev.azure.com/theazurechallenge/Kubernetes/_build/latest?definitionId=10) |
-
-### Environment variables
-
-The Order Capture API requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
-
-  * `TEAMNAME="[YourTeamName]"`
-    * Track your team's progress. **Use your assigned team name**.
-  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
-    * Application Insights key **if provided by proctors**. This is used to track your team's progress. If not provided, just delete it.
-  * `MONGOHOST="<hostname of mongodb>"`
-    * MongoDB hostname.
-  * `MONGOUSER="<mongodb username>"`
-    * MongoDB username.
-  * `MONGOPASSWORD="<mongodb password>"`
-    * MongoDB password.
-
-> **Hint:** The Order Capture API exposes the following endpoint for health-checks: `http://[PublicEndpoint]:[port]/healthz`
+### Environmental variables
+The color application takes an environmental variable to define the color that will be displayed. 
+  * `COLOR=[color code, hex, or name]`
 
 ### Tasks
 
-#### Provision the `captureorder` deployment and expose a public endpoint
+#### Provision color-coded app
 
 ##### Deployment
 
-Save the YAML below as `captureorder-deployment.yaml` or download it from [captureorder-deployment.yaml](yaml-solutions/01. challenge-02/captureorder-deployment.yaml)
+Save the YAML below as `blue.deployment.yaml`
 
 ```yaml
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: captureorder
+  labels:
+    app: colors
+  name: colors
 spec:
+  replicas: 3
   selector:
-      matchLabels:
-        app: captureorder
-  replicas: 2
+    matchLabels:
+      app: "colors"
   template:
-      metadata:
-        labels:
-            app: captureorder
-      spec:
-        containers:
-        - name: captureorder
-          image: azch/captureorder
-          imagePullPolicy: Always
-          readinessProbe:
-            httpGet:
-              port: 8080
-              path: /healthz
-          livenessProbe:
-            httpGet:
-              port: 8080
-              path: /healthz
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-          env:
-          - name: TEAMNAME
-            value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
-          #  value: "" # uncomment and set value only if you've been provided a key
-          - name: MONGOHOST
-            value: "orders-mongo-mongodb.default.svc.cluster.local"
-          - name: MONGOUSER
-            value: "orders-user"
-          - name: MONGOPASSWORD
-            value: "orders-password"
-          ports:
-          - containerPort: 8080
+    metadata:
+      labels:
+        app: colors
+    spec:
+      containers:
+      - env:
+        - name: COLOR
+          value: '#44B3C2'
+        image: containers101/color-coded:master
+        imagePullPolicy: Always
+        name: colors
+        ports:
+        - containerPort: 8080
+          protocol: TCP
 ```
 
 Deploy the capture order application using `kubectl apply`
 
 ```sh
-kubectl apply -f captureorder-deployment.yaml
+kubectl apply -f blue.deployment.yaml
 ```
 
-##### Verify that the pods are up and running
+#### Verify the pods are up and running
 
 ```sh
-kubectl get pods -l app=captureorder
+kubectl get deployments
 ```
 
-> **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
+This should show the colors deployment with three pods available and up-to-date. 
 
-##### Service
+#### Service
 
-Save the YAML below as `captureorder-service.yaml` or download it from [captureorder-service.yaml](yaml-solutions/01. challenge-02/captureorder-service.yaml)
+Kubernetes uses services to expose and loadbalance deployments. 
+
+Save the yaml below as `blue.svc.yaml`.
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: captureorder
+  name: colors
 spec:
   type: LoadBalancer
   selector:
-    app: captureorder
+    app: colors
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
 ```
 
-Create the service with `kubectl`
+Now create the service with `kubectl`
+```sh
+kubectl apply -f blue.svc.yaml
+```
+
+Because we used `LoadBalancer` for our service type, AKS will provision an external ip address we can use to access our application. You retrieve this ip address with this command:
 
 ```sh
-kubectl apply -f captureorder-service.yaml
+kubectl get service colors
 ```
 
-##### Retrieve the External IP of the Service
+Provisioning an external ip can take a minute or two but once it does loads under the `EXTERNAL-IP` column you can open that ip in your browser to see the application. 
 
-Kubernetes automatically requests Azure to create a load balancer and provision and attach a public IP address. This process can take a few minutes. Wait for the External-IP field to transition from `pending` to an IP address before continuing.
+#### Watch Kubernetes keep your app running
 
+The colors app is special because when you open it in your browser and click anywhere it causes the pod to die. This is great for demostrating how AKS handles failover between pods and restarts. The best way to see this in action is to open two browser windows side by side. One with your app, and one with our Azure cloud shell. 
+
+In your cloud shell use this command to watch the status of your running pods
 ```sh
-kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+kubectl get pods -l app=colors
 ```
 
+Then, with your browser, click anywhere and watch the pod die and be restarted in your cloud window. Click back on your browser to get back to your running application. 
 
-#### Ensure orders are successfully written to MongoDB
-
-
-Send a `POST` request using curl to the capture order service IP
-
-```sh
-SERVICE_IP=$(kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
-curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://${SERVICE_IP}/v1/order
-```
-
-The capture order service returns an order ID
-
-```json
-{
-    "orderId": "5beaa09a055ed200016e582f"
-}
-```
-
+Everytime you kill a pod, Kubernetes will wait longer and longer between pod restarts.
 
 > **Resources**
 >
