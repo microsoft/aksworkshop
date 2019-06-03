@@ -86,6 +86,10 @@ Like we did for manually adding images from Docker Hub, we can add an image from
 
 This will start a scan of that image from your ACR.  Once finished scanning, you can view the results and see what the security posture of that image is. 
 
+#### Connect the Codefresh registry
+In order to scan images built in Codefresh and not yet pushed to ACR, we need to give  a pull secret to Aqua.
+
+...
 
 #### Create a Image Assurance Policy
 Whenever Aqua scans an image, it checks the image against the Image Assurance policy.  Currently we don't have a Policy so everything scanned will be in the approved state, even if it contains vulnerabilities.

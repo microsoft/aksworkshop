@@ -54,9 +54,14 @@ Save and run the pipeline to get your security results.
 
 #### Uh-oh! We found a vulnerability, let's fix it!
 
-This concludes the scanning tasks. You have successfully used the Codefresh CI/CD platform to scan Docker images with the Aqua Security solution.
+This concludes the scanning tasks. You have successfully used the Codefresh CI/CD platform to scan Docker images with the Aqua Security solution. Browse through the platforms to see what the issue is. 
 
+To resolve it we'll need to update the version of OpenSSL. Open up the `Dockerfile` in your repo and comment out the following lines:
 
+```docker
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.1/main' >> /etc/apk/repositories
+RUN apk add "openssh==6.7_p1-r6"
+```
 
 
 > **Resources**
