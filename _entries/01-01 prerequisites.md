@@ -9,6 +9,9 @@ parent-id: intro
 
 Using the credentials provided by the lab environment screen, navigate to [Azure Portal](https://portal.azure.com) and authenticate with the provided username and password.
 
+>  **Hint**
+>  If you already have an Azure account, you can use that, or to use the lab environment you'll need to use a unique email address.
+
 ![Lab environment credentials](media/lab-env.png)
 
 ### Launch Cloud Shell
