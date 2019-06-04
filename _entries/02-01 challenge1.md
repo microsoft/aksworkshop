@@ -21,6 +21,16 @@ Create a Resource Group for your AKS cluster. When you joined the workshop, you 
 az group create --name akschallenge --location YOURREGION
 ```
 
+Pick a random region
+```
+centralus
+eastus
+eastus2
+westus
+northcentralus
+southcentralus
+```
+
 Create a new cluster using the latest version
 
 ```sh
