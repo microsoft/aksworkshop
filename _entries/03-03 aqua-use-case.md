@@ -111,7 +111,7 @@ Now you are ready to give these credentials to Aqua.
 Login into your Aqua account and expand *System* on the bottom of the left sidebar. Then click on *Integrations*. On the right-hand side click the *Add Registry* button. Click on the dropdown
 *Docker v1/v1 Registry* and enter the following details:
 
-* *Registry Name* - Codefresh (user defined)
+* *Registry Name* - codefresh (user defined - lower case)
 * *Registry URL* - `https://r.cfcr.io`
 * *Username* - your Codefresh username
 * *Password* - the Codefresh registry token you created before
