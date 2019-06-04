@@ -28,6 +28,14 @@ az aks create --resource-group akschallenge --name akschallenge \
     --kubernetes-version 1.13.5 --generate-ssh-keys
 ```
 
+> **Important**: For the lab, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
+> ```sh
+> az aks create --resource-group akschallenge --name akschallenge \
+>   --enable-addons monitoring,http_application_routing \
+>   --kubernetes-version 1.13.5 --generate-ssh-keys \
+>   --service-principal <APP_ID> --client-secret <APP_SECRET>
+> ```
+
 #### Ensure you and your colleagues can connect to the cluster using `kubectl`
 
 
