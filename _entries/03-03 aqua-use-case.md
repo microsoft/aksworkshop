@@ -87,9 +87,39 @@ Like we did for manually adding images from Docker Hub, we can add an image from
 This will start a scan of that image from your ACR.  Once finished scanning, you can view the results and see what the security posture of that image is. 
 
 #### Connect the Codefresh registry
+
 In order to scan images built in Codefresh and not yet pushed to ACR, we need to give  a pull secret to Aqua.
 
-...
+
+You can connect any supported private registry in Aqua, but since Codefresh already includes a private Docker registry with each account, you will set up access for the Codefresh registry.
+
+
+First, you will create a Codefresh Registry Access Token. From the left sidebar click on *User Settings*.
+Scroll down until you see the Codefresh Registry section.
+
+![Codefresh registry](media/codefresh/registry-tokens.png)
+
+Click on the *Generate* button to create a new access token. Give it any arbitrary name (e.g. `aqua-access`)
+and click *Create* to get the token. Copy it into your clipboard by clicking the *Copy Docker login command to clipboard*.
+
+![Registry token](media/codefresh/create-registry-token.png)
+
+Paste the clipboard contents into an empty text file (you can use any text editor for this purpose). Finally 
+click *OK* to close the dialog.
+
+Now you are ready to give these credentials to Aqua.
+Login into your Aqua account and expand *System* on the bottom of the left sidebar. Then click on *Integrations*. On the right-hand side click the *Add Registry* button. Click on the dropdown
+*Docker v1/v1 Registry* and enter the following details:
+
+* *Registry Name* - Codefresh (user defined)
+* *Registry URL* - `http://r.cfcr.io`
+* *Username* - your Codefresh username
+* *Password* - the Codefresh registry token you created before
+
+![Adding Codefresh registry to Aqua](media/codefresh/adding-codefresh-registry-to-aqua.png)
+
+Then click the *Save* button. 
+The Aqua scanner is now able to access your Codefresh private registry.
 
 #### Create a Image Assurance Policy
 Whenever Aqua scans an image, it checks the image against the Image Assurance policy.  Currently we don't have a Policy so everything scanned will be in the approved state, even if it contains vulnerabilities.
