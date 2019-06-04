@@ -27,7 +27,6 @@ Follow the Azure docs to learn how to [grant access using Azure Active Directory
 ```sh
 export AKS_RESOURCE_GROUP=akschallenge
 export AKS_CLUSTER_NAME=akschallenge
-export ACR_RESOURCE_GROUP=akschallenge
 
 # Get the id of the service principal configured for AKS
 CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
