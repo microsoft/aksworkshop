@@ -103,8 +103,10 @@ The colors app is special because when you open it in your browser and click any
 
 In your cloud shell use this command to watch the status of your running pods
 ```sh
-kubectl get pods -l app=colors
+watch ubectl get pods -l app=colors
 ```
+>  **Hint**
+>  To get out of a watch, use `ctrl-c`
 
 Then, with your browser, click anywhere and watch the pod die and be restarted in your cloud window. Click back on your browser to get back to your running application. 
 
