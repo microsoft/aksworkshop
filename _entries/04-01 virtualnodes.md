@@ -235,11 +235,20 @@ spec:
           #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
           #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
-            value: "orders-mongo-mongodb.default.svc.cluster.local"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoHost
           - name: MONGOUSER
-            value: "orders-user"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoUser
           - name: MONGOPASSWORD
-            value: "orders-password"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoPassword
           ports:
           - containerPort: 8080
         nodeSelector:
