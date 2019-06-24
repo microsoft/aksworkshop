@@ -115,6 +115,11 @@ h2.nocount:before {
     counter-increment: none;
 }
 
+#changelog h2:before {
+  content: none;
+  counter-increment: none;
+}
+
 .h2{
     counter-increment: h2-counter;
     counter-reset: h3-counter;
