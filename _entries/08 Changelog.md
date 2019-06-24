@@ -7,6 +7,16 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2019-06-24
+
+### Added
+
+- Instructions to enable multi-stage pipeline preview
+
+### Changed
+
+- Updated capture order app to load MongoDB details from a Kubernetes secret
+
 ## 2019-05-24
 
 ### Added

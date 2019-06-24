@@ -74,6 +74,22 @@ You'll need to use the user created in the command above when configuring the de
 
 {% endcollapsible %}
 
+#### Create a Kubernetes secret to hold the MongoDB details
+
+In the previous step, you installed MongoDB using Helm, with a specified username, password and a hostname where the database is accessible. You'll now create a Kubernetes secret called `mongodb` to hold those details, so that you don't need to hard-code them in the YAML files.
+
+{% collapsible %}
+
+```sh
+kubectl create secret --from-literal=mongoHost="orders-mongo-mongodb.default.svc.cluster.local" --from-literal=mongoUser="orders-user" --from-literal=mongoPassword="orders-password"
+```
+
+> **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
+
+You'll need to use the user created in the command above when configuring the deployment environment variables.
+
+{% endcollapsible %}
+
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
 > * <https://github.com/helm/charts/tree/master/stable/mongodb#replication>
