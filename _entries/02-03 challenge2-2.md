@@ -25,11 +25,11 @@ The Order Capture API requires certain environment variables to properly run and
   * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
     * Application Insights key **if provided by proctors**. This is used to track your team's progress. If not provided, just delete it.
   * `MONGOHOST="<hostname of mongodb>"`
-    * MongoDB hostname.
+    * MongoDB hostname. Read from a Kubernetes secret called **mongodb**.
   * `MONGOUSER="<mongodb username>"`
-    * MongoDB username.
+    * MongoDB username. Read from a Kubernetes secret called **mongodb**.
   * `MONGOPASSWORD="<mongodb password>"`
-    * MongoDB password.
+    * MongoDB password. Read from a Kubernetes secret called **mongodb**.
 
 > **Hint:** The Order Capture API exposes the following endpoint for health-checks once you have completed the tasks below: `http://[PublicEndpoint]:[port]/healthz`
 
@@ -83,11 +83,20 @@ spec:
           #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
           #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
-            value: "orders-mongo-mongodb.default.svc.cluster.local"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoHost
           - name: MONGOUSER
-            value: "orders-user"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoUser
           - name: MONGOPASSWORD
-            value: "orders-password"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoPassword
           ports:
           - containerPort: 8080
 ```

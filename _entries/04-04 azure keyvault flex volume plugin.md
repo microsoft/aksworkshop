@@ -164,7 +164,10 @@ Edit your `captureorder-deployment.yaml` by **removing** the `MONGOPASSWORD` fro
 
 ```yaml
 - name: MONGOPASSWORD
-  value: "orders-password"
+  valueFrom:
+    secretKeyRef:
+      name: mongodb
+      key: mongoPassword
 ```
 
 Add the below `volumes` definition to the configuration, which defines a FlexVolume called `mongosecret` using the Azure Key Vault driver. The driver will look for a Kubernetes secret called `kvcreds` which you created in an earlier step in order to authenticate to Azure Key Vault.
@@ -239,9 +242,15 @@ spec:
           #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
           #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
-            value: "orders-mongo-mongodb.default.svc.cluster.local"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoHost
           - name: MONGOUSER
-            value: "orders-user"
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoUser
           ports:
           - containerPort: 8080
           volumeMounts:
@@ -290,119 +299,6 @@ kubectl exec <podname> cat /kvmnt/mongo-password
 ```
 
 The last command will return `"orders-password"`.
-
-{% endcollapsible %}
-
-#### Bonus: Setup Helm Chart for Azure DevOps Build
-
-{% collapsible %}
-
-In Azure DevOps Repos, replace the `values.yaml` file found in the `captureorder` chart created during the Helm task content with the below yaml and be sure to edit the placeholders <>.
-
-```yaml
-minReplicaCount: 1
-maxReplicaCount: 2
-targetCPUUtilizationPercentage: 50
-teamName: <your team name>
-appInsightKey: ""
-mongoHost: "orders-mongo-mongodb.default.svc.cluster.local"
-mongoUser: "orders-user"
-mongoPassword: ""
-
-image:
-  repository: <unique-acr-name>.azurecr.io/captureorder
-  tag: # Will be set at command runtime
-  pullPolicy: Always
-  
-service:
-  type: LoadBalancer
-  port: 80
-
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-
-flexVol:
-  keyVaultName: <unique keyvault name> # Name of keyvault containing mongo password secret
-  keyVaultSecretName: mongo-password # Name of secret container mongo password
-  keyVaultResourceGroup: <kv resource group> # Name of resource group containing keyvault
-  subscriptionId: <kv azure subscription id> # target subscription id
-  tenantId: <kv azure tenant id> # tenant ID of subscription
-```
-
-Also replace the .../templates/deployment.yaml file contents with these.
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "captureorder.fullname" . }}
-  labels:
-    app: {{ include "captureorder.name" . }}
-    chart: {{ include "captureorder.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  selector:
-      matchLabels:
-        app: captureorder
-  template:
-      metadata:
-        labels:
-          app: {{ include "captureorder.name" . }}
-          release: {{ .Release.Name }}
-      spec:
-        containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          readinessProbe:
-            httpGet:
-              port: 8080
-              path: /healthz
-          livenessProbe:
-            httpGet:
-              port: 8080
-              path: /healthz
-          resources:
-{{ toYaml .Values.resources | indent 12 }}
-          env:
-          - name: TEAMNAME
-            value: {{ .Values.teamName }}
-          - name: MONGOHOST
-            value: {{ .Values.mongoHost }}
-          - name: MONGOUSER
-            value: {{ .Values.mongoUser }}
-          - name: MONGOPASSWORD
-            value: {{ .Values.mongoPassword }}
-          ports:
-          - containerPort: 80
-          volumeMounts:
-          - name: mongosecret
-            mountPath: /kvmnt
-            readOnly: true
-        volumes:
-        - name: mongosecret
-          flexVolume:
-            driver: "azure/kv"
-            secretRef:
-              name: kvcreds
-            options:
-              usepodidentity: "false"
-              keyvaultname: {{ .Values.flexVol.keyVaultName }}
-              keyvaultobjectnames: {{ .Values.flexVol.keyVaultSecretName }}
-              keyvaultobjecttypes: secret
-              keyvaultobjectversions: ""
-              resourcegroup: {{ .Values.flexVol.keyVaultResourceGroup }}
-              subscriptionid: {{ .Values.flexVol.subscriptionId }}
-              tenantid: {{ .Values.flexVol.tenantId }}
-```
-
-Save the file, this should trigger a build and redeploy. Verify everything works as above.
 
 {% endcollapsible %}
 
