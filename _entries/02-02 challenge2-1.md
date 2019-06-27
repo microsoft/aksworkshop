@@ -81,7 +81,7 @@ In the previous step, you installed MongoDB using Helm, with a specified usernam
 {% collapsible %}
 
 ```sh
-kubectl create secret --from-literal=mongoHost="orders-mongo-mongodb.default.svc.cluster.local" --from-literal=mongoUser="orders-user" --from-literal=mongoPassword="orders-password"
+kubectl create secret generic mongodbsecret --from-literal=mongoHost="orders-mongo-mongodb.default.svc.cluster.local" --from-literal=mongoUser="orders-user" --from-literal=mongoPassword="orders-password"
 ```
 
 > **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
