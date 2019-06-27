@@ -86,7 +86,7 @@ kubectl create secret generic mongodbsecret --from-literal=mongoHost="orders-mon
 
 > **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
 
-You'll need to use the user created in the command above when configuring the deployment environment variables.
+You'll need to use the user created in the command above when configuring the deployment environment variables. 
 
 {% endcollapsible %}
 
