@@ -9,6 +9,8 @@ You would like to monitor the performance of different components in your applic
 
 Use a combination of the available tools to setup alerting capabilities for your application.
 
+> **Note** If you are running this lab as part of the managed lab environment, you may not be able to create the required resources to enable monitoring due to insufficient permissions on the subscription.
+
 ### Tasks
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect logs and monitor your cluster health
