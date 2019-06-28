@@ -22,11 +22,19 @@ body{
 
 
 .build {
-    font-family: monospace;
-    font-size: x-small;
-    color: #ffffff;
-    position: relative;
-    top: 120px;
+  font-family: monospace;
+  color: black;
+  font-size: x-small;
+  text-align: center;
+}
+
+.commit {
+  font-family: monospace;
+  text-decoration: underline;
+  font-size: x-small;
+  color: $darkblue;
+  margin-top: 0;
+  text-align: center;
 }
 
 .content{
@@ -291,4 +299,9 @@ img.github-avatar {
   height: 32px;
   vertical-align: middle;
   display: inline;
+}
+
+#copyright-notice {
+  font-size: 12px;
+  padding: 10px;
 }

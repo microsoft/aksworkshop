@@ -1,8 +1,8 @@
 ---
 sectionid: tls
 sectionclass: h2
-title: Enable SSL/TLS on frontend
-parent-id: advancedclustersetup
+title: Enable SSL/TLS on ingress
+parent-id: upandrunning
 ---
 
 You want to enable connecting to the frontend website over SSL/TLS. In this task, you'll use [Let's Encrypt](https://letsencrypt.org/) free service to generate valid SSL certificates for your domains, and you'll integrate the certificate issuance workflow into Kubernetes.
@@ -180,10 +180,9 @@ Verify that the frontend is accessible over HTTPS and that the certificate is va
 
 ![Let's Encrypt SSL certificate](media/ssl-certificate.png)
 
-> **Note** Because the `captureorder` service is deployed over HTTP, you may receive some browser warnings about "mixed content" or the orders might not load at all because the calls happen via JavaScript. Redeploying the `captureorder` service to use Ingress over TLS is left as an excercise for the reader.
+> **Important** Because the `captureorder` service is deployed over HTTP, you may receive some browser warnings about "mixed content" or the orders might not load at all because the calls happen via JavaScript. Use the same concepts to create an ingress for `captureorder` service and use SSL/TLS to secure it.
 
 {% endcollapsible %}
 
 > **Resources**
-> - [https://docs.mongodb.com/manual/replication/](https://docs.mongodb.com/manual/replication/)
 > - [https://github.com/helm/charts/tree/master/stable/mongodb#replication](https://github.com/helm/charts/tree/master/stable/mongodb#replication)
