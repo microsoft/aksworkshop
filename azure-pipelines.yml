@@ -14,8 +14,8 @@ trigger:
   batch: true
   branches:
     include: 
-    - master
-    - staging
+    - aksworkshop-master
+    - aksworkshop-staging
 
 # no PR builds
 pr: none
