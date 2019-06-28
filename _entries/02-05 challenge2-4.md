@@ -7,6 +7,8 @@ parent-id: upandrunning
 
 You want to enable connecting to the frontend website over SSL/TLS. In this task, you'll use [Let's Encrypt](https://letsencrypt.org/) free service to generate valid SSL certificates for your domains, and you'll integrate the certificate issuance workflow into Kubernetes.
 
+> **Important** After you finish this task for the `frontend`, you may receive some browser warnings about "mixed content" or the orders might not load at all because the calls happen via JavaScript vecause the `captureorder` service is deployed over HTTP. Use the same concepts to create an ingress for `captureorder` service and use SSL/TLS to secure it.
+
 ### Tasks
 
 #### Install `cert-manager`
@@ -179,8 +181,6 @@ Spec:
 Verify that the frontend is accessible over HTTPS and that the certificate is valid.
 
 ![Let's Encrypt SSL certificate](media/ssl-certificate.png)
-
-> **Important** Because the `captureorder` service is deployed over HTTP, you may receive some browser warnings about "mixed content" or the orders might not load at all because the calls happen via JavaScript. Use the same concepts to create an ingress for `captureorder` service and use SSL/TLS to secure it.
 
 {% endcollapsible %}
 
