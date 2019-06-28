@@ -10,6 +10,13 @@ pool:
 variables:
   imageName: '$(dockerId)/site'
 
+trigger:
+  batch: true
+  branches:
+    include: 
+    - master
+    - staging
+
 # no PR builds
 pr: none
 
