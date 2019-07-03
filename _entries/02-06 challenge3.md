@@ -13,7 +13,7 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 ### Tasks
 
-#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect logs and monitor your cluster health
+#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
 
 If you didn't create an AKS cluster with monitoring enabled, you can enable the add-on by running:
 
@@ -78,7 +78,6 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 {% endcollapsible %}
 
 > **Resources**
-> - <https://docs.microsoft.com/en-us/azure/application-insights/app-insights-alerts>
 > - <https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs>
 > - <https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-insights-overview>
 > - <https://coreos.com/operators/prometheus/docs/latest/>
