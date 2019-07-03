@@ -31,7 +31,7 @@ az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-na
 
 {% endcollapsible %}
 
-#### View the live container logs
+#### View the live container logs and Kubernetes events
 
 {% collapsible %}
 
@@ -40,26 +40,26 @@ az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-na
 Save the YAML below as `logreader-rbac.yaml` or download it from [logreader-rbac.yaml](yaml-solutions/01. challenge-03/logreader-rbac.yaml)
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-   name: containerHealth-log-reader
-rules:
-   - apiGroups: [""]
-     resources: ["pods/log"]
-     verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-   name: containerHealth-read-logs-global
-roleRef:
-  kind: ClusterRole
-  name: containerHealth-log-reader
-  apiGroup: rbac.authorization.k8s.io
-subjects:
-   - kind: User
-     name: clusterUser
+apiVersion: rbac.authorization.k8s.io/v1 
+kind: ClusterRole 
+metadata: 
+   name: containerHealth-log-reader 
+rules: 
+   - apiGroups: [""] 
+     resources: ["pods/log", "events"] 
+     verbs: ["get", "list"]  
+--- 
+apiVersion: rbac.authorization.k8s.io/v1 
+kind: ClusterRoleBinding 
+metadata: 
+   name: containerHealth-read-logs-global 
+roleRef: 
+    kind: ClusterRole 
+    name: containerHealth-log-reader 
+    apiGroup: rbac.authorization.k8s.io 
+subjects: 
+   - kind: User 
+     name: clusterUser 
      apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -69,7 +69,7 @@ And deploy it using
 kubectl apply -f logreader-rbac.yaml
 ```
 
-If you have a Kubernetes cluster that is not configured with Kubernetes RBAC authorization or integrated with Azure AD single-sign on, you do not need to follow the steps above. Because Kubernetes authorization uses the kube-api, read-only permissions is required.
+If you have a Kubernetes cluster that is not configured with Kubernetes RBAC authorization or integrated with Azure AD single-sign on, you do not need to follow the steps above. Because Kubernetes authorization uses the kube-api, contributor access is required.
 
 Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Containers** tab and pick a container to view its live logs and debug what is going on.
 
