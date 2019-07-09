@@ -7,6 +7,12 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2019-07-09
+
+### Added
+
+- Missing instruction to update ACR repository in the forked code
+
 ## 2019-06-24
 
 ### Added
