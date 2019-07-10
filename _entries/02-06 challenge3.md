@@ -71,9 +71,80 @@ kubectl apply -f logreader-rbac.yaml
 
 If you have a Kubernetes cluster that is not configured with Kubernetes RBAC authorization or integrated with Azure AD single-sign on, you do not need to follow the steps above. Because Kubernetes authorization uses the kube-api, contributor access is required.
 
-Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Containers** tab and pick a container to view its live logs and debug what is going on.
+Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Containers** tab and pick a container to view its live logs or event logs and debug what is going on.
 
 ![Azure Monitor for Containers: Live Logs](media/livelogs.png)
+
+{% endcollapsible %}
+
+#### Collect Prometheus metrics (optional)
+
+{% collapsible %}
+
+1. Run an demo application called “prommetrics-demo” which already has the Prometheus endpoint exposed.
+Save the YAML below as `prommetrics-demo.yaml` or download it from [logreader-rbac.yaml](yaml-solutions/01. challenge-03/logreader-rbac.yaml)
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prommetrics-demo
+ labels:
+    app: prommetrics-demo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: prommetrics-demo
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/"
+        prometheus.io/port: "8000"
+      labels:
+        app: prommetrics-demo
+    spec:
+      containers:
+      - name: prommetrics-demo
+        image: vishiy/tools:prommetricsv4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        - containerPort: 8080
+```
+And deploy it using
+
+```sh
+kubectl apply -f prommetrics-demo.yaml
+```
+This application exposes a Prometheus metric “prommetrics_demo_requests_counter_total”. 
+
+2.	Download the configmap template and apply to start scraping the metrics. This is a configmap which has configuration to scrape the application pods and collect Prometheus metric “prommetrics_demo_requests_counter_total” from the demo application in 1min interval. 
+
+```
+interval = "1m"
+fieldpass = ["prommetrics_demo_requests_counter_total"]
+monitor_kubernetes_pods = true
+```
+And deploy it using
+
+```sh
+kubectl apply -f configmap.yaml
+```
+
+3.	Copy the query and go to Log Analytics to see and create a chart to pin to dashboard. 
+```
+InsightsMetrics
+| where Name == "prommetrics_demo_requests_counter_total"
+| extend dimensions=parse_json(Tags)
+| extend request_status = tostring(dimensions.request_status)
+| where request_status == "bad"
+| where TimeGenerated > todatetime('2019-07-02T09:40:00.000')
+| where TimeGenerated < todatetime('2019-07-02T09:54:00.000')
+| project request_status, Val, TimeGenerated | render timechart
+```
+You should be able to plot a chart based on the Prometheus metrics collected on Log Analytics. 
 
 {% endcollapsible %}
 
