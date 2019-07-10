@@ -20,5 +20,5 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor shanepeckham %}
 {% githubauthor knee-berts %}
 {% githubauthor waltermyersiii %}
-
+{% githubauthor keikhara %}
 </div>
