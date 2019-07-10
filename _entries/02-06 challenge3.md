@@ -82,7 +82,7 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 {% collapsible %}
 
 1. Run an demo application called “prommetrics-demo” which already has the Prometheus endpoint exposed.
-Save the YAML below as `prommetrics-demo.yaml` or download it from [logreader-rbac.yaml](yaml-solutions/01. challenge-03/logreader-rbac.yaml)
+Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-demo.yaml](yaml-solutions/01. challenge-03/prommetrics-demo.yaml)
 
 ```yaml
 apiVersion: apps/v1
@@ -120,7 +120,10 @@ kubectl apply -f prommetrics-demo.yaml
 ```
 This application exposes a Prometheus metric “prommetrics_demo_requests_counter_total”. 
 
-2.	Download the configmap template and apply to start scraping the metrics. This is a configmap which has configuration to scrape the application pods and collect Prometheus metric “prommetrics_demo_requests_counter_total” from the demo application in 1min interval. 
+2.	Download the configmap template yaml file and apply to start scraping the metrics. 
+This configmap is pre-configured to scrape the application pods and collect Prometheus metric “prommetrics_demo_requests_counter_total” from the demo application in 1min interval. 
+
+Download configmap from [configmap.yaml](yaml-solutions/01. challenge-03/configmap.yaml)
 
 ```
 interval = "1m"
@@ -133,18 +136,22 @@ And deploy it using
 kubectl apply -f configmap.yaml
 ```
 
-3.	Copy the query and go to Log Analytics to see and create a chart to pin to dashboard. 
+3.	Query the Prometheus metrics and plot a chart. 
+
+To access Log Analytics, go to the AKS overview page and click `Logs` in the TOC under Monitor. 
+Copy the query below and run. 
+
 ```
 InsightsMetrics
 | where Name == "prommetrics_demo_requests_counter_total"
 | extend dimensions=parse_json(Tags)
 | extend request_status = tostring(dimensions.request_status)
 | where request_status == "bad"
-| where TimeGenerated > todatetime('2019-07-02T09:40:00.000')
-| where TimeGenerated < todatetime('2019-07-02T09:54:00.000')
 | project request_status, Val, TimeGenerated | render timechart
 ```
-You should be able to plot a chart based on the Prometheus metrics collected on Log Analytics. 
+You should be able to plot a chart based on the Prometheus metrics collected. 
+
+![Azure Monitor for Containers: Prometheus](media/prommetric.png)
 
 {% endcollapsible %}
 
