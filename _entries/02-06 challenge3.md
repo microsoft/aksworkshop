@@ -118,10 +118,29 @@ And deploy it using
 ```sh
 kubectl apply -f prommetrics-demo.yaml
 ```
-This application exposes a Prometheus metric “prommetrics_demo_requests_counter_total”. 
+This application exposes a Prometheus metric called **“prommetrics_demo_requests_counter_total”. **
 
-2.	Download the configmap template yaml file and apply to start scraping the metrics. 
-This configmap is pre-configured to scrape the application pods and collect Prometheus metric “prommetrics_demo_requests_counter_total” from the demo application in 1min interval. 
+2. Generate traffic to the application by running curl. 
+Find the pod you just created and login.
+
+```sh
+kubectl get pods 
+```
+
+```sh
+kubectl exec -it 
+```
+
+While logged on, execute curl to generate traffic. 
+
+```sh
+while (true); do curl 'http://prommetrics-demo.default.svc.cluster.local:8080'; sleep 5; done 
+```
+
+> **Note** Leave the window open and keep running this. You may see service error but do not close the window. 
+
+3.	Download the configmap template yaml file and apply to start scraping the metrics. 
+This configmap is pre-configured to scrape the application pods and collect Prometheus metric **“prommetrics_demo_requests_counter_total”** from the demo application in 1min interval. 
 
 Download configmap from [configmap.yaml](yaml-solutions/01. challenge-03/configmap.yaml)
 
@@ -136,7 +155,7 @@ And deploy it using
 kubectl apply -f configmap.yaml
 ```
 
-3.	Query the Prometheus metrics and plot a chart. 
+4.	Query the Prometheus metrics and plot a chart. 
 
 To access Log Analytics, go to the AKS overview page and click `Logs` in the TOC under Monitor. 
 Copy the query below and run. 
