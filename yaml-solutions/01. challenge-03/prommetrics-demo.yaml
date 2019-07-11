@@ -1,3 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prommetrics-demo
+  labels:
+    app: prommetrics-demo
+spec:
+  selector:
+    app: prommetrics-demo
+  ports:
+  - name: metrics
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
