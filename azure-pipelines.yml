@@ -9,6 +9,7 @@ pool:
 
 variables:
   imageName: '$(dockerId)/site'
+  sourceVersion: '$(Build.SourceVersion)'
 
 trigger:
   batch: true
