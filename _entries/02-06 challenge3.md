@@ -109,7 +109,7 @@ spec:
     spec:
       containers:
       - name: prommetrics-demo
-        image: vishiy/tools:prommetricsv4
+        image: vishiy/tools:prommetricsv5
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -123,14 +123,20 @@ kubectl apply -f prommetrics-demo.yaml
 This application exposes a Prometheus metric called **“prommetrics_demo_requests_counter_total”. **
 
 2. Generate traffic to the application by running curl. 
-Find the pod you just created and login.
+Find the pod you just created.
 
 ```sh
-kubectl get pods 
+kubectl get pods | grep prommetrics-demo
+
+prommetrics-demo-7f455766c4-gmpjb   1/1       Running   0          2m
+prommetrics-demo-7f455766c4-n7554   1/1       Running   0          2m
+prommetrics-demo-7f455766c4-q756r   1/1       Running   0          2m
+prommetrics-demo-7f455766c4-vqncw   1/1       Running   0          2m
 ```
+Select one of the pods and login. 
 
 ```sh
-kubectl exec -it 
+kubectl exec -it prommetrics-demo-7f455766c4-gmpjb bash
 ```
 
 While logged on, execute curl to generate traffic. 
