@@ -87,11 +87,31 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-demo.yaml](yaml-solutions/01. challenge-03/prommetrics-demo.yaml)
 
 ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: prommetrics-demo
+  labels:
+    app: prommetrics-demo
+spec:
+  selector:
+    app: prommetrics-demo
+  ports:
+  - name: metrics
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prommetrics-demo
- labels:
+  labels:
     app: prommetrics-demo
 spec:
   replicas: 4
