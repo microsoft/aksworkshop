@@ -81,6 +81,8 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 
 {% collapsible %}
 
+> **Note** The minimum agent version supported by this feature is microsoft/oms:ciprod07092019 or later.
+
 1. Run an demo application called “prommetrics-demo” which already has the Prometheus endpoint exposed.
 Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-demo.yaml](yaml-solutions/01. challenge-03/prommetrics-demo.yaml)
 
