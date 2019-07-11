@@ -7,6 +7,12 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2019-07-11
+
+### Added
+
+- Prometheus metric collection using Azure Monitor
+
 ## 2019-07-09
 
 ### Added
