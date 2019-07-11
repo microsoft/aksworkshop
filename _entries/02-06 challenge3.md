@@ -86,119 +86,121 @@ Head over to the AKS cluster on the Azure portal, click on **Insights** under **
 1. Run an demo application called “prommetrics-demo” which already has the Prometheus endpoint exposed.
 Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-demo.yaml](yaml-solutions/01. challenge-03/prommetrics-demo.yaml)
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: prommetrics-demo
-  labels:
-    app: prommetrics-demo
-spec:
-  selector:
-    app: prommetrics-demo
-  ports:
-  - name: metrics
-    port: 8000
-    protocol: TCP
-    targetPort: 8000
-  - name: http
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prommetrics-demo
-  labels:
-    app: prommetrics-demo
-spec:
-  replicas: 4
-  selector:
-    matchLabels:
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: prommetrics-demo
+    labels:
       app: prommetrics-demo
-  template:
-    metadata:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/"
-        prometheus.io/port: "8000"
-      labels:
+  spec:
+    selector:
+      app: prommetrics-demo
+    ports:
+    - name: metrics
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    type: ClusterIP
+  ---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: prommetrics-demo
+    labels:
+      app: prommetrics-demo
+  spec:
+    replicas: 4
+    selector:
+      matchLabels:
         app: prommetrics-demo
-    spec:
-      containers:
-      - name: prommetrics-demo
-        image: vishiy/tools:prommetricsv5
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8000
-        - containerPort: 8080
-```
-And deploy it using
+    template:
+      metadata:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/path: "/"
+          prometheus.io/port: "8000"
+        labels:
+          app: prommetrics-demo
+      spec:
+        containers:
+        - name: prommetrics-demo
+          image: vishiy/tools:prommetricsv5
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8000
+          - containerPort: 8080
+  ```
+  And deploy it using
 
-```sh
-kubectl apply -f prommetrics-demo.yaml
-```
-This application on purpose generates *"Bad Request 500"* when traffic is generated and it exposes a Prometheus metric called **prommetrics_demo_requests_counter_total.** 
+  ```sh
+  kubectl apply -f prommetrics-demo.yaml
+  ```
+  This application on purpose generates *"Bad Request 500"* when traffic is generated and it exposes a Prometheus metric called **prommetrics_demo_requests_counter_total.** 
 
 2. Generate traffic to the application by running curl. 
-Find the pod you just created.
 
-```sh
-kubectl get pods | grep prommetrics-demo
+  Find the pod you just created.
 
-prommetrics-demo-7f455766c4-gmpjb   1/1       Running   0          2m
-prommetrics-demo-7f455766c4-n7554   1/1       Running   0          2m
-prommetrics-demo-7f455766c4-q756r   1/1       Running   0          2m
-prommetrics-demo-7f455766c4-vqncw   1/1       Running   0          2m
-```
-Select one of the pods and login. 
+  ```sh
+  kubectl get pods | grep prommetrics-demo
 
-```sh
-kubectl exec -it prommetrics-demo-7f455766c4-gmpjb bash
-```
+  prommetrics-demo-7f455766c4-gmpjb   1/1       Running   0          2m
+  prommetrics-demo-7f455766c4-n7554   1/1       Running   0          2m
+  prommetrics-demo-7f455766c4-q756r   1/1       Running   0          2m
+  prommetrics-demo-7f455766c4-vqncw   1/1       Running   0          2m
+  ```
+  Select one of the pods and login. 
 
-While logged on, execute curl to generate traffic. 
+  ```sh
+  kubectl exec -it prommetrics-demo-7f455766c4-gmpjb bash
+  ```
 
-```sh
-while (true); do curl 'http://prommetrics-demo.default.svc.cluster.local:8080'; sleep 5; done 
-```
+  While logged on, execute curl to generate traffic. 
 
-> **Note** Leave the window open and keep running this. You will see **"Internal Server Error"** but do not close the window. 
+  ```sh
+  while (true); do curl 'http://prommetrics-demo.default.svc.cluster.local:8080'; sleep 5; done 
+  ```
+
+  > **Note** Leave the window open and keep running this. You will see **"Internal Server Error"** but do not close the window. 
 
 3.	Download the configmap template yaml file and apply to start scraping the metrics. 
-This configmap is pre-configured to scrape the application pods and collect Prometheus metric **“prommetrics_demo_requests_counter_total”** from the demo application in 1min interval. 
+  
+  This configmap is pre-configured to scrape the application pods and collect Prometheus metric **“prommetrics_demo_requests_counter_total”** from the demo application in 1min interval. 
 
-Download configmap from [configmap.yaml](yaml-solutions/01. challenge-03/configmap.yaml)
+  Download configmap from [configmap.yaml](yaml-solutions/01. challenge-03/configmap.yaml)
 
-```
-interval = "1m"
-fieldpass = ["prommetrics_demo_requests_counter_total"]
-monitor_kubernetes_pods = true
-```
-And deploy it using
+  ```
+  interval = "1m"
+  fieldpass = ["prommetrics_demo_requests_counter_total"]
+  monitor_kubernetes_pods = true
+  ```
+  And deploy it using
 
-```sh
-kubectl apply -f configmap.yaml
-```
+  ```sh
+  kubectl apply -f configmap.yaml
+  ```
 
 4.	Query the Prometheus metrics and plot a chart. 
 
-To access Log Analytics, go to the AKS overview page and click `Logs` in the TOC under Monitor. 
-Copy the query below and run. 
+  To access Log Analytics, go to the AKS overview page and click `Logs` in the TOC under Monitor. 
+  Copy the query below and run. 
 
-```
-InsightsMetrics
-| where Name == "prommetrics_demo_requests_counter_total"
-| extend dimensions=parse_json(Tags)
-| extend request_status = tostring(dimensions.request_status)
-| where request_status == "bad"
-| project request_status, Val, TimeGenerated | render timechart
-```
-You should be able to plot a chart based on the Prometheus metrics collected. 
+  ```
+  InsightsMetrics
+  | where Name == "prommetrics_demo_requests_counter_total"
+  | extend dimensions=parse_json(Tags)
+  | extend request_status = tostring(dimensions.request_status)
+  | where request_status == "bad"
+  | project request_status, Val, TimeGenerated | render timechart
+  ```
+  You should be able to plot a chart based on the Prometheus metrics collected. 
 
-![Azure Monitor for Containers: Prometheus](media/prommetric.png)
+  ![Azure Monitor for Containers: Prometheus](media/prommetric.png)
 
 {% endcollapsible %}
 
