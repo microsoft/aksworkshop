@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: prommetrics-demo
-        image: vishiy/tools:prommetricsv4
+        image: vishiy/tools:prommetricsv5
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
