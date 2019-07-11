@@ -9,6 +9,7 @@ pool:
 
 variables:
   imageName: '$(dockerId)/site'
+  sourceVersion: '$(Build.SourceVersion)'
 
 trigger:
   batch: true
@@ -27,6 +28,7 @@ steps:
 - script: |
     SHORTCOMMITID=$(echo $(sourceVersion) | cut -c1-7)  
     sed -i "s/#COMMIT_ID#/$SHORTCOMMITID/g" _includes/nav.html
+  displayName: 'update site with commit ID'
 
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
