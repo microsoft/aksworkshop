@@ -140,7 +140,7 @@ And deploy it using
 ```sh
 kubectl apply -f prommetrics-demo.yaml
 ```
-This application exposes a Prometheus metric called **“prommetrics_demo_requests_counter_total”. **
+This application on purpose generates *"Bad Request 500"* when traffic is generated and it exposes a Prometheus metric called **prommetrics_demo_requests_counter_total.** 
 
 2. Generate traffic to the application by running curl. 
 Find the pod you just created.
@@ -165,7 +165,7 @@ While logged on, execute curl to generate traffic.
 while (true); do curl 'http://prommetrics-demo.default.svc.cluster.local:8080'; sleep 5; done 
 ```
 
-> **Note** Leave the window open and keep running this. You may see service error but do not close the window. 
+> **Note** Leave the window open and keep running this. You will see **"Internal Server Error"** but do not close the window. 
 
 3.	Download the configmap template yaml file and apply to start scraping the metrics. 
 This configmap is pre-configured to scrape the application pods and collect Prometheus metric **“prommetrics_demo_requests_counter_total”** from the demo application in 1min interval. 
