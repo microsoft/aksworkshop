@@ -200,7 +200,7 @@ volumeMounts:
 
 You'll need to replace the placeholders with the values mapping to your configuration.
 
-The final deployment file should look like so. Save the YAML below as `captureorder-deployment.yaml` or download it from [captureorder-deployment.yaml](yaml-solutions/advanced/captureorder-deployment-flexvol.yaml). Make sure to replace the placeholders with values for your configuration.
+The final deployment file should look like so. Save the YAML below as `captureorder-deployment-flexvol.yaml` or download it from [captureorder-deployment-flexvol.yaml](yaml-solutions/advanced/captureorder-deployment-flexvol.yaml). Make sure to replace the placeholders with values for your configuration.
 
 ```yaml
 apiVersion: apps/v1
@@ -277,7 +277,7 @@ spec:
 And deploy it using
 
 ```sh
-kubectl apply -f captureorder-deployment.yaml
+kubectl apply -f captureorder-deployment-flexvol.yaml
 ```
 
 Apply your changes.

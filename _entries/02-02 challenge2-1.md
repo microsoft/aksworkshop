@@ -14,7 +14,9 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 
 ### Tasks
 
-#### Deploy an instance of MongoDB to your cluster. The application expects a database called `akschallenge`
+#### Deploy an instance of MongoDB to your cluster
+
+> **Note** The application expects a database called `akschallenge`. Please DO NOT modify it.
 
 {% collapsible %}
 The recommended way to deploy MongoDB would be to use Helm. Helm is a Kubernetes application package manager and it has a [MongoDB Helm chart](https://github.com/helm/charts/tree/master/stable/mongodb#production-settings-and-horizontal-scaling) that is replicated and horizontally scalable.
@@ -86,7 +88,7 @@ kubectl create secret generic mongodb --from-literal=mongoHost="orders-mongo-mon
 
 > **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
 
-You'll need to use the user created in the command above when configuring the deployment environment variables. 
+You'll need to use the user created in the command above when configuring the deployment environment variables.
 
 {% endcollapsible %}
 
