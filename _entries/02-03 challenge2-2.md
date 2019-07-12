@@ -153,13 +153,16 @@ kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].i
 #### Ensure orders are successfully written to MongoDB
 
 {% collapsible %}
+
+> **Hint:** You can test your deployed API either by using Postman or Swagger with the following endpoint : `http://[Your Service Public LoadBalancer IP]/swagger/`
+
 Send a `POST` request using [Postman](https://www.getpostman.com/) or curl to the IP of the service you got from the previous command
 
 ```sh
 curl -d '{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}' -H "Content-Type: application/json" -X POST http://[Your Service Public LoadBalancer IP]/v1/order
 ```
 
-You should get back the created order ID
+You can expect the order ID returned by API once your order has been written into Mongo DB successfully
 
 ```json
 {
@@ -168,6 +171,8 @@ You should get back the created order ID
 ```
 
 {% endcollapsible %}
+
+> **Hint:** You may notice we have deployed readinessProbe and livenessProbe in the YAML file when we're deploying The Order Capture API. In Kubernetes, readiness probes define when a Container is ready to start accepting traffic, liveness probes monitor the container health. Hence here we can use the following endpoint to do a simple health-checks : `http://[PublicEndpoint]:[port]/healthz`
 
 > **Resources**
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
