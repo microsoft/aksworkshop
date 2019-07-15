@@ -23,6 +23,8 @@ version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestrato
 
 #### Create a Resource Group
 
+You don't need to create a resource group if you're using the lab environment. You can use the resource group created for you.
+
 {% collapsible %}
 
 ```sh
