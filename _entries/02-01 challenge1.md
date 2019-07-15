@@ -26,7 +26,7 @@ version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestrato
 {% collapsible %}
 
 ```sh
-az group create --name akschallenge --location <region>
+az group create --name <resource-group> --location <region>
 ```
 
 {% endcollapsible %}
@@ -37,15 +37,16 @@ az group create --name akschallenge --location <region>
 
 ##### **Option 1:** Create an AKS cluster without the cluster autoscaler
 
+> **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group.
+
   {% collapsible %}
 
   Create AKS using the latest version and enable the monitoring addon
 
   ```sh
-  az aks create --resource-group akschallenge \
+  az aks create --resource-group <resource-group> \
     --name <unique-aks-cluster-name> \
     --location <region> \
-    --enable-addons monitoring \
     --kubernetes-version $version \
     --generate-ssh-keys
   ```
@@ -53,10 +54,9 @@ az group create --name akschallenge --location <region>
   > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
   >
   > ```sh
-  > az aks create --resource-group akschallenge \
+  > az aks create --resource-group <resource-group> \
   >   --name <unique-aks-cluster-name> \
   >   --location <region> \
-  >   --enable-addons monitoring \
   >   --kubernetes-version $version \
   >   --generate-ssh-keys \
   >   --service-principal <application ID> \
@@ -98,10 +98,9 @@ az group create --name akschallenge --location <region>
   > **Note** During preview, you can't set a higher minimum node count than is currently set for the cluster. For example, if you currently have min count set to *1*, you can't update the min count to *3*.
 
    ```sh
-  az aks create --resource-group akschallenge \
+  az aks create --resource-group <resource-group> \
     --name <unique-aks-cluster-name> \
     --location <region> \
-    --enable-addons monitoring \
     --kubernetes-version $version \
     --generate-ssh-keys \
     --enable-vmss \
@@ -112,10 +111,9 @@ az group create --name akschallenge --location <region>
 
   > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
   > ```sh
-  > az aks create --resource-group akschallenge \
+  > az aks create --resource-group <resource-group> \
   >   --name <unique-aks-cluster-name> \
   >   --location <region> \
-  >   --enable-addons monitoring \
   >   --kubernetes-version $version \
   >   --generate-ssh-keys \
   >   --enable-vmss \
@@ -137,7 +135,7 @@ az group create --name akschallenge --location <region>
 Authenticate
 
 ```sh
-az aks get-credentials --resource-group akschallenge --name <unique-aks-cluster-name>
+az aks get-credentials --resource-group <resource-group> --name <unique-aks-cluster-name>
 ```
 
 List the available nodes
