@@ -9,16 +9,23 @@ You would like to monitor the performance of different components in your applic
 
 Use a combination of the available tools to setup alerting capabilities for your application.
 
-> **Note** If you are running this lab as part of the managed lab environment, you may not be able to create the required resources to enable monitoring due to insufficient permissions on the subscription.
-
 ### Tasks
+
+#### Create Log Analytics workspace
+
+If you are running this lab as part of the managed lab environment, you may not be able to create the required resources to enable monitoring due to insufficient permissions on the subscription. You'll need to pre-create the Log Analytics workspace in your assigned environment resource group.
+
+Follow the [Create a Log Analytics workspace in the Azure portal](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) instructions.
+
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
 
-If you didn't create an AKS cluster with monitoring enabled, you can enable the add-on by running:
+Enable the monitoring add-on by running the command below, passing in the Log Analytics workspace which you can get from the Azure Portal.
+
+![Log analytics workspace](media/media/log-analytics.png)
 
 ```sh
-az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons monitoring
+az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id <log-analytics-workspace-id>
 ```
 
 {% collapsible %}

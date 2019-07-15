@@ -25,7 +25,7 @@ Create a VNET
 
 ```bash
 az network vnet create \
-    --resource-group akschallenge \
+    --resource-group <resource-group> \
     --name myVnet \
     --address-prefixes 10.0.0.0/8 \
     --subnet-name myAKSSubnet \
@@ -36,7 +36,7 @@ And an additional subnet
 
 ```bash
 az network vnet subnet create \
-    --resource-group akschallenge \
+    --resource-group <resource-group> \
     --vnet-name myVnet \
     --name myVirtualNodeSubnet \
     --address-prefix 10.241.0.0/16
@@ -72,7 +72,7 @@ Assign permissions. We will use this same SP to create our AKS cluster.
 APPID=<replace with above>
 PASSWORD=<replace with above>
 
-VNETID=$(az network vnet show --resource-group akschallenge --name myVnet --query id -o tsv)
+VNETID=$(az network vnet show --resource-group <resource-group> --name myVnet --query id -o tsv)
 
 az role assignment create --assignee $APPID --scope $VNETID --role Contributor
 ```
@@ -124,7 +124,7 @@ az provider register --namespace Microsoft.ContainerInstance
 Set the SUBNET variable to the one created above.
 
 ```bash
-SUBNET=$(az network vnet subnet show --resource-group akschallenge --vnet-name myVnet --name myAKSSubnet --query id -o tsv)
+SUBNET=$(az network vnet subnet show --resource-group <resource-group> --vnet-name myVnet --name myAKSSubnet --query id -o tsv)
 ```
 
 Create the cluster. Replace the name with a new, unique name.
@@ -133,7 +133,7 @@ Create the cluster. Replace the name with a new, unique name.
 
 ```bash
 az aks create \
-    --resource-group akschallenge \
+    --resource-group <resource-group> \
     --name <unique-aks-cluster-name> \
     --node-count 3 \
     --kubernetes-version $VERSION \
@@ -150,7 +150,7 @@ az aks create \
 Once completed, validate that your cluster is up and get your credentials to access the cluster.
 
 ```bash
-az aks get-credentials -n <your-aks-cluster-name> -g akschallenge
+az aks get-credentials -n <your-aks-cluster-name> -g <resource-group>
 ```
 
 ```bash
@@ -173,7 +173,7 @@ Enable the virtual node in your cluster.
 
 ```bash
 az aks enable-addons \
-    --resource-group akschallenge \
+    --resource-group <resource-group> \
     --name <your-aks-cluster-name> \
     --addons virtual-node \
     --subnet-name myVirtualNodeSubnet
