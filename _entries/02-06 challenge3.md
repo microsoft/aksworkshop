@@ -20,12 +20,12 @@ Follow the [Create a Log Analytics workspace in the Azure portal](https://docs.m
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
 
-Enable the monitoring add-on by running the command below, passing in the Log Analytics workspace which you can get from the Azure Portal.
+Enable the monitoring add-on by running the command below. You'll need to replace `<resource-group>`, `<subscription-id>` and `<workspace-name>` with the details of your environment.
 
-![Log analytics workspace](media/media/log-analytics.png)
+![Log analytics workspace](media/log-analytics.png)
 
 ```sh
-az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id <log-analytics-workspace-id>
+az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id /subscriptions/<subscription-id>/resourcegroups/<resource-group>/providers/microsoft.operationalinsights/workspaces/<workspace-name>
 ```
 
 {% collapsible %}
