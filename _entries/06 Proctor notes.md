@@ -11,7 +11,7 @@ You can quickly create the Application Insights resource required to track the c
 
 ```sh
 az resource create \
-    --resource-group akschallenge \
+    --resource-group <resource-group> \
     --resource-type "Microsoft.Insights/components" \
     --name akschallengeproctor \
     --location eastus \

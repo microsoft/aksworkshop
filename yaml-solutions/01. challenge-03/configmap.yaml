@@ -40,13 +40,13 @@ data:
         interval = "1m"
 
         fieldpass = ["prommetrics_demo_requests_counter_total"]
-        fielddrop = []
+        # fielddrop = []
         
         # An array of urls to scrape metrics from.
-        urls = []
+        # urls = []
 
         # An array of Kubernetes services to scrape metrics from kube-state-metrics
-        kubernetes_services = []
+        # kubernetes_services = []
    
         # When monitor_kubernetes_pods = true, replicaset will scrape Kubernetes pods for the following prometheus annotations:
         # below will scrape, demo app (:8000/)
@@ -58,7 +58,7 @@ data:
         interval = "1m"
 
         # An array of urls to scrape metrics from. $NODE_IP (all upper case) will substitute of running Node's IP address
-        urls = []
+        # urls = []
 
         fieldpass = ["metric_to_pass"]
         fielddrop = ["metric_to_drop"]

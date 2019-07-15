@@ -21,7 +21,7 @@ Key Vault FlexVolume for Azure allows you to mount multiple secrets, keys, and c
 
 Azure Key Vault names are unique. Replace `<unique keyvault name>` with a unique name between 3 and 24 characters long.
 ```bash
-az keyvault create --resource-group akschallenge --name <unique keyvault name>
+az keyvault create --resource-group <resource-group> --name <unique keyvault name>
 ```
 
 {% endcollapsible %}

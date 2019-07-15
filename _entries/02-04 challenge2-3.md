@@ -103,7 +103,7 @@ When you enable the add-on, this deploys two components:a [Kubernetes Ingress co
 ##### Enable the HTTP routing add-on on your cluster
 
 ```sh
-az aks enable-addons --resource-group akschallenge --name <unique-aks-cluster-name> --addons http_application_routing
+az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons http_application_routing
 ```
 
 This will take a few minutes.
@@ -147,7 +147,7 @@ annotations:
 Retrieve your cluster specific DNS zone name by running the command below
 
 ```sh
-az aks show --resource-group akschallenge --name <unique-aks-cluster-name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+az aks show --resource-group <resource-group> --name <unique-aks-cluster-name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
 ```
 
 You should get back something like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.

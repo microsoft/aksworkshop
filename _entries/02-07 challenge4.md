@@ -16,7 +16,7 @@ Ensure the application remains responsive as the number of order submissions inc
 There is a a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
 
 ```sh
-az container create -g akschallenge -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
+az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
 ```
 
 This will fire off a series of increasing loads of concurrent users (100, 400, 1600, 3200, 6400) POSTing requests to your Order Capture API endpoint with some wait time in between to simulate an increased pressure on your application.
@@ -24,13 +24,13 @@ This will fire off a series of increasing loads of concurrent users (100, 400, 1
 You may view the logs of the Azure Container Instance streaming logs by running the command below. You may need to wait for a few minutes to get the full logs, or run this command multiple times.
 
 ```sh
-az container logs -g akschallenge -n loadtest
+az container logs -g <resource-group> -n loadtest
 ```
 
 When you're done, you may delete it by running
 
 ```sh
-az container delete -g akschallenge -n loadtest
+az container delete -g <resource-group> -n loadtest
 ```
 
 Make note of results (sample below), figure out what is the breaking point for the number of users.
@@ -116,13 +116,13 @@ kubectl apply -f captureorder-hpa.yaml
 If you didn't delete the load testing Azure Container Instance, delete it now
 
 ```sh
-az container delete -g akschallenge -n loadtest
+az container delete -g <resource-group> -n loadtest
 ```
 
 Running the load test again
 
 ```sh
-az container create -g akschallenge -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
+az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
 ```
 
 Observe your Kubernetes cluster reacting to the load by running
@@ -145,14 +145,14 @@ Your browser does not support the video tag.
 If your AKS cluster is not configured with the cluster autoscaler, scale the cluster nodes using the command below to the required number of nodes
 
 ```sh
-az aks scale --resource-group akschallenge --name <unique-aks-cluster-name> --node-count 4
+az aks scale --resource-group <resource-group> --name <unique-aks-cluster-name> --node-count 4
 ```
 
 Otherwise, if you configured your AKS cluster with cluster autoscaler, you should see it dynamically adding and removing nodes based on the cluster utilization. To change the node count, use the `az aks update` command and specify a minimum and maximum value. The following example sets the `--min-count` to *1* and the `--max-count` to *5*:
 
 ```sh
 az aks update \
-  --resource-group akschallenge \
+  --resource-group <resource-group> \
   --name <unique-aks-cluster-name> \
   --update-cluster-autoscaler \
   --min-count 1 \
