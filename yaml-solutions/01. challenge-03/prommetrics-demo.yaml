@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prommetrics-demo
+  labels:
+    app: prommetrics-demo
+spec:
+  selector:
+    app: prommetrics-demo
+  ports:
+  - name: metrics
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prommetrics-demo
+  labels:
+    app: prommetrics-demo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: prommetrics-demo
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/"
+        prometheus.io/port: "8000"
+      labels:
+        app: prommetrics-demo
+    spec:
+      containers:
+      - name: prommetrics-demo
+        image: vishiy/tools:prommetricsv5
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        - containerPort: 8080

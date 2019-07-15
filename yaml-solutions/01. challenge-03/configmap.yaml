@@ -1,0 +1,69 @@
+kind: ConfigMap
+apiVersion: v1
+data:
+  schema-version: 
+    #string.used by agent to parse config. supported versions are {v1}. Configs with other schema versions will be rejected by the agent.
+    v1
+  config-version:
+    #string.used by customer to keep track of this config file's version in their source control/repository (max allowed 10 chars, other chars will be truncated)
+    ver1noprom
+  log-data-collection-settings: |-
+    # Log data collection settings
+    [log_collection_settings]
+       [log_collection_settings.stdout]
+          # In the absense of this configmap, default value for enabled is true
+          enabled = true
+          # exclude_namespaces setting holds good only if enabled is set to true
+          # kube-system log collection is disabled by default in the absence of 'log_collection_settings.stdout' setting. If you want to enable kube-system, remove it from the following setting.
+          # If you want to continue to disable kube-system log collection keep this namespace in the following setting and add any other namespace you want to disable log collection to the array.
+          # In the absense of this configmap, default value for exclude_namespaces = ["kube-system"]
+          exclude_namespaces = ["kube-system", "no-logs"]
+
+       [log_collection_settings.stderr]
+          # Default value for enabled is true
+          enabled = true
+          # exclude_namespaces setting holds good only if enabled is set to true
+          # kube-system log collection is disabled by default in the absence of 'log_collection_settings.stderr' setting. If you want to enable kube-system, remove it from the following setting.
+          # If you want to continue to disable kube-system log collection keep this namespace in the following setting and add any other namespace you want to disable log collection to the array.
+          # In the absense of this cofigmap, default value for exclude_namespaces = ["kube-system"]
+          #exclude_namespaces = ["kube-system"]
+
+       [log_collection_settings.env_var]
+          # In the absense of this configmap, default value for enabled is true
+          enabled = false
+  prometheus-data-collection-settings: |-
+    # Custom Prometheus metrics data collection settings
+    [prometheus_data_collection_settings.cluster]
+        # Cluster level scrape endpoint(s). These metrics will be scraped from agent's Replicaset (singleton)
+        
+        #Interval specifying how often to scrape for metrics. This is duration of time and can be specified for supporting settings by combining an integer value and time unit as a string value. Valid time units are ns, us (or µs), ms, s, m, h.
+        interval = "1m"
+
+        fieldpass = ["prommetrics_demo_requests_counter_total"]
+        # fielddrop = []
+        
+        # An array of urls to scrape metrics from.
+        # urls = []
+
+        # An array of Kubernetes services to scrape metrics from kube-state-metrics
+        # kubernetes_services = []
+   
+        # When monitor_kubernetes_pods = true, replicaset will scrape Kubernetes pods for the following prometheus annotations:
+        # below will scrape, demo app (:8000/)
+        monitor_kubernetes_pods = true
+    [prometheus_data_collection_settings.node]
+        # Node level scrape endpoint(s). These metrics will be scraped from agent's DaemonSet running in every node in the cluster
+
+        #Interval specifying how often to scrape for metrics. This is duration of time and can be specified for supporting settings by combining an integer value and time unit as a string value. Valid time units are ns, us (or µs), ms, s, m, h.
+        interval = "1m"
+
+        # An array of urls to scrape metrics from. $NODE_IP (all upper case) will substitute of running Node's IP address
+        # urls = []
+
+        fieldpass = ["metric_to_pass"]
+        fielddrop = ["metric_to_drop"]
+
+
+metadata:
+  name: container-azm-ms-agentconfig
+  namespace: kube-system
