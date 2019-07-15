@@ -13,12 +13,17 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 #### Create Log Analytics workspace
 
+{% collapsible %}
+
 If you are running this lab as part of the managed lab environment, you may not be able to create the required resources to enable monitoring due to insufficient permissions on the subscription. You'll need to pre-create the Log Analytics workspace in your assigned environment resource group.
 
 Follow the [Create a Log Analytics workspace in the Azure portal](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) instructions.
 
+{% endcollapsible %}
 
-#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
+#### Enable the monitoring addon
+
+{% collapsible %}
 
 Enable the monitoring add-on by running the command below. You'll need to replace `<resource-group>`, `<subscription-id>` and `<workspace-name>` with the details of your environment.
 
@@ -27,6 +32,10 @@ Enable the monitoring add-on by running the command below. You'll need to replac
 ```sh
 az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id /subscriptions/<subscription-id>/resourcegroups/<resource-group>/providers/microsoft.operationalinsights/workspaces/<workspace-name>
 ```
+
+{% endcollapsible %}
+
+#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
 
 {% collapsible %}
 
