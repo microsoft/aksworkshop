@@ -194,14 +194,14 @@ View the logs of the External DNS pod
 kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system -f
 ```
 
-It should say something about updating the A record. **It may take a few minutes.**
+It should say something about updating the A record. **It may take 5-10 minutes.**
 
 ```sh
 time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' to '13.90.199.8' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
 time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
 ```
 
-You should also be able to find the new records created in the Azure DNS zone for your cluster.
+You should also be able to find the new records created in the Azure DNS zone for your cluster, if you have access to see other resource groups.
 
 ![Azure DNS](media/dns.png)
 
