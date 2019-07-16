@@ -91,22 +91,15 @@ kubectl get pods -l app=frontend -w
 
 #### Expose the frontend on a hostname
 
-Instead of accessing the frontend through an IP address, you would like to expose the frontend over a hostname. Explore using [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) with [AKS HTTP Application Routing add-on](https://docs.microsoft.com/en-us/azure/aks/http-application-routing) to achieve this purpose.
+Instead of accessing the frontend through an IP address, you would like to expose the frontend over a hostname. Explore using [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) to achieve this purpose.
 
-When you enable the add-on, this deploys two components:a [Kubernetes Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/) and an [External-DNS](https://github.com/kubernetes-incubator/external-dns) controller.
+As there are many options out there for ingress controllers, we will stick to the tried and true [nginx-ingress](https://github.com/helm/charts/tree/master/stable/nginx-ingress) controller, which is the most popular albeit not the most featureful controller.
 
 * **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches and implements Kubernetes Ingress resources, which creates routes to application endpoints.
-* **External-DNS controller**: Watches for Kubernetes Ingress resources and creates DNS A records in the cluster-specific DNS zone using Azure DNS.
+
+We will leverage the [nip.io](https://nip.io/) reverse wildcard DNS resolver service to map our ingress controller `LoadBalancerIP` to a proper DNS name.
 
 {% collapsible %}
-
-##### Enable the HTTP routing add-on on your cluster
-
-```sh
-az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons http_application_routing
-```
-
-This will take a few minutes.
 
 ##### Service
 
@@ -135,24 +128,24 @@ And deploy it using
 kubectl apply -f frontend-service.yaml
 ```
 
-##### Ingress
+##### Deploy the ingress controller with helm
 
-The HTTP application routing add-on may only be triggered on Ingress resources that are annotated as follows:
-
-```yaml
-annotations:
-  kubernetes.io/ingress.class: addon-http-application-routing
-```
-
-Retrieve your cluster specific DNS zone name by running the command below
+NGINX ingress controller is easily deployed with helm:
 
 ```sh
-az aks show --resource-group <resource-group> --name <unique-aks-cluster-name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+helm upgrade --install ingress stable/nginx-ingress \
+--namespace ingress
 ```
 
-You should get back something like `9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io`.
+In a couple of minutes, a public IP address will be allocated to the ingress controller, retrieve with:
 
-Create an Ingress resource that is annotated with the required annotation and make sure to replace `<CLUSTER_SPECIFIC_DNS_ZONE>` with the DNS zone name you retrieved from the previous command.
+```sh
+kubectl get svc  -n ingress    ingress-nginx-ingress-controller -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+```
+
+##### Ingress
+
+Create an Ingress resource that is annotated with the required annotation and make sure to replace `_INGRESS_CONTROLLER_EXTERNAL_IP_` with the IP address  you retrieved from the previous command.
 
 Additionally, make sure that the `serviceName` and `servicePort` are pointing to the correct values as the Service you deployed previously.
 
@@ -163,11 +156,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: frontend
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: frontend.<CLUSTER_SPECIFIC_DNS_ZONE>
+  - host: frontend._INGRESS_CONTROLLER_EXTERNAL_IP_.nip.io
     http:
       paths:
       - backend:
@@ -184,34 +175,13 @@ kubectl apply -f frontend-ingress.yaml
 
 {% endcollapsible %}
 
-#### Verify that the DNS records are created
-
-{% collapsible %}
-
-View the logs of the External DNS pod
-
-```sh
-kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system -f
-```
-
-It should say something about updating the A record. **It may take 5-10 minutes.**
-
-```sh
-time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' to '13.90.199.8' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
-time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
-```
-
-You should also be able to find the new records created in the Azure DNS zone for your cluster, if you have access to see other resource groups.
-
-![Azure DNS](media/dns.png)
-
-{% endcollapsible %}
-
 #### Browse to the public hostname of the frontend and watch as the number of orders change
 
-Once the Ingress is deployed and the DNS records propagated, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.9f9c1fe7-21a1-416d-99cd-3543bb92e4c3.eastus.aksapp.io>
+Once the Ingress is deployed, you should be able to access the frontend at <http://frontend.[cluster_specific_dns_zone]>, for example <http://frontend.52.255.217.198.nip.io>
 
 If it doesn't work from the first trial, give it a few more minutes or try a different browser.
+
+Note: you might need to enable cross-scripting in your browser; click on the shield icon on the address bar (for Chrome) and allow unsafe script to be executed. 
 
 ![Orders frontend](media/ordersfrontend.png)
 
