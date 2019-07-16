@@ -74,10 +74,6 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
-          #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
