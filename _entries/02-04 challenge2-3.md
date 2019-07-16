@@ -82,7 +82,7 @@ kubectl apply -f frontend-deployment.yaml
 ##### Verify that the pods are up and running
 
 ```sh
-kubectl get pods -l app=frontend
+kubectl get pods -l app=frontend -w
 ```
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
@@ -191,7 +191,7 @@ kubectl apply -f frontend-ingress.yaml
 View the logs of the External DNS pod
 
 ```sh
-kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
+kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system -f
 ```
 
 It should say something about updating the A record. It may take a few minutes.
