@@ -136,10 +136,10 @@ kubectl apply -f captureorder-service.yaml
 
 ##### Retrieve the External-IP of the Service
 
-Use the command below. Make sure to allow a couple of minutes for the Azure Load Balancer to assign a public IP.
+Use the command below. **Make sure to allow a couple of minutes** for the Azure Load Balancer to assign a public IP.
 
 ```sh
-kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}" -w
 ```
 
 {% endcollapsible %}
