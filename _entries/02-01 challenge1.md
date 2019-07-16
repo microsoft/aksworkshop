@@ -23,7 +23,7 @@ version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestrato
 
 #### Create a Resource Group
 
-> **Note** You don't need to create a resource group if you're using the lab environment. You can use the resource group created for you as part of the lab.
+> **Note** You don't need to create a resource group if you're using the lab environment. You can use the resource group created for you as part of the lab. To retrieve the resource group name in the managed lab environment, run `az group list`.
 
 {% collapsible %}
 
@@ -33,7 +33,7 @@ az group create --name <resource-group> --location <region>
 
 {% endcollapsible %}
 
-####  Now you need to create the AKS cluster
+#### Create the AKS cluster
 
 > **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler). However, please note that the AKS cluster autoscaler is a preview feature, and enabling it is a more involved process. AKS preview features are self-service and opt-in. Previews are provided to gather feedback and bugs from our community. However, they are not supported by Azure technical support. If you create a cluster, or add these features to existing clusters, that cluster is unsupported until the feature is no longer in preview and graduates to general availability (GA).
 
@@ -43,7 +43,7 @@ az group create --name <resource-group> --location <region>
 
   {% collapsible %}
 
-  Create AKS using the latest version and enable the monitoring addon
+  Create AKS using the latest version
 
   ```sh
   az aks create --resource-group <resource-group> \
@@ -68,6 +68,8 @@ az group create --name <resource-group> --location <region>
   {% endcollapsible %}
 
 ##### **Option 2 (*Preview*):** Create an AKS cluster with the cluster autoscaler
+
+> **Note** This will not work in the lab environment. You can only do this on a subscription where you have access to enable preview features.
 
   {% collapsible %}
  
