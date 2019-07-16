@@ -20,10 +20,6 @@ In the table below, you will find the Docker container images provided by the de
 
 The Order Capture API requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
 
-  * `TEAMNAME="[YourTeamName]"`
-    * Track your team's progress. **Use your assigned team name**.
-  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
-    * Application Insights key **if provided by proctors**. This is used to track your team's progress. If not provided, just delete it.
   * `MONGOHOST="<hostname of mongodb>"`
     * MongoDB hostname. Read from a Kubernetes secret called **mongodb**.
   * `MONGOUSER="<mongodb username>"`
@@ -78,10 +74,6 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
-          #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
@@ -110,8 +102,10 @@ kubectl apply -f captureorder-deployment.yaml
 ##### Verify that the pods are up and running
 
 ```sh
-kubectl get pods -l app=captureorder
+kubectl get pods -l app=captureorder -w
 ```
+
+Wait until you see pods are in the `Running` state.
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
 
@@ -142,10 +136,10 @@ kubectl apply -f captureorder-service.yaml
 
 ##### Retrieve the External-IP of the Service
 
-Use the command below. Make sure to allow a couple of minutes for the Azure Load Balancer to assign a public IP.
+Use the command below. **Make sure to allow a couple of minutes** for the Azure Load Balancer to assign a public IP.
 
 ```sh
-kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].ip}" -w
 ```
 
 {% endcollapsible %}

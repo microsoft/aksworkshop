@@ -18,7 +18,7 @@ In the table below, you will find the Docker container images provided by the de
 
 ### Environment variables
 
-The frontend requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
+The frontend requires the `CAPTUREORDERSERVICEIP` environment variable to be set to the `captureorder` [service deployed in the previous step](#retrieve-the-external-ip-of-the-service). **Make sure you set this environment variable in your deployment file.**
 
   * `CAPTUREORDERSERVICEIP="<public IP of order capture service>"`
 
@@ -68,7 +68,7 @@ spec:
               cpu: "500m"
           env:
           - name: CAPTUREORDERSERVICEIP
-            value: "<public IP of order capture service>"
+            value: "<public IP of order capture service>" # Replace with your captureorder service IP
           ports:
           - containerPort: 8080
 ```
@@ -82,7 +82,7 @@ kubectl apply -f frontend-deployment.yaml
 ##### Verify that the pods are up and running
 
 ```sh
-kubectl get pods -l app=frontend
+kubectl get pods -l app=frontend -w
 ```
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
@@ -191,17 +191,17 @@ kubectl apply -f frontend-ingress.yaml
 View the logs of the External DNS pod
 
 ```sh
-kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system
+kubectl logs -f deploy/addon-http-application-routing-external-dns -n kube-system -f
 ```
 
-It should say something about updating the A record. It may take a few minutes.
+It should say something about updating the A record. **It may take 5-10 minutes.**
 
 ```sh
 time="2019-02-13T01:58:25Z" level=info msg="Updating A record named 'frontend' to '13.90.199.8' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
 time="2019-02-13T01:58:26Z" level=info msg="Updating TXT record named 'frontend' to '"heritage=external-dns,external-dns/owner=default"' for Azure DNS zone 'b3ec7d3966874de389ba.eastus.aksapp.io'."
 ```
 
-You should also be able to find the new records created in the Azure DNS zone for your cluster.
+You should also be able to find the new records created in the Azure DNS zone for your cluster, if you have access to see other resource groups.
 
 ![Azure DNS](media/dns.png)
 
