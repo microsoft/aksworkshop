@@ -18,7 +18,7 @@ In the table below, you will find the Docker container images provided by the de
 
 ### Environment variables
 
-The frontend requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
+The frontend requires the `CAPTUREORDERSERVICEIP` environment variable to be set to the `captureorder` [service deployed in the previous step](#retrieve-the-external-ip-of-the-service). **Make sure you set this environment variable in your deployment file.**
 
   * `CAPTUREORDERSERVICEIP="<public IP of order capture service>"`
 
@@ -68,7 +68,7 @@ spec:
               cpu: "500m"
           env:
           - name: CAPTUREORDERSERVICEIP
-            value: "<public IP of order capture service>"
+            value: "<public IP of order capture service>" # Replace with your captureorder service IP
           ports:
           - containerPort: 8080
 ```
