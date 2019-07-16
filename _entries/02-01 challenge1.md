@@ -53,20 +53,6 @@ az group create --name <resource-group> --location <region>
     --generate-ssh-keys
   ```
 
-<!--
-  > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
-  >
-  > ```sh
-  > az aks create --resource-group <resource-group> \
-  >   --name <unique-aks-cluster-name> \
-  >   --location <region> \
-  >   --kubernetes-version $version \
-  >   --generate-ssh-keys \
-  >   --service-principal <application ID> \
-  >   --client-secret "<application secret key>"
-  > ```
--->
-
   {% endcollapsible %}
 
 ##### **Option 2 (*Preview*):** Create an AKS cluster with the cluster autoscaler
@@ -114,23 +100,6 @@ az group create --name <resource-group> --location <region>
     --min-count 1 \
     --max-count 3
   ```
-
-<!--
-  > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
-  > ```sh
-  > az aks create --resource-group <resource-group> \
-  >   --name <unique-aks-cluster-name> \
-  >   --location <region> \
-  >   --kubernetes-version $version \
-  >   --generate-ssh-keys \
-  >   --enable-vmss \
-  >   --enable-cluster-autoscaler
-  >   --min-count 1 \
-  >   --max-count 3 \
-  >   --service-principal <application ID> \
-  >   --client-secret "<application secret key>"
-  > ```
--->
 
   {% endcollapsible %}
 
