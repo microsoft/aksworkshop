@@ -102,8 +102,10 @@ kubectl apply -f captureorder-deployment.yaml
 ##### Verify that the pods are up and running
 
 ```sh
-kubectl get pods -l app=captureorder
+kubectl get pods -l app=captureorder -w
 ```
+
+Wait until you see pods are in the `Running` state.
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
 

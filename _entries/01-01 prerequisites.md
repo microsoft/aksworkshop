@@ -66,3 +66,13 @@ You should now have access to the Azure Cloud Shell
 ![Set the storage account and fileshare names](media/cloudshell/3-cloudshell.png)
 
 {% endcollapsible %}
+
+#### Uploading and editing files in Azure Cloud Shell
+
+{% collapsible %}
+
+- You can use `code <file you want to edit>` in Azure Cloud Shell to open the built-in text editor.
+- You can upload files to the Azure Cloud Shell by dragging and dropping them
+- You can also do a `curl -o filename.ext https://file-url/filename.ext` to download a file from the internet.
+
+{% endcollapsible %}
