@@ -20,10 +20,6 @@ In the table below, you will find the Docker container images provided by the de
 
 The Order Capture API requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
 
-  * `TEAMNAME="[YourTeamName]"`
-    * Track your team's progress. **Use your assigned team name**.
-  * `CHALLENGEAPPINSIGHTS_KEY="[AsSpecifiedAtTheEvent]"`
-    * Application Insights key **if provided by proctors**. This is used to track your team's progress. If not provided, just delete it.
   * `MONGOHOST="<hostname of mongodb>"`
     * MongoDB hostname. Read from a Kubernetes secret called **mongodb**.
   * `MONGOUSER="<mongodb username>"`
