@@ -115,6 +115,7 @@ az group create --name <resource-group> --location <region>
     --max-count 3
   ```
 
+<!--
   > **Important**: If you are using Service Principal authentication, for example in a lab environment, you'll need to use an alternate command to create the cluster with your existing Service Principal passing in the `Application Id` and the `Application Secret Key`.
   > ```sh
   > az aks create --resource-group <resource-group> \
@@ -129,6 +130,7 @@ az group create --name <resource-group> --location <region>
   >   --service-principal <application ID> \
   >   --client-secret "<application secret key>"
   > ```
+-->
 
   {% endcollapsible %}
 
