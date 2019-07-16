@@ -32,8 +32,6 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
