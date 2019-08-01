@@ -2,241 +2,271 @@
 sectionid: aqua-usage
 sectionclass: h2
 parent-id: devops
-title: Using Aqua Security Platform
+title: Using the Aqua Cloud-native Security Platform
 ---
 
-We will now run through the following use cases with Aqua.
+We will now run through the following use cases with Aqua:
 
 > **Image Assurance**
-> * Manually add image
-> * Connect to your ACR
-> * Scan an Image from your ACR
-> * Create and edit Image Assurance Policy
-
+> * Manually add an image to scan
+> * Connect to your Azure container registry
+> * Scan an image from your Azure container registry
+> * Connect to your Codefresh registry
+> * Update the default image assurance policy
 
 > **Runtime Protection**
-> * Block Unregistered Images
-> * Block certain executable from running
-> * Prevent Drift from happening
-
-
+> * Update the default runtime policy to
+> * Block unregistered images
+> * Block certain executables from running
+> * Prevent drift from happening
 
 ### Image Assurance
 
 Image Assurance is a subsystem of Aqua CSP.  It is responsible for the following:
 
-> * Scanning your images for known security issues (vulnerabilities, sensitive data, and malware).
-> * Evaluating the scanning findings, according to Image Assurance Policies that you define and configure
-> * Determining whether images are compliant, based on these policies and other system settings
-> * Taking security-related actions that you define, such as preventing risky images from being deployed in a container, or reporting the image as "failed" to your CI/CD development system.
-> * Providing complete reporting on all security risks found. You can review the results of the security evaluation either in the Aqua Server or in a SIEM or other system.
-
+> * Scanning your images for security issues (including known vulnerabilities, sensitive data, malware, configuration issues and open source software).
+> * Comparing scan results to applicable image assurance policies to determine compliance and actions to be taken accordingly (including generating audit events, failing CI/CD pipelines, and marking images as non-compliant).
+> * Reporting all security risks found with detailed and actionable information in CI/CD tools, the Aqua web console, and other systems.
 
 #### What is scanned?
 
-Aqua scans images for CVEs (Common Vulnerabilities and Exposures) listed on the NVD web site, a U.S. government repository of standards-based vulnerability management data.
+Aqua scans images for known vulnerabilities, sensitive data, malware, configuration issues and open source software. Vulnerabilties and malware are identified by Aqua's CyberCenter which aggregates and correlates multiple feeds from the National Vulnerability Database, various vendor advisories, Whitesource for open source, and proprietary research.
 
-These image components are scanned:
+Aqua's scanners send this information to the Aqua CyberCenter:
 
-> * OS Packages: Aqua checks the published security advisories issued by Operating System vendors for the various packages and versions related to their operating systems that are included in the image. These advisories list known vulnerabilities.
-> * Programming Packages: Aqua checks the lists of known vulnerabilities for packages for several programming languages, according to version. It also checks whether there are replacement versions for packages with issues that fail Image Assurance Policies.
-> * Configuration files: Aqua checks the image for sensitive data files such as keys or passwords, based on the patterns. 
-
+> * Aqua image digest
+> * Image operating system
+> * List of layer digests in the image
+> * List of packages installed in the image, including:
+>   * Package format (e.g., rpm, deb, apk)
+>   * Package name (e.g., nginx)
+>   * Package version
+>   * Package hash (if applicable)
+> * List of non-package executables, including:
+>   * Name of software
+>   * Version
+>   * CPE
+>   * SHA1 hashes of file contents, for purposes of malware identification
+> * List of programming-related files (e.g., php, js, jar):
+>   * SHA1 hashes of file contents
 
 #### Manually add an image to scan
 
-We will now add an image from the public docker hub registry. 
-> * Step 1) Click on `Images` on the left navigation section
-> * Step 2) Click on the `+ ADD IMAGES` icon on the upper right side of the screen
-> * Step 3) Make sure the registry is set to Docker Hub, and then type in centos and click `Search`
-> * Step 4) Select the first repository line item, `centos`
-> * Step 5) Then select the `latest` tag version and click `Add`
+We will now add an image from the public Docker Hub registry:
 
+> 1. In the Aqua web console, in the navigation menu on the left, click on **Images**.
+> 1. In the upper right corner, click on the **Add Images** button.
+> 1. In the Search Term field, enter: **jboss/wildfly**
+> 1. Click the **Search** button.
+> 1. Select the **jboss/wildfly** repository.
+> 1. Check the **9.0.2.Final** tag.
+> 1. Click the **Add** button.
 
-This is what it should look like:
+This is what you should see as you perform the above steps:
 
-![Aqua Output](media/aqua/aqua-add-centos.png)
+![Aqua Output](media/aqua/aqua-add-jboss-wildfly.png)
 
-This will start the scan of the latest centos image from Docker Hub.   It will not take long to scan the image.  Once finished scanning, feel free to view the results, and see how many vulnerabilities were detected by Aqua.  
+This will start the scan of the the jboss/wildfy image from Docker Hub. It will not take long to scan the image.  Once finished scanning, feel free to view the results, and see how many vulnerabilities were detected by Aqua.
 
-> **Notice**
-> how the image is marked as Approved, even though it has many high vulnerabilities. 
+Aqua CyberCenter uses includes a vulnerability feed from WhiteSource, the market leader in open source software security. This is unique to Aqua in the cloud-native security marketplace, and allows us to find more vulnerabilities and report them more accurately.
 
-![Aqua Output](media/aqua/aqua-result-centos.png)
+To see vulnerabilities found by WhiteSource, on the Vulnerabilities tab of the jboss/wildfly:9.0.2.Final image scan results, you can search by **WS-**:
 
+![Aqua Output](media/aqua/aqua-whitesource-vulnerabilities.png)
 
-#### Connect to your ACR
+Aqua also uses WhiteSource to identify open source software licenses, and allows you to create image assurance policies that determine compliance based on allowed or disallowed licenses.
 
-Now we will integrate with your ACR so you can pull in other images that might be on there.
-> * Step 1) Click on `System` on the left Navigation
-> * Step 2) Select `Integrations`
-> * Step 3) Click on the `Add Registry` button
-> * Step 4) Give the Registry a name:  `ACR` for example.
-> * Step 5) Under `Registry Type` select `Azure Container Registry`
-> * Step 6) Fill in the `URL` , `Username`, and `Password` for your ACR
-> * Step 7) Click on `Test connection`, and if successful , then click on `Save Changes` .
+To see licenses used by resources as identified by WhiteSource, go to the Resources tab of the jboss/wildfly:9.0.2.Final image scan results:
 
-We now have integrated with your ACR , and you will have another option to pull your images from.
-Like we did for manually adding images from Docker Hub, we can add an image from your ACR.
-> * Step 1) Click on `Images` on the left navigation section
-> * Step 2) Click on the `+ ADD IMAGES` button on the upper right side of the screen
-> * Step 3) Make sure the registry is set to `ACR`, and then type in a name of an image and click `Search`
-> * Step 4) Select the repository.
-> * Step 5) Then select a tag and click on `Add`
+![Aqua Output](media/aqua/aqua-whitesource-licenses.png)
 
-This will start a scan of that image from your ACR.  Once finished scanning, you can view the results and see what the security posture of that image is. 
+> **Notice** how the image is marked as Approved, even though it has many high vulnerabilities. This will change later when we apply image assurance policies. 
 
-#### Connect the Codefresh registry
+![Aqua Output](media/aqua/aqua-result-jboss.png)
 
-In order to scan images built in Codefresh and not yet pushed to ACR, we need to give  a pull secret to Aqua.
+#### Connect to your Azure container registry
 
+Now we will integrate with your Azure container registry so you can pull in other images that might be on there.
 
-You can connect any supported private registry in Aqua, but since Codefresh already includes a private Docker registry with each account, you will set up access for the Codefresh registry.
+> 1. In the Aqua web console, in the navigation menu on the left, click **System**.
+> 1. Click **Integrations**.
+> 1. Click the **Add Registry** button.
+> 1. In the Registry Name field, enter: **ACR**
+> 1. In the Registry Type dropdown list, select: **Azure Container Registry**
+> 1. In the Registry URL field, enter the registry domain created by you in this workshop (e.g. https://akschallengeXXXXXXXX.azurecr.io)
+> 1. In the Username field, enter the Application/Client ID provided to your for this workshop.
+> 1. In the Password field, enter the Application Secret Key provided to your for this workshop.
+> 1. Click the **Test Connection** button.
+> 1. Click the **Save** button.
 
+#### Scan an image from your Azure container registry
 
-First, you will create a Codefresh Registry Access Token. From the left sidebar click on *User Settings*.
-Scroll down until you see the Codefresh Registry section.
+We have now integrated with your Azure container registry, and you will be able to select it when adding images to Aqua. Let's do that now.
+
+> 1. In the Aqua web console, in the navigation menu on the left, click **Images**.
+> 1. In the upper right corner, click on the **Add Images** button.
+> 1. In the Registry dropdown list, select: **ACR**
+> 1. In the Search Term field, enter: **color-coded**
+> 1. Click the **Search** button.
+> 1. Select the **&lt;username&gt;\/color-coded** repository.
+> 1. Check the **Add All** option.
+> 1. Click the **Add** button.
+
+This will start a scan of the images of the repository of your ACR registry.  When the scans are finished, you can review their results on the Images page.
+
+#### Connect to your Codefresh registry
+
+In order to scan images built in Codefresh and not yet pushed to ACR, we will generate an access token for Aqua.
+
+To create the access token, in Codefresh, in the navigation menu on the left, click **User Settings**, and scroll down until you see the **Codefresh Registry** section, then click the **Generate** button:
 
 ![Codefresh registry](media/codefresh/registry-tokens.png)
 
-Click on the *Generate* button to create a new access token. Give it any arbitrary name (e.g. `aqua-access`)
-and click *Create* to get the token. Copy it into your clipboard by clicking the *Copy Docker login command to clipboard*.
+In the Key Name field, enter **aqua-access**, click the **Create** button, click the **Copy token to clipboard** link, and click the **OK** button:
 
 ![Registry token](media/codefresh/create-registry-token.png)
 
-Paste the clipboard contents into an empty text file (you can use any text editor for this purpose). Finally 
-click *OK* to close the dialog.
+Make sure you don't replace the token on your clipboard, or temporarily paste the value to a text editor, because you'll need it below.
+00759a79c828322b6861856e9d59086a
 
-Now you are ready to give these credentials to Aqua.
-Login into your Aqua account and expand *System* on the bottom of the left sidebar. Then click on *Integrations*. On the right-hand side click the *Add Registry* button. Click on the dropdown
-*Docker v1/v1 Registry* and enter the following details:
+Now, in Aqua, connect to your Codefresh registry:
 
-* *Registry Name* - codefresh (user defined - lower case)
-* *Registry URL* - `https://r.cfcr.io`
-* *Username* - your Codefresh username
-* *Password* - the Codefresh registry token you created before
+> 1. In the Aqua web console, in the navigation menu on the left, click **System**.
+> 1. Click **Integrations**.
+> 1. Click the **Add Registry** button.
+> 1. In the Registry Name field, enter: **Codefresh**
+> 1. In the Registry URL field, enter: **https://r.cfcr.io**
+> 1. In the Username field, enter your Codefresh username.
+> 1. In the Password field, enter the access token you generated in Codefresh and copied to your clipboard.
+> 1. Click the **Test Connection** button.
+> 1. Click the **Save** button.
 
 ![Adding Codefresh registry to Aqua](media/codefresh/adding-codefresh-registry-to-aqua.png)
 
-Then click the *Save* button. 
-The Aqua scanner is now able to access your Codefresh private registry.
+> **Note:** because the Codefresh registry API does not support search, the Image Search step of Test Connection will fail. This is OK, and you should save the registry connection anyway. Later, if you want to add images from this registry on the Images page, you'll need to select the registry, and enter the fully qualified image name into the search field (e.g. r.cfcr.io/burbanski/burbanski/color-coded:devsecops-91fc4da).
 
-#### Create a Image Assurance Policy
-Whenever Aqua scans an image, it checks the image against the Image Assurance policy.  Currently we don't have a Policy so everything scanned will be in the approved state, even if it contains vulnerabilities.
+#### Update the default image assurance policy
+After Aqua scans an image, it compares the results to all applicable image assurance policies. When a control in an applicable image assurance policy fails, several actions can be taken, including marking the image as non-compliant. Initially, Aqua includes a default image assurance policy that has no controls, so all image scans will pass image assurance, even if they have vulnerabilities.
 
-Let's create a Policy now. 
+Let's update the default image assurance policy now:
 
-> * Step 1) Click on Policies
-> * Step 2) Select Assurance Policy
-> * Step 3) Select the Default Image Policy (the first one)
-    
-We can add any Available Image Assurance Control from the right side, by clicking on the `+` icon next to the control we want.
+> 1. In the Aqua web console, in the navigation menu on the left, click **Policies**.
+> 1. Click **Assurance Policies**.
+> 1. Click the **Default** policy of type **Image**.
+> 1. Under Controls, click **Vulnerability Severity**.
+> 1. In the Vulnerability Severity control configuration, click **High**.
+> 1. Note the actions that will be taken if any control of this policy fail, including marking failed images as non-compliant. This policy will mark any image that contains one or more high severity vulnerabilities as non-compliant.
+> 1. Click the **Save** button.
 
-For this session, we will just add the `Vulnerability Severity` control .
-Once added, select the severity level `High` , and then click `Save Changes` .
+Go back to the Images page, and open the scan results for the jboss/wildfly:9.0.2.Final image that we scanned earlier. Notice how this image is now marked as non-compliant by the Default image assurnace policy, showing which control failed and what actions are needed to make the image compliant:
 
-> This policy will mark any image as 'Non-compliant' if it contains at least one high severity vulnerability.
+![Aqua Output](media/aqua/aqua-result-fail-jboss.png)
 
-Click on the Images section now, and you open up the centos image we scanned.  Notice how it's marked as Non-compliant. Before it was marked as Approved. 
+### Runtime Protection
 
-![Aqua Output](media/aqua/aqua-result-fail-centos.png)
+Runtime policies (and image profiles, vulnerability shields and container firewall services) can be used to monitor and enforce controls at runtime, according to your organization's security requirements.
 
-#### Create a Runtime Policy
+Enforcement can prevent containers that use non-compliant and/or unregistered images from running at all; or enforcement can prevent specific things from happening inside of running containers (e.g. certain executables from running, certain volumes from being mounted, etc.).
 
-You can configure one or more Runtime Policies to restrict the runtime activities of containers, according to the security requirements of your organization. Restriction can mean either or both of the following:
-> * Preventing the running of the container. For example, you can configure a Runtime Policy to block the running of a container based on an image that has been found to be non-compliant during Image Assurance.
-> * Preventing the execution by the container of certain runtime activities. For example, a Runtime Policy could block running a blacklisted executable in a container, or prevent particular volumes from being mounted by a container.
+#### Update the default runtime policy
 
+Let's update the default container runtime policy now:
 
-Let's create the Runtime Policy now.
-
-> * Step 1) Click on "Policies" on the left navigation
-> * Step 2) Select "Runtime Policies"
-> * Step 3) Select the "Default" Policy
-
-The Default Policy contains a few controls already. We want to make sure that this Policy is set to `Enable` and enforcement mode is set to `Enforce` . 
-
-If not already added, we should add the following controls:
-> * Executable Blacklist - add `/bin/date`
-> * Drift Prevention 
-> * Block Unregistered Images
-> * Block Non-compliant Images
+> 1. In the Aqua web console, in the navigation menu on the left, click **Policies**.
+> 1. Click **Runtime Policies**.
+> 1. Click the **Aqua default runtime policy** policy of type **Container**.
+> 1. Under Enforcement Mode, click **Enforce**.
+> 1. Notice that the default policy already contains some controls.
+> 1. Under Controls, click **Executables Blacklist**.
+> 1. In the Executables Blacklist control configuration, in the exectuable name field, enter **/bin/date**, and click the **Add** button.
+> 1. Under Controls, click **Block Unregistered Images**.
+> 1. Under Controls, click **Block Non-compliant Images**.
+> 1. Click the **Save** button.
 
 ![Aqua Output](media/aqua/aqua-runtime-policy.png)
 
-Click on `Save changes` .
+#### Block unregistered images
 
-This policy will Block any unregistered images, any non-compliant images, block black listed executable and prevent drift. 
+In your Azure cloud shell, we're going to try to deploy an application.
 
-We have now created our Runtime Policy.  Next section will demostrate the controls we just added. 
-
-#### Block Unregistered Images
-
-From your Azure cloud shell, we are going to deploy an application.
-
-Type the following command to deploy an nginx image.
+Run this command to deploy nginx:
 
 ```sh
-kubectl create deployment nginx --image=nginx:latest
+kubectl create deploy nginx --image=nginx:latest
 ```
 
-This will try to deploy the nginx application, but it will fail.  Due to our runtime policy, Aqua will block it.
+This will try to deploy the nginx application, but it will fail due to our runtime policy.
 
-Type in:
+Run this command to check the status of the pod:
+
 ```sh
 kubectl get pods
 ```
 
-This will list all the pods running, but you will see an `RunContainerError` on the nginx pod.
+Notice that the nginx pod has a status of `RunContainerError`.
 
-To view the detail, we will need to describe the pod.   Run the following command to view the details:
+Run this command to get additional details on the pod status (using the full name of the nginx pod output by previous command):
 
 ```sh
-kubectl describe pod NAMEOFPOD
+kubectl describe pod <name>
 ```
-The last line would show why Aqua is blocking it. 
 
-> **Note** To delete the nginx pod name, you can run `kubectl delete deployment nginx` .
+You should see this message under Events:
 
+```text
+[Aqua Security] You do not have permission to execute this command. Unregistered image
+```
 
-Let's register this nginx container with Aqua, so Aqua doesn't block it again. 
-
-> * Step 1) Click on Images
-> * Step 2) Click on "+ Add IMAGES" 
-> * Step 3) Registry should be Docker Hub, search for and take the latest tag of nginx
-> * Step 4) Click on "Add", and let Aqua scan and register the image.
-
-Now that the nginx:latest image is register with Aqua, we can deploy it without having to worry that Aqua will be blocking it. 
+Run this command to delete the nginx deployment:
 
 ```sh
-kubectl create deployment nginx --image=nginx
+kubectl delete deploy nginx
+```
+
+Now, let's register the nginx image, so Aqua will allow it to be deployed:
+
+> 1. In the Aqua web console, in the navigation menu on the left, click on **Images**.
+> 1. In the upper right corner, click on the **Add Images** button.
+> 1. In the Registry dropdown list, select: **Docker Hub**
+> 1. In the Search Term field, enter: **nginx**
+> 1. Click the **Search** button.
+> 1. Select the **nginx** repository.
+> 1. Check the **latest** tag.
+> 1. Click the **Add** button.
+
+When the nginx:latest image is done scanning, when can try to deploy it again.
+
+Run these commands:
+
+```sh
+kubectl create deploy nginx --image=nginx:latest
 kubectl get po
 ```
-This will show that he nginx is in the running stage. 
 
+The nginx pod should now be running. 
 
-#### Block certain executable from running
+#### Block certain executables from running
 
-In our Default Runtime policy we had blocked `date` from running.  If we exec into the pod, we should not be able to execute the date command. 
+Our default runtime policy blacklists the `date` executable. If we exec into the pod, we should not be able to execute the date command. 
 
-Run the following command, but replace <PODNAME> with the name of the nginx pod.
+Run this command to exec into the nginx container (using the full name of the nginx pod output by previous command):
+
 ```sh
-kubectl exec -it <PODNAME> bash
+kubectl exec -it <name> bash
 ```
 
-This will put us in the nginx pod.   Try to run the date command.  You will get a `permission denied error` .  This is because we black listed this executable in our runtime policy.
+Notice that we are now in the nginx container as the root user (something else that can be prevented by Aqua). As such, there's nothing we should not be able to do. However, if we try executing the `date` executable, we will get a `Permission denied` error message. This is because Aqua blocked that executable from running.
 
-#### Drift Protection
+#### Prevent drift from happening
 
-Aqua’s image drift prevention ensures that containers remain immutable and do not deviate from their originating image, further limiting the potential of abuse. 
+Our default runtime policy prevents drift. Drift prevention ensures that your containers remain immutable, and protects you from both malicious attacks and bad habits by not allowing executables to run that were not part of the original image and/or not allowing the container to run when image parameters have changed.
 
-To simulate a drift, we will copy an allowed executable, like `ls`, to another name like `sl`.
+To simulate a drift, we will copy an allowed executable, like `ls`, to another name like `list`:
 
 ```sh 
-    cp /bin/ls /bin/sl
+    cp /bin/ls /bin/list
 ```
 
-When we try to run the sl command, Aqua will block it, as sl was not in the original image, so you will get a `Permission Denied` error.
+When we try to run the `list` command, instead of getting a list of the contents of the current directory, we will get a `Permission denied` error message. This is because Aqua considered that new executable to be drift and blocked that executable from running.
 
-
-There is a lot more that can be done with Aqua which we haven't touch upon due to the limited time.   Other controls are: Network Nano Segmentation, Secrets Management, and Compliance report.
+As you may have gathered when navigating Aqua during the workshop, Aqua has many more capabilities than were explored here, to include image profiles, vulnerability shields, container firewall services, secrets management, infrastructure discovery with pen testing and CIS benchmark testing, workload monitoring and more.
