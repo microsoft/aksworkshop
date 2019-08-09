@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: frontend.0bd17a5c97c34b7b9f86.westus.aksapp.io
+  - host: frontend.52.255.217.198.nip.io
     http:
       paths:
       - backend:
