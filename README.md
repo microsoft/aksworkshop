@@ -7,7 +7,6 @@ This is the repository for the Azure Kubernetes Service (AKS) Workshop website.
 - The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder
 - You can preview your edits locally if you run `make build-run` inside the repository root
 - The build pipeline builds Docker images of the site and hosts it on a private repository on Azure Container Registry (`msworkshops.azurecr.io`)
-- The website is running on an [Azure Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/)
 - The `master` branch gets deployed to the production slot [aksworkshop.io](https://aksworkshop.io)
 - The `staging` branch gets deployed to the staging slot [staging.aksworkshop.io](https://staging.aksworkshop.io)
 - The `devsecops` branch gets deployed to the devsecops slot [devsecops.aksworkshop.io](https://devsecops.aksworkshop.io)
