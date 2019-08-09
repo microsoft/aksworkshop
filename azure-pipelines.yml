@@ -74,7 +74,7 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'AKS Workshop(90a9e297-40f1-4e71-9eee-cfdc25f079f1)'
+        azureSubscription: 'AKS Workshop'
         appType: 'webAppContainer'
         WebAppName: 'aksworkshop'
         deployToSlotOrASE: true
