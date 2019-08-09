@@ -1,5 +1,5 @@
 NS ?= azch
-IMAGE_NAME ?= site
+IMAGE_NAME ?= aks-site
 VERSION ?= latest
 LOCALPORT = 8080
 CONTAINERPORT = 80
