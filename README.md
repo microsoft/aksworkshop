@@ -2,6 +2,9 @@
 
 This is the repository for the Azure Kubernetes Service (AKS) Workshop website. For the full workshop experience, go to <https://aksworkshop.io>
 
+
+Feel free to open Issues with requests for new topics or challenges.
+
 ## Technology
 
 - The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder
@@ -17,7 +20,11 @@ This project welcomes contributions and suggestions.  Most contributions require
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.microsoft.com.
 
- Please fork and branch off `staging`, then submit a Pull Request against `staging`.
+ Since the workshop is running live, please fork and branch off `staging`, then submit a Pull Request against `staging`.
+ After your PR is approved and staging is tested it will be merged to master on the next weekend. 
+**If it's urgent**, then follow with a PR against master. 
+In both cases it's desirable that every PR has an issue linking to it. 
+ 
  If you want your name to show up in the [contributors](https://aksworkshop.io/#contributors), please add your GitHub username to `_entries/99 Contributors.md` in alphabetical order.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
