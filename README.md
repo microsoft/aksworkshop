@@ -1,9 +1,12 @@
 # aksworkshop.io
 
 This is the repository for the Azure Kubernetes Service (AKS) Workshop website. For the full workshop experience, go to <https://aksworkshop.io>
+<<<<<<< HEAD
 
 
 Feel free to open Issues with requests for new topics or challenges.
+=======
+>>>>>>> Update README.md
 
 ## Technology
 
