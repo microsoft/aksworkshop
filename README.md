@@ -8,8 +8,9 @@ This is the repository for the Azure Kubernetes Service (AKS) Workshop website.
 - You can preview your edits locally if you run `make build-run` inside the repository root
 - The build pipeline builds Docker images of the site and hosts it on a private repository on Azure Container Registry (`msworkshops.azurecr.io`)
 - The website is running on an [Azure Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/)
-- The `master` branch gets deployed to the production slot [aksworkshop.io](http://aksworkshop.io)
-- The `staging` branch gets deployed to the staging slot [staging.aksworkshop.io](http://staging.aksworkshop.io)
+- The `master` branch gets deployed to the production slot [aksworkshop.io](https://aksworkshop.io)
+- The `staging` branch gets deployed to the staging slot [staging.aksworkshop.io](https://staging.aksworkshop.io)
+- The `devsecops` branch gets deployed to the devsecops slot [devsecops.aksworkshop.io](https://devsecops.aksworkshop.io)
 
 ## Contributing
 
@@ -18,7 +19,7 @@ Contributor License Agreement (CLA) declaring that you have the right to, and ac
 the rights to use your contribution. For details, visit https://cla.microsoft.com.
 
  Please fork and branch off `staging`, then submit a Pull Request against `staging`.
- If you want your name to show up in the [contributors](http://aksworkshop.io/#contributors), please add your GitHub username to `_entries/99 Contributors.md` in alphabetical order.
+ If you want your name to show up in the [contributors](https://aksworkshop.io/#contributors), please add your GitHub username to `_entries/99 Contributors.md` in alphabetical order.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
