@@ -25,7 +25,7 @@ the rights to use your contribution. For details, visit https://cla.microsoft.co
 **If it's urgent**, then follow with a PR against master. 
 In both cases it's desirable that every PR has an issue linking to it. 
  
- If you want your name to show up in the [contributors](https://aksworkshop.io/#contributors), please add your GitHub username to `_entries/99 Contributors.md` in alphabetical order.
+ If you want your name to show up in the [contributors](https://aksworkshop.io/#contributors), please add your GitHub username to [`_entries/99 Contributors.md`](_entries/99%20Contributors.md) in alphabetical order.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
