@@ -8,7 +8,7 @@ WORKDIR /src/app
 COPY . .
 
 # Install app dependencies and build static files
-RUN mkdir _site && \
+RUN mkdir _site && mkdir .jekyll-cache && \
     jekyll build --future
 
 #
