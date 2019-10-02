@@ -35,9 +35,11 @@ az group create --name <resource-group> --location <region>
 
 #### Create the AKS cluster
 
+It's recommended to use the Azure CLI and the `az aks create` command to deploy your cluster. Refer to the docs linked in the Resources section, or run `az aks create -h` for details
+
 > **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler). However, please note that the AKS cluster autoscaler is a preview feature, and enabling it is a more involved process. AKS preview features are self-service and opt-in. Previews are provided to gather feedback and bugs from our community. However, they are not supported by Azure technical support. If you create a cluster, or add these features to existing clusters, that cluster is unsupported until the feature is no longer in preview and graduates to general availability (GA).
 
-##### **Option 1:** Create an AKS cluster without the cluster autoscaler
+##### **Option 1:** Create an AKS cluster without the cluster autoscaler (recommended)
 
 > **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group.
 
@@ -61,28 +63,10 @@ az group create --name <resource-group> --location <region>
 
   {% collapsible %}
  
-  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. This scale set support is in preview. To opt in and create clusters that use scale sets, first install the *aks-preview* Azure CLI extension using the `az extension add` command, as shown in the following example:
+  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. Cluster autoscaler support is in preview. To opt in and create clusters that use this feature, first install the *aks-preview* Azure CLI extension using the `az extension add` command, as shown in the following example:
 
   ```sh
   az extension add --name aks-preview
-  ```
-
-  To create an AKS cluster that uses scale sets, you must also enable a feature flag on your subscription. To register the *VMSSPreview* feature flag, use the `az feature register` command as shown in the following example:
-
-  ```sh
-  az feature register --name VMSSPreview --namespace Microsoft.ContainerService
-  ```
-
-  It takes a few minutes for the status to show *Registered*. You can check on the registration status using the `az feature list` command:
-
-  ```sh
-  az feature list -o table --query "[?contains(name, 'Microsoft.ContainerService/VMSSPreview')].{Name:name,State:properties.state}"
-  ```
-
-  When ready, refresh the registration of the *Microsoft.ContainerService* resource provider using the `az provider register` command:
-
-  ```sh
-  az provider register --namespace Microsoft.ContainerService
   ```
 
   Use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
@@ -95,7 +79,7 @@ az group create --name <resource-group> --location <region>
     --location <region> \
     --kubernetes-version $version \
     --generate-ssh-keys \
-    --enable-vmss \
+    --vm-set-type VirtualMachineScaleSets \
     --enable-cluster-autoscaler \
     --min-count 1 \
     --max-count 3
