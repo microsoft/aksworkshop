@@ -59,7 +59,7 @@ kubectl apply -f helm-rbac.yaml
 Initialize Tiller (omit the ``--service-account`` flag if your cluster is **not** RBAC enabled)
 
 ```sh
-helm init --service-account tiller
+helm init --history-max 200 --service-account tiller --node-selectors "beta.kubernetes.io/os=linux"
 ```
 
 ##### Install the MongoDB Helm chart
