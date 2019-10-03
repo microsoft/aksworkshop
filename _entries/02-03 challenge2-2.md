@@ -18,20 +18,28 @@ In the table below, you will find the Docker container images provided by the de
 
 ### Environment variables
 
-The Order Capture API requires certain environment variables to properly run and track your progress. Make sure you set those environment variables.
+The Order Capture API requires certain environment variables to properly run and track your progress. Make sure you set those environment variables in your deployment (you don't need to set these locally in your shell).
 
   * `MONGOHOST="<hostname of mongodb>"`
-    * MongoDB hostname. Read from a Kubernetes secret called **mongodb**.
+    * MongoDB hostname. Read directly as a string value in the YAML.
   * `MONGOUSER="<mongodb username>"`
-    * MongoDB username. Read from a Kubernetes secret called **mongodb**.
+    * MongoDB username. Read from the Kubernetes secret you created.
   * `MONGOPASSWORD="<mongodb password>"`
-    * MongoDB password. Read from a Kubernetes secret called **mongodb**.
+    * MongoDB password. Read from the Kubernetes secret you created.
 
 > **Hint:** The Order Capture API exposes the following endpoint for health-checks once you have completed the tasks below: `http://[PublicEndpoint]:[port]/healthz`
 
 ### Tasks
 
-#### Provision the `captureorder` deployment and expose a public endpoint
+#### Provision the `captureorder` deployment
+
+**Hints**
+* Read the Kubernetes docs in the resources section below for details on how to create a deployment, you should create a YAML file and use the `kubectl apply -f` command to deploy it to your cluster
+* You provide environmental variables to your container using the `env` key in your container spec, these can use `value` to set a plain text value, or `valueFrom` and `secretRef` to read values from a Kubernetes secret (i.e. the one you created holding the MongoDB username and password)
+* The container listens on port 8080 
+* The value of the MonogDB hostname i.e. `MONGOHOST`, will be dependant on the name of the MongoDB service. The service was created by the Helm chart and will start with the release name you gave. Run `kubectl get service` and you should see it listed, e.g. `orders-mongo-mongodb`
+* All services in Kubernetes get DNS names, this is assigned automatically by Kubernetes. You can use the short form which is simply the service name, e.g. `orders-mongo-mongodb` or the "fully qualified" form `orders-mongo-mongodb.default.svc.cluster.local`
+* Advanced: You can define a `readinessProbe` and `livenessProbe` using the `/healthz` endpoint exposed by the container and the port `8080`, this is optional
 
 {% collapsible %}
 
@@ -75,10 +83,7 @@ spec:
               cpu: "500m"
           env:
           - name: MONGOHOST
-            valueFrom:
-              secretKeyRef:
-                name: mongodb
-                key: mongoHost
+            value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER
             valueFrom:
               secretKeyRef:
@@ -108,6 +113,18 @@ kubectl get pods -l app=captureorder -w
 Wait until you see pods are in the `Running` state.
 
 > **Hint** If the pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and `kubectl describe pod <pod name>`.
+
+{% endcollapsible %}
+
+#### Expose the `captureorder` deployment with a service
+
+**Hints**
+* Read the Kubernetes docs in the resources section below for details on how to create a service, you should create a YAML file and use the `kubectl apply -f` command to deploy it to your cluster
+* Pay attention to the `port`, `targetPort` and the `selector`
+* Kubernetes has several types of services (described in the docs), specified in the `type` field. You will need to create a service of type `LoadBlancer`
+* The service should export port 80
+  
+{% collapsible %}
 
 ##### Service
 
@@ -146,6 +163,12 @@ kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].i
 
 #### Ensure orders are successfully written to MongoDB
 
+**Hints**
+* The IP of your service will be publicly available on the internet
+* The service has a Swagger/OpenAPI definition: `http://[Your Service Public LoadBalancer IP]/swagger`
+* The service has an orders endpoint which accepts GET and POST: `http://[Your Service Public LoadBalancer IP]/v1/order`
+* Orders take the form `{"EmailAddress": "email@domain.com", "Product": "prod-1", "Total": 100}` (The values are not validated)
+  
 {% collapsible %}
 
 > **Hint:** You can test your deployed API either by using Postman or Swagger with the following endpoint : `http://[Your Service Public LoadBalancer IP]/swagger/`
@@ -170,4 +193,8 @@ You can expect the order ID returned by API once your order has been written int
 
 > **Resources**
 > * <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/>
+> * <https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/>
+> * <https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data>
+> * <https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>
+> * <https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#configuration-file>

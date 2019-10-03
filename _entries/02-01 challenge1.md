@@ -5,7 +5,7 @@ title: Deploy Kubernetes with Azure Kubernetes Service (AKS)
 parent-id: upandrunning
 ---
 
-Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service).
+Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service), well use this to easily deploy and standup a Kubernetes cluster.
 
 ### Tasks
 
@@ -35,7 +35,9 @@ az group create --name <resource-group> --location <region>
 
 #### Create the AKS cluster
 
-It's recommended to use the Azure CLI and the `az aks create` command to deploy your cluster. Refer to the docs linked in the Resources section, or run `az aks create -h` for details
+**Hints** 
+* It's recommended to use the Azure CLI and the `az aks create` command to deploy your cluster. Refer to the docs linked in the Resources section, or run `az aks create -h` for details
+* The size and number of nodes in your cluster is not critical but two or more nodes of `DS2_v2` or larger is recommend
 
 > **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler). However, please note that the AKS cluster autoscaler is a preview feature, and enabling it is a more involved process. AKS preview features are self-service and opt-in. Previews are provided to gather feedback and bugs from our community. However, they are not supported by Azure technical support. If you create a cluster, or add these features to existing clusters, that cluster is unsupported until the feature is no longer in preview and graduates to general availability (GA).
 
@@ -89,6 +91,12 @@ It's recommended to use the Azure CLI and the `az aks create` command to deploy 
 
 #### Ensure you can connect to the cluster using `kubectl`
 
+**Hints**
+* `kubectl` is the main command line tool you will using for working with Kubernetes and AKS. It is already installed in the AZure Cloud Shell
+* Refer to the AKS docs which includes [a guide for connecting kubectl to your cluster](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster) (Note. using the cloud shell you can skip the `install-cli` step).
+* A good sanity check is listing all the nodes in your cluster `kubectl get nodes`.
+* [This is a good cheat sheet](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf) for kubectl.
+
 {% collapsible %}
 
 > **Note** `kubectl`, the Kubernetes CLI, is already installed on the Azure Cloud Shell.
@@ -111,3 +119,5 @@ kubectl get nodes
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough>
 > * <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-create>
 > * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal>
+> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster>
+> * <https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf>
