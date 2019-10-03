@@ -14,7 +14,7 @@ Instead of using the public Docker Hub registry, create your own private contain
 
 ```sh
 export ACR_NAME=akschallenge${RANDOM}$$; echo $ACR_NAME
-az acr create --resource-group $azgroup --name ${ACR_NAME} --sku Standard
+az acr create --resource-group akschallenge --name ${ACR_NAME} --sku Standard
 ```
 
 ##### Grant AKS access to Azure Container Registry
@@ -25,13 +25,14 @@ Follow the Azure docs to learn how to [grant access using Azure Active Directory
 
 
 ```sh
+export AKS_RESOURCE_GROUP=akschallenge
 export AKS_CLUSTER_NAME=akschallenge
 
 # Get the id of the service principal configured for AKS
-CLIENT_ID=$(az aks show --resource-group $azgroup --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
+CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
 
 # Get the ACR registry resource id
-ACR_ID=$(az acr show --name $ACR_NAME --resource-group $azgroup --query "id" --output tsv)
+ACR_ID=$(az acr show --name $ACR_NAME --resource-group $AKS_RESOURCE_GROUP --query "id" --output tsv)
 
 # Create role assignment
 az role assignment create --assignee $CLIENT_ID --role acrpull --scope $ACR_ID
