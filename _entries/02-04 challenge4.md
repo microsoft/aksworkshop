@@ -103,7 +103,7 @@ The colors app is special because when you open it in your browser and click any
 
 In your cloud shell use this command to watch the status of your running pods
 ```sh
-watch ubectl get pods -l app=colors
+watch kubectl get pods -l app=colors
 ```
 >  **Hint**
 >  To get out of a watch, use `ctrl-c`
