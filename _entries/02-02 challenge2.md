@@ -25,16 +25,14 @@ Follow the Azure docs to learn how to [grant access using Azure Active Directory
 
 
 ```sh
-export AKS_RESOURCE_GROUP=akschallenge
-export AKS_CLUSTER_NAME=akschallenge
-
-# Get the id of the service principal configured for AKS
+export AKS_CLUSTER_NAME="akschallenge"
+export ACR_RESOURCE_GROUP="akschallenge"
+export AKS_RESOURCE_GROUP="akschallenge"
+ 
 CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
-
-# Get the ACR registry resource id
-ACR_ID=$(az acr show --name $ACR_NAME --resource-group $AKS_RESOURCE_GROUP --query "id" --output tsv)
-
-# Create role assignment
+ 
+ACR_ID=$(az acr show --name $ACR_NAME --resource-group $ACR_RESOURCE_GROUP --query "id" --output tsv)
+ 
 az role assignment create --assignee $CLIENT_ID --role acrpull --scope $ACR_ID
 ```
 
