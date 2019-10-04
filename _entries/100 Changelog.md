@@ -11,6 +11,12 @@ All notable changes to this workshop will be documented in this file.
 
 ### Changed
 
+- Updated AKS and ACR authentication instructions
+
+## 2019-07-15
+
+### Changed
+
 - Updated Log Analytics instructions
 
 ## 2019-07-11
