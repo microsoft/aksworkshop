@@ -7,7 +7,7 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
-## 2019-07-15
+## 2019-10-04
 
 ### Changed
 
