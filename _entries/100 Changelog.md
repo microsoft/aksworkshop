@@ -7,6 +7,12 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2019-10-04
+
+### Changed
+
+- Updated AKS and ACR authentication instructions
+
 ## 2019-07-15
 
 ### Changed
