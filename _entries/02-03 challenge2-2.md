@@ -33,10 +33,11 @@ The Order Capture API requires certain environment variables to properly run and
 
 #### Provision the `captureorder` deployment
 
-**Hints**
+**Task Hints**
 * Read the Kubernetes docs in the resources section below for details on how to create a deployment, you should create a YAML file and use the `kubectl apply -f` command to deploy it to your cluster
 * You provide environmental variables to your container using the `env` key in your container spec, these can use `value` to set a plain text value, or `valueFrom` and `secretRef` to read values from a Kubernetes secret (i.e. the one you created holding the MongoDB username and password)
 * The container listens on port 8080 
+* If your pods are not starting, not ready or are crashing, you can view their logs using `kubectl logs <pod name>` and/or `kubectl describe pod <pod name>`
 * The value of the MonogDB hostname i.e. `MONGOHOST`, will be dependant on the name of the MongoDB service. The service was created by the Helm chart and will start with the release name you gave. Run `kubectl get service` and you should see it listed, e.g. `orders-mongo-mongodb`
 * All services in Kubernetes get DNS names, this is assigned automatically by Kubernetes. You can use the short form which is simply the service name, e.g. `orders-mongo-mongodb` or the "fully qualified" form `orders-mongo-mongodb.default.svc.cluster.local`
 * Advanced: You can define a `readinessProbe` and `livenessProbe` using the `/healthz` endpoint exposed by the container and the port `8080`, this is optional
@@ -118,7 +119,7 @@ Wait until you see pods are in the `Running` state.
 
 #### Expose the `captureorder` deployment with a service
 
-**Hints**
+**Task Hints**
 * Read the Kubernetes docs in the resources section below for details on how to create a service, you should create a YAML file and use the `kubectl apply -f` command to deploy it to your cluster
 * Pay attention to the `port`, `targetPort` and the `selector`
 * Kubernetes has several types of services (described in the docs), specified in the `type` field. You will need to create a service of type `LoadBlancer`
@@ -163,7 +164,7 @@ kubectl get service captureorder -o jsonpath="{.status.loadBalancer.ingress[*].i
 
 #### Ensure orders are successfully written to MongoDB
 
-**Hints**
+**Task Hints**
 * The IP of your service will be publicly available on the internet
 * The service has a Swagger/OpenAPI definition: `http://[Your Service Public LoadBalancer IP]/swagger`
 * The service has an orders endpoint which accepts GET and POST: `http://[Your Service Public LoadBalancer IP]/v1/order`
@@ -198,3 +199,8 @@ You can expect the order ID returned by API once your order has been written int
 > * <https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/>
 > * <https://kubernetes.io/docs/concepts/services-networking/service/>
 > * <https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#configuration-file>
+
+### Architecture Diagram
+If you want a picture of how the system should look at the end of this challenge click below
+
+<a href="media/architecture/captureorder.png" target="_blank"><img src="media/architecture/captureorder.png" style="width:500px"></a>

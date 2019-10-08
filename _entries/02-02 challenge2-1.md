@@ -8,7 +8,7 @@ title: Deploy MongoDB
 
 You need to deploy MongoDB in a way that is scalable and production ready. There are a couple of ways to do so.
 
-**Hints**  
+**Task Hints**
 * Use Helm and a standard provided Helm chart to deploy MongoDB.
 * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password. The username and password can be anything you like, but make a note of them for the next task. 
 
@@ -22,7 +22,7 @@ Helm is a application package manager for Kubernetes, and way to easily deploy a
 
 #### Initialize the Helm components on the AKS cluster 
 
-**Hints**
+**Task Hints**
 * Refer to the AKS docs which includes [a guide for setting up Helm in your cluster](https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm)
 * You *will* have RBAC enabled in your AKS cluster, unless you specifically disabled it when creating it (very unlikely)
 * You can ignore the instructions regarding TLS
@@ -72,7 +72,7 @@ helm init --service-account tiller
 
 Helm provides a standard repository of charts for many different software packages, and it has one for [MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb) that is easily replicated and horizontally scalable. 
 
-**Hints**  
+**Task Hints**
 * When installing a chart Helm uses a concept called a "release", and this release needs a name. You should give your release a name (using `--name`), it is strongly recommend you use `orders-mongo` as the name, as we'll need to refer to it later
 * When deploying a chart you provide parameters with the `--set` switch and a comma separated list of `key=value` pairs. There are MANY parameters you can provide to the MongoDB chart, but pay attention to the `mongodbUsername`, `mongodbPassword` and `mongodbDatabase` parameters 
 
@@ -97,7 +97,7 @@ You'll need to use the user created in the command above when configuring the de
 
 In the previous step, you installed MongoDB using Helm, with a specified username, password to access it. You'll now create a Kubernetes secret to hold those details, so that you don't need to hard-code them in the YAML file.
 
-**Hints**
+**Task Hints**
 * A Kubernetes secret can hold several items, indexed by key. The name of the secret and the name of the keys is not important but make a note of them for the next step.
 * The values will be what you used on the `helm install` command previously.
 * Run `kubectl create secret generic -h` for help on how to create a secret, clue: use the `--from-literal` parameter to allow you to provide the secret values directly on the command in plain text.
@@ -118,3 +118,8 @@ You'll need to use the user created in the command above when configuring the de
 > * <https://helm.sh/docs/helm/#helm-install>
 > * <https://github.com/helm/charts/tree/master/stable/mongodb>
 > * <https://kubernetes.io/docs/concepts/configuration/secret/>
+
+### Architecture Diagram
+If you want a picture of how the system should look at the end of this challenge click below
+
+<a href="media/architecture/mongo.png" target="_blank"><img src="media/architecture/mongo.png" style="width:500px"></a>
