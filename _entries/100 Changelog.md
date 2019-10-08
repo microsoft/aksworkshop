@@ -11,6 +11,14 @@ All notable changes to this workshop will be documented in this file.
 
 ### Changed
 
+- Added "**Task Hints**" for each task with links and guidance to hopefully make the task achievable without clicking "toggle solution"
+- Added diagrams showing how the system should look after each part (section 2 only)
+- Changed ACR connection method using new `--attach-acr` command
+
+## 2019-07-15
+
+### Changed
+
 - Updated Log Analytics instructions
 
 ## 2019-07-11
