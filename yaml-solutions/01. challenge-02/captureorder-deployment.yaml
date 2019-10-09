@@ -33,10 +33,7 @@ spec:
               cpu: "500m"
           env:
           - name: MONGOHOST
-            valueFrom:
-              secretKeyRef:
-                name: mongodb
-                key: mongoHost
+            value: "orders-mongo-mongodb.default.svc.cluster.local"
           - name: MONGOUSER
             valueFrom:
               secretKeyRef:
