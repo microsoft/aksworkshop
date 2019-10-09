@@ -31,7 +31,7 @@ echo "\nSetting up Log Reader Service Account"
 kubectl apply -f http://staging.aksworkshop.io/yaml-solutions/01.%20challenge-03/logreader-rbac.yaml
 
 echo "\nInitializing Helm"
-helm init --service-account tiller
+helm init --history-max 200 --service-account tiller --node-selectors "beta.kubernetes.io/os=linux"
 
 echo "\nWaiting for Tiller pod to be Running"
 TILLERSTATUS=""

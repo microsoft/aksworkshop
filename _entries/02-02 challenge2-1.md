@@ -60,10 +60,10 @@ And deploy it using
 kubectl apply -f helm-rbac.yaml
 ```
 
-Initialize Tiller in your cluster with:
+Initialize Tiller (omit the ``--service-account`` flag if your cluster is **not** RBAC enabled). Setting `--history-max` on `helm init` is recommended as configmaps and other objects in helm history can grow large in number if not purged by max limit. Without a max history set the history is kept indefinitely, leaving a large number of records for helm and tiller to maintain.
 
 ```sh
-helm init --service-account tiller
+helm init --history-max 200 --service-account tiller --node-selectors "beta.kubernetes.io/os=linux"
 ```
 {% endcollapsible %}
 

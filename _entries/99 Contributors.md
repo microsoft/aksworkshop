@@ -20,6 +20,7 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor marrobi %}
 {% githubauthor sabbour %}
 {% githubauthor shanepeckham %}
+{% githubauthor thorstenhans %}
 {% githubauthor knee-berts %}
 {% githubauthor waltermyersiii %}
 {% githubauthor benc-uk %}
