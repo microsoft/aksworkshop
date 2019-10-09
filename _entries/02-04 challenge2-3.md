@@ -27,7 +27,7 @@ The frontend requires the `CAPTUREORDERSERVICEIP` environment variable to be set
 #### Provision the `frontend` deployment
 
 **Task Hints**
-* As with the captureorder deployment you will need to create a YAML file which describes your deployment. Makig a copy of your captureorder deployment YAML would be a good start, but beware you will need to change
+* As with the captureorder deployment you will need to create a YAML file which describes your deployment. Making a copy of your captureorder deployment YAML would be a good start, but beware you will need to change
   * `image`
   * `readinessProbe` (if you have one) endpoint clue use the root url '/'
   * `livenessProbe` (if you have one) endpoint, clue use the root url '/'
