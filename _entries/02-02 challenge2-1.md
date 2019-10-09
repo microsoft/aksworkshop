@@ -95,17 +95,22 @@ You'll need to use the user created in the command above when configuring the de
 
 #### Create a Kubernetes secret to hold the MongoDB details
 
-In the previous step, you installed MongoDB using Helm, with a specified username, password to access it. You'll now create a Kubernetes secret to hold those details, so that you don't need to hard-code them in the YAML file.
+In the previous step, you installed MongoDB using Helm, with a specified username, password and a hostname where the database is accessible. You'll now create a Kubernetes secret called mongodb to hold those details, so that you don't need to hard-code them in the YAML files.
 
 **Task Hints**
-* A Kubernetes secret can hold several items, indexed by key. The name of the secret and the name of the keys is not important but make a note of them for the next step.
-* The values will be what you used on the `helm install` command previously.
+* A Kubernetes secret can hold several items, indexed by key. The name of the secret isn't critical, but you'll need three keys stored your secret:
+  * `mongoHost`
+  * `mongoUser`
+  * `mongoPassword`
+* The values for the username & password will be what you used on the `helm install` command when deploying MongoDB.
 * Run `kubectl create secret generic -h` for help on how to create a secret, clue: use the `--from-literal` parameter to allow you to provide the secret values directly on the command in plain text.
-
+* The value of `mongoHost`, will be dependant on the name of the MongoDB service. The service was created by the Helm chart and will start with the release name you gave. Run `kubectl get service` and you should see it listed, e.g. `orders-mongo-mongodb`
+* All services in Kubernetes get DNS names, this is assigned automatically by Kubernetes, there's no need for you to configure it. You can use the short form which is simply the service name, e.g. `orders-mongo-mongodb` or better to use the "fully qualified" form `orders-mongo-mongodb.default.svc.cluster.local`
+  
 {% collapsible %}
 
 ```sh
-kubectl create secret generic mongodb --from-literal=mongoUser="orders-user" --from-literal=mongoPassword="orders-password"
+kubectl create secret generic mongodb --from-literal=mongoHost="orders-mongo-mongodb.default.svc.cluster.local" --from-literal=mongoUser="orders-user" --from-literal=mongoPassword="orders-password"
 ```
 
 You'll need to use the user created in the command above when configuring the deployment environment variables.
