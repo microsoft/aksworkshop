@@ -13,7 +13,7 @@ Ensure the application remains responsive as the number of order submissions inc
 #### Run a baseline load test
 
 **Task Hints**
-* A pre-built image on Dockerhub has been created called `bencuk/azch-loadtest`, this uses a tool called 'hey' to inject a large amount of traffic to the capture order API
+* A pre-built image on Dockerhub has been created called `azch/loadtest`, this uses a tool called 'hey' to inject a large amount of traffic to the capture order API
 * [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/) can be used to run this image as a container, e.g using the  `az container create` command.
 * When running as a Container Instance set we don't want it to restart once it has finished, so set `--restart-policy Never` 
 * Provide the endpoint of your capture orders service in `SERVICE_ENDPOINT` environmental variable e.g. `-e SERVICE_ENDPOINT=https://orders.{ingress-ip}.nip.io`
@@ -22,10 +22,10 @@ Ensure the application remains responsive as the number of order submissions inc
 
 {% collapsible %}
 
-There is a a container image on Docker Hub ([bencuk/azch-loadtest](https://hub.docker.com/r/bencuk/azch-loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
+There is a a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
 
 ```sh
-az container create -g <resource-group> -n loadtest --image bencuk/azch-loadtest --restart-policy Never -e SERVICE_ENDPOINT=https://<hostname order capture service>
+az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_ENDPOINT=https://<hostname order capture service>
 ```
 
 This will fire off a series of increasing loads of concurrent users (100, 400, 1600, 3200, 6400) POSTing requests to your Order Capture API endpoint with some wait time in between to simulate an increased pressure on your application.
