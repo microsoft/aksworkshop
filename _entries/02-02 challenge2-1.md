@@ -18,7 +18,7 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 
 #### Setup Helm
 
-Helm is a application package manager for Kubernetes, and way to easily deploy applications and services into Kubernetes, via what are called charts. To use Helm you will need the `helm` command (already installed in the Azure Cloud Shell), the Tiller component in your cluster which is created with the `helm init` command and a chart to deploy.
+Helm is an application package manager for Kubernetes, and way to easily deploy applications and services into Kubernetes, via what are called charts. To use Helm you will need the `helm` command (already installed in the Azure Cloud Shell), the Tiller component in your cluster which is created with the `helm init` command and a chart to deploy.
 
 #### Initialize the Helm components on the AKS cluster 
 
