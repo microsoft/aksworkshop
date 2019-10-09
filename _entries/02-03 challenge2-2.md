@@ -96,7 +96,6 @@ spec:
               secretKeyRef:
                 name: mongodb
                 key: mongoPassword
-                key: mongoPassword
           ports:
           - containerPort: 8080
 ```
