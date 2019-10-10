@@ -12,11 +12,20 @@ Ensure the application remains responsive as the number of order submissions inc
 
 #### Run a baseline load test
 
+**Task Hints**
+* A pre-built image on Dockerhub has been created called `azch/loadtest`, this uses a tool called 'hey' to inject a large amount of traffic to the capture order API
+* [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/) can be used to run this image as a container, e.g using the  `az container create` command.
+* When running as a Container Instance set we don't want it to restart once it has finished, so set `--restart-policy Never` 
+* Provide the endpoint of your capture orders service in `SERVICE_ENDPOINT` environmental variable e.g. `-e SERVICE_ENDPOINT=https://orders.{ingress-ip}.nip.io`
+* You watch the orders come in with the frontend page, and can view the detailed output of the load test with the `az container logs` command
+* Make a note of the results, response times etc
+
 {% collapsible %}
-There is a a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
+
+There is a container image on Docker Hub ([azch/loadtest](https://hub.docker.com/r/azch/loadtest)) that is preconfigured to run the load test. You may run it in [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/) running the command below
 
 ```sh
-az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
+az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_ENDPOINT=https://<hostname order capture service>
 ```
 
 This will fire off a series of increasing loads of concurrent users (100, 400, 1600, 3200, 6400) POSTing requests to your Order Capture API endpoint with some wait time in between to simulate an increased pressure on your application.
@@ -80,6 +89,14 @@ Most likely in your initial test, the `captureorder` container was the bottlenec
 
 Horizontal Pod Autoscaler allows Kubernetes to detect when your deployed pods need more resources and then it schedules more pods onto the cluster to cope with the demand.
 
+**Task Hints**
+* The [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale) (or HPA) is a way for deployments to scale their pods out automatically based on metrics such as CPU. 
+* There are two versions of the HPA object v1 and v2beta2, for this workshop you can work with the v1 version.
+* The `kubectl autoscale` command can easily set up a HPA for any deployment, [this walkthrough guide has an example you can re-use.](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#create-horizontal-pod-autoscaler)
+* Alternatively you can define the HPA object in a YAML file.
+* For the HPA to work, you must add [resource limits](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to your captureorder deployment, if you haven't already done so. Good values to use are `cpu: "500m"` (which is equivalent to half a CPU core), and for memory specify `memory: "256Mi"`.
+* Validate the HPA with `kubectl get hpa` and make sure the targets column is not showing `<unknown>` 
+
 {% collapsible %}
 
 Save the YAML below as `captureorder-hpa.yaml` or download it from [captureorder-hpa.yaml](yaml-solutions/01. challenge-04/captureorder-hpa.yaml)
@@ -111,6 +128,11 @@ kubectl apply -f captureorder-hpa.yaml
 
 #### Run a load test again after applying Horizontal Pod Autoscaler
 
+**Task Hints**
+* Delete your load test container instance (`az container delete`) and re-create it to run another test, with the same parameters as before
+* Watch the behavior of the HPA with `kubectl get hpa` and use `kubectl get pod` to see the new captureorder pods start, when auto-scaling triggers more replicas
+* Observe the change in load test results
+  
 {% collapsible %}
 
 If you didn't delete the load testing Azure Container Instance, delete it now
@@ -140,6 +162,12 @@ Your browser does not support the video tag.
 
 #### Check if your cluster nodes needs to scale/autoscale
 
+**Task Hints**
+* As the HPA scales out with more & more pods, eventually the cluster will run out of resources. You will see pods in pending state.
+* You may have to artificially force this situation by increasing the resource `request` and `limit` for memory in the captureorder deployment to `memory: "4G"` or even `memory: "2G"` (and re-deploy/apply the deployment)
+* If you enabled the cluster autoscaler, you might be able to get the cluster to scale automatically, check with the node count with `kubectl get nodes`
+* You you didn't enable the autoscaler you can try manually scaling with the `az aks scale` command and the `--node-count` parameter
+  
 {% collapsible %}
 
 If your AKS cluster is not configured with the cluster autoscaler, scale the cluster nodes using the command below to the required number of nodes
@@ -165,4 +193,6 @@ az aks update \
 
 > **Resources**
 > * <https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale>
+> * <https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale>
+> * <https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container>
 > * <https://docs.microsoft.com/en-us/azure/aks/autoscaler>

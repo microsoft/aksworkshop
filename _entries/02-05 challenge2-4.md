@@ -15,6 +15,10 @@ You want to enable connecting to the frontend website over SSL/TLS. In this task
 
 [cert-manager](https://github.com/jetstack/cert-manager) is a Kubernetes add-on to automate the management and issuance of TLS certificates from various issuing sources. It will ensure certificates are valid and up to date periodically, and attempt to renew certificates at an appropriate time before expiry.
 
+**Task Hints**
+* As with MongoDB and NGINX use Helm to deploy cert-manager. You need to do a little more than just `helm install` however the [steps are documented in the GitHub repo for the cert-manager chart](https://github.com/helm/charts/tree/master/stable/cert-manager#installing-the-chart)
+* It's recommended to install the chart into a different/name namespace
+
 {% collapsible %}
 
 Install **cert-manager** using Helm and configure it to use `letsencrypt` as the certificate issuer.
@@ -28,6 +32,10 @@ helm install stable/cert-manager --name cert-manager --set ingressShim.defaultIs
 #### Create a Let's Encrypt ClusterIssuer
 
 In order to begin issuing certificates, you will need to set up a ClusterIssuer.
+
+**Task Hints**
+* cert-manager uses a custom Kubernetes object called an **Issuer** or **ClusterIssuer** to act as the interface between you and the certificate issuing service (in our case Let's Encrypt). There are many ways to create an issuer, but [the cert-manager docs provides a working example YAML for Let's Encrypt](https://cert-manager.readthedocs.io/en/latest/reference/issuers.html#issuers). It will require some small modifications, **You must change the type to `ClusterIssuer` or it will not work**. The recommendation is you call the issuer `letsencrypt`
+* Check the status with `kubectl describe clusterissuer.certmanager.k8s.io/letsencrypt` (or other name if you didn't call your issuer `letsencrypt`)
 
 {% collapsible %}
 
@@ -61,6 +69,13 @@ kubectl apply -f letsencrypt-clusterissuer.yaml
 #### Update the ingress resource to automatically request a certificate
 
 Issuing certificates can be done automatically by properly annotating the ingress resource.
+
+**Task Hints**
+* You need to make changes to the frontend ingress, you can modify your existing frontend ingress YAML file or make a copy to a new name
+* [The quick start guide for cert-manager provides guidance on the changes you need to make](https://cert-manager.readthedocs.io/en/latest/tutorials/acme/quick-start/index.html#step-7-deploy-a-tls-ingress-resource). Note the follow:
+  * The annotation `certmanager.k8s.io/issuer: "letsencrypt-staging"` in the metadata, you want that to refer to your issuer, e.g. `letsencrypt`
+  * The new `tls:` section, here the `host` field should match the host in your rules section, and the `secretName` can be anything you like, this will be the name of the certificate issued (see next step)
+* Reapply your changed frontend ingress using `kubectl`
 
 {% collapsible %}
 
@@ -101,6 +116,14 @@ kubectl apply -f frontend-ingress-tls.yaml
 
 #### Verify the certificate is issued and test the website over SSL
 
+**Task Hints**
+* You can list custom objects such as certificates with regular `kubectl commands`, e.g. `kubectl get cert` and `kubectl describe cert`, use the describe command to validate the cert has been issued and is valid
+* Access the front end in your browser as before, e.g. http://frontend.{ingress-ip}.nip.io you might be automatically redirected to the `https://` version, if not modify the URL to access using `https://`
+* You will probably see nothing in the Orders view, and many errors in the dev console (F12), to fix this you will need to do some work to make the orders API accessible over HTTPS with TLS:
+  * Repeat the work you did when creating the frontend ingress, but this time for the captureorder service, i.e. direct traffic via the ingress (create an second ingress object using YAML) 
+  * The hostname will need to be different, but still point at your ingress controller IP, e.g. `orders.{ingress-ip}.nip.io`. You must set up TLS for it as you did with the frontend
+  * Modify the `CAPTUREORDERSERVICEIP` environmental variable in the frontend deployment YAML. This now needs to refer to the hostname of your orders ingress, re-deploy the frontend to make the changes live
+  
 {% collapsible %}
 
 Let's Encrypt should automatically verify the hostname in a few seconds. Make sure that the certificate has been issued by running:
@@ -150,4 +173,11 @@ Note: even if the certificate is valid, you may still get a warning in your brow
 {% endcollapsible %}
 
 > **Resources**
-> - [https://github.com/helm/charts/tree/master/stable/mongodb#replication](https://github.com/helm/charts/tree/master/stable/mongodb#replication)
+> * <https://github.com/helm/charts/tree/master/stable/cert-manager>
+> * <https://cert-manager.readthedocs.io/en/latest/reference/issuers.html>
+> * <https://cert-manager.readthedocs.io/en/latest/tutorials/acme/quick-start>
+
+### Architecture Diagram
+If you want a picture of how the system should look at the end of this challenge click below
+
+<a href="media/architecture/tls-certs.png" target="_blank"><img src="media/architecture/tls-certs.png" style="width:500px"></a>
