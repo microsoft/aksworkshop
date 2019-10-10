@@ -13,29 +13,54 @@ Use a combination of the available tools to setup alerting capabilities for your
 
 #### Create Log Analytics workspace
 
+**Task Hints**
+* To store monitoring data, events and metrics from your Kubernetes cluster and the applications. Azure Monitor can be used, specifically a component of Azure Monitor called [Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-portal).
+* The Azure documentation has [guidance on how to create a new Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) using the portal.
+
 {% collapsible %}
 
 If you are running this lab as part of the managed lab environment, you may not be able to create the required resources to enable monitoring due to insufficient permissions on the subscription. You'll need to pre-create the Log Analytics workspace in your assigned environment resource group.
 
 Follow the [Create a Log Analytics workspace in the Azure portal](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) instructions.
 
+Alternatively you can create the workspace using the CLI with the command below, ensure you pick a unique name for the workspace
+```sh
+az resource create --resource-type Microsoft.OperationalInsights/workspaces \
+ --name <workspace-name> \
+ --resource-group <resource-group> \
+ --location <region> \
+ --properties '{}' -o table
+```
+
 {% endcollapsible %}
 
 #### Enable the monitoring addon
 
+**Task Hints**
+* The monitoring add-on also known as "Azure Monitor for containers" is [comprehensive monitoring solution for Kubernetes](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview)
+* To enable the add-on you can use the portal or the Azure CLI, and [integrate with the existing workspace you created in the last task](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-enable-existing-clusters#integrate-with-an-existing-workspace)
+
 {% collapsible %}
 
-Enable the monitoring add-on by running the command below. You'll need to replace `<resource-group>`, `<subscription-id>` and `<workspace-name>` with the details of your environment.
-
-![Log analytics workspace](media/log-analytics.png)
+First get the resource id of the workspace you created, by running
 
 ```sh
-az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id /subscriptions/<subscription-id>/resourcegroups/<resource-group>/providers/microsoft.operationalinsights/workspaces/<workspace-name>
+az resource show --resource-type Microsoft.OperationalInsights/workspaces --resource-group <resource-group> --name <workspace-name> --query "id" -o tsv
+```
+
+Next enable the monitoring add-on by running the command below, replace the placeholder values and the *workspace-resource-id* value with the output from the previous command
+
+```sh
+az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluster-name> --addons monitoring --workspace-resource-id <workspace-resource-id>
 ```
 
 {% endcollapsible %}
 
 #### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
+
+**Task Hints**
+* View the utilization reports and charts in the Azure portal, via the "Insights" view on your AKS cluster
+* It might be several minutes before the data appears
 
 {% collapsible %}
 
@@ -49,9 +74,13 @@ az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluste
 
 #### View the live container logs and Kubernetes events
 
+**Task Hints**
+* You can view live log data from the 'Containers' tab in the Insights view, with the "View live data (preview)" button.
+* Will get an error, this can be fixed by setting up some RBAC roles and accounts in your cluster. [This is covered in the AKS documentation](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs). You might need to refresh the page in the portal for the changes to take effect.
+
 {% collapsible %}
 
-**If the cluster is RBAC enabled**, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
+**If the cluster is RBAC enabled, which is the default**, you have to create the appropriate `ClusterRole` and `ClusterRoleBinding`.
 
 Save the YAML below as `logreader-rbac.yaml` or download it from [logreader-rbac.yaml](yaml-solutions/01. challenge-03/logreader-rbac.yaml)
 
@@ -221,6 +250,8 @@ Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-
 {% endcollapsible %}
 
 > **Resources**
+> - <https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview>
+> - <https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace>
 > - <https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs>
 > - <https://docs.microsoft.com/en-us/azure/monitoring/monitoring-container-insights-overview>
 > - <https://coreos.com/operators/prometheus/docs/latest/>

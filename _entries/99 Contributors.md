@@ -23,4 +23,5 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor thorstenhans %}
 {% githubauthor knee-berts %}
 {% githubauthor waltermyersiii %}
+{% githubauthor benc-uk %}
 </div>
