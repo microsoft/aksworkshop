@@ -114,7 +114,7 @@ We will leverage the [nip.io](https://nip.io/) reverse wildcard DNS resolver ser
 * Use Helm to deploy The NGINX ingress controller. [The Helm chart for the NGINX ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) requires no options/values when deploying it.
 * ProTip: Place in the ingress controller in a different namespace, e.g. `ingress` with the `--namespace` option.
 * Use `kubectl get service` (add `--namespace` if you deployed it to a different namespace) to discover the public/external IP of your ingress controller, you will need to make a note of it. the
-* [nip.io](nip.io) is not related to Kubernetes or Azure, however it provide useful service of mapping any IP Address to a hostname. This saves you needed to create public DNS records. If your ingress controller had IP 12.34.56.78, you could access it via `http://anythingyouwant.12.34.56.78.nip.io`
+* [nip.io](https://nip.io) is not related to Kubernetes or Azure, however it provide useful service of mapping any IP Address to a hostname. This saves you needed to create public DNS records. If your ingress controller had IP 12.34.56.78, you could access it via `http://anythingyouwant.12.34.56.78.nip.io`
 * The [Kubernetes docs have an example of creating an Ingress object](https://kubernetes.io/docs/concepts/services-networking/ingress/#name-based-virtual-hosting), except you will only be specifying a single host rule. Use nip.io and your ingress controller IP to set the `host` field. As with the deployment and service, you create this object via a YAML file and `kubectl apply`
 
 {% collapsible %}
