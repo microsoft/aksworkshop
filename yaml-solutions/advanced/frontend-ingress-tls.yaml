@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: frontend
   annotations:
-    certmanager.k8s.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   tls:
   - hosts:

@@ -24,7 +24,24 @@ You want to enable connecting to the frontend website over SSL/TLS. In this task
 Install **cert-manager** using Helm and configure it to use `letsencrypt` as the certificate issuer.
 
 ```sh
-helm install stable/cert-manager --name cert-manager --set ingressShim.defaultIssuerName=letsencrypt --set ingressShim.defaultIssuerKind=ClusterIssuer --version v0.5.2
+# Install the CustomResourceDefinition resources separately
+kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.11/deploy/manifests/00-crds.yaml
+
+# Create the namespace for cert-manager
+kubectl create namespace cert-manager
+
+# Add the Jetstack Helm repository
+helm repo add jetstack https://charts.jetstack.io
+
+# Update your local Helm chart repository cache
+helm repo update
+
+# Install the cert-manager Helm chart
+helm install \
+  --name cert-manager \
+  --namespace cert-manager \
+  --version v0.11.0 \
+  jetstack/cert-manager
 ```
 
 {% endcollapsible %}
@@ -35,7 +52,7 @@ In order to begin issuing certificates, you will need to set up a ClusterIssuer.
 
 **Task Hints**
 * cert-manager uses a custom Kubernetes object called an **Issuer** or **ClusterIssuer** to act as the interface between you and the certificate issuing service (in our case Let's Encrypt). There are many ways to create an issuer, but [the cert-manager docs provides a working example YAML for Let's Encrypt](https://cert-manager.readthedocs.io/en/latest/reference/issuers.html#issuers). It will require some small modifications, **You must change the type to `ClusterIssuer` or it will not work**. The recommendation is you call the issuer `letsencrypt`
-* Check the status with `kubectl describe clusterissuer.certmanager.k8s.io/letsencrypt` (or other name if you didn't call your issuer `letsencrypt`)
+* Check the status with `kubectl describe clusterissuer.cert-manager.io/letsencrypt` (or other name if you didn't call your issuer `letsencrypt`)
 
 {% collapsible %}
 
@@ -44,7 +61,7 @@ Save the YAML below as `letsencrypt-clusterissuer.yaml` or download it from [let
 > **Note** Make sure to replace `_YOUR_EMAIL_` with your email.
 
 ```yaml
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt
@@ -55,7 +72,10 @@ spec:
     email: _YOUR_EMAIL_ # replace this with your email
     privateKeySecretRef:
       name: letsencrypt
-    http01: {}
+    solvers:
+       - http01:
+           ingress:
+             class:  nginx
 ```
 
 And apply it using
@@ -73,7 +93,7 @@ Issuing certificates can be done automatically by properly annotating the ingres
 **Task Hints**
 * You need to make changes to the frontend ingress, you can modify your existing frontend ingress YAML file or make a copy to a new name
 * [The quick start guide for cert-manager provides guidance on the changes you need to make](https://cert-manager.readthedocs.io/en/latest/tutorials/acme/quick-start/index.html#step-7-deploy-a-tls-ingress-resource). Note the follow:
-  * The annotation `certmanager.k8s.io/issuer: "letsencrypt-staging"` in the metadata, you want that to refer to your issuer, e.g. `letsencrypt`
+  * The annotation `cert-manager.io/issuer: "letsencrypt-staging"` in the metadata, you want that to refer to your issuer, e.g. `letsencrypt`
   * The new `tls:` section, here the `host` field should match the host in your rules section, and the `secretName` can be anything you like, this will be the name of the certificate issued (see next step)
 * Reapply your changed frontend ingress using `kubectl`
 
@@ -89,7 +109,7 @@ kind: Ingress
 metadata:
   name: frontend
   annotations:
-    certmanager.k8s.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   tls:
   - hosts:
@@ -139,14 +159,14 @@ Name:         frontend
 Namespace:    default
 Labels:       <none>
 Annotations:  kubectl.kubernetes.io/last-applied-configuration:
-                {"apiVersion":"certmanager.k8s.io/v1alpha1","kind":"Certificate","metadata":{"annotations":{},"name":"frontend","namespace":"default"},"sp...
-API Version:  certmanager.k8s.io/v1alpha1
+                {"apiVersion":"cert-manager.io/v1alpha1","kind":"Certificate","metadata":{"annotations":{},"name":"frontend","namespace":"default"},"sp...
+API Version:  cert-manager.io/v1alpha1
 Kind:         Certificate
 Metadata:
   Creation Timestamp:  2019-02-13T02:40:40Z
   Generation:          1
   Resource Version:    11448
-  Self Link:           /apis/certmanager.k8s.io/v1alpha1/namespaces/default/certificates/frontend
+  Self Link:           /apis/cert-manager.io/v1alpha1/namespaces/default/certificates/frontend
   UID:                 c0a620ee-2f38-11e9-adae-0a58ac1f1147
 Spec:
   Acme:
