@@ -43,7 +43,7 @@ az group create --name <resource-group> --location <region>
 
 ##### **Option 1:** Create an AKS cluster without the cluster autoscaler (recommended)
 
-> **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group.
+> **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group. Additionally, if you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
 
   {% collapsible %}
 
@@ -61,7 +61,7 @@ az group create --name <resource-group> --location <region>
 
 ##### **Option 2 (*Preview*):** Create an AKS cluster with the cluster autoscaler
 
-> **Note** This will not work in the lab environment. You can only do this on a subscription where you have access to enable preview features.
+> **Note** This will not work in the lab environment. You can only do this on a subscription where you have access to enable preview features. Additionally, if you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
 
   {% collapsible %}
  
