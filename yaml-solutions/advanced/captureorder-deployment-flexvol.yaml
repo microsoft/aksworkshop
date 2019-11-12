@@ -39,6 +39,11 @@ spec:
               secretKeyRef:
                 name: mongodb
                 key: mongoHost
+          - name: MONGOUSER
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongoUser
           ports:
           - containerPort: 8080
           volumeMounts:
