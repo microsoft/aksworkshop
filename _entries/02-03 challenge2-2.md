@@ -123,7 +123,7 @@ Wait until you see pods are in the `Running` state.
 **Task Hints**
 * Read the Kubernetes docs in the resources section below for details on how to create a service, you should create a YAML file and use the `kubectl apply -f` command to deploy it to your cluster
 * Pay attention to the `port`, `targetPort` and the `selector`
-* Kubernetes has several types of services (described in the docs), specified in the `type` field. You will need to create a service of type `LoadBlancer`
+* Kubernetes has several types of services (described in the docs), specified in the `type` field. You will need to create a service of type `LoadBalancer`
 * The service should export port 80
   
 {% collapsible %}
