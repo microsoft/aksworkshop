@@ -144,7 +144,7 @@ az container delete -g <resource-group> -n loadtest
 Running the load test again
 
 ```sh
-az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_IP=<public ip of order capture service>
+az container create -g <resource-group> -n loadtest --image azch/loadtest --restart-policy Never -e SERVICE_ENDPOINT=https://<hostname order capture service>
 ```
 
 Observe your Kubernetes cluster reacting to the load by running
@@ -186,8 +186,6 @@ az aks update \
   --min-count 1 \
   --max-count 5
 ```
-
-> **Note** During preview, you can't set a higher minimum node count than is currently set for the cluster. For example, if you currently have min count set to *1*, you can't update the min count to *3*.
 
 {% endcollapsible %}
 
