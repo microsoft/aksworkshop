@@ -7,13 +7,20 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+
+## 2019-11-13
+
+### Changed
+
+- Removed preview references to the AKS Cluster Auto Scaler now GA.
+
 ## 2019-10-04
 
 ### Changed
 
 - Updated AKS and ACR authentication instructions
 
-## 2019-07-15
+## 2019-10-10
 
 ### Changed
 
