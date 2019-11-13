@@ -39,7 +39,7 @@ az group create --name <resource-group> --location <region>
 * It's recommended to use the Azure CLI and the `az aks create` command to deploy your cluster. Refer to the docs linked in the Resources section, or run `az aks create -h` for details
 * The size and number of nodes in your cluster is not critical but two or more nodes of `DS2_v2` or larger is recommended
 
-> **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler). However, please note that the AKS cluster autoscaler is a preview feature, and enabling it is a more involved process. AKS preview features are self-service and opt-in. Previews are provided to gather feedback and bugs from our community. However, they are not supported by Azure technical support. If you create a cluster, or add these features to existing clusters, that cluster is unsupported until the feature is no longer in preview and graduates to general availability (GA).
+> **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler).
 
 ##### **Option 1:** Create an AKS cluster without the cluster autoscaler (recommended)
 
@@ -59,21 +59,15 @@ az group create --name <resource-group> --location <region>
 
   {% endcollapsible %}
 
-##### **Option 2 (*Preview*):** Create an AKS cluster with the cluster autoscaler
+##### **Option 2 ** Create an AKS cluster with the cluster autoscaler
 
-> **Note** This will not work in the lab environment. You can only do this on a subscription where you have access to enable preview features. Additionally, if you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
+> **Note** If you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
 
   {% collapsible %}
  
-  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. Cluster autoscaler support is in preview. To opt in and create clusters that use this feature, first install the *aks-preview* Azure CLI extension using the `az extension add` command, as shown in the following example:
-
-  ```sh
-  az extension add --name aks-preview
-  ```
+  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. 
 
   Use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
-
-  > **Note** During preview, you can't set a higher minimum node count than is currently set for the cluster. For example, if you currently have min count set to *1*, you can't update the min count to *3*.
 
    ```sh
   az aks create --resource-group <resource-group> \
@@ -96,6 +90,12 @@ az group create --name <resource-group> --location <region>
 * Refer to the AKS docs which includes [a guide for connecting kubectl to your cluster](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster) (Note. using the cloud shell you can skip the `install-cli` step).
 * A good sanity check is listing all the nodes in your cluster `kubectl get nodes`.
 * [This is a good cheat sheet](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf) for kubectl.
+* If you run kubectl in PowerShell ISE , you can also define aliases :
+```sh
+function k([Parameter(ValueFromRemainingArguments = $true)]$params) { & kubectl $params }
+function kubectl([Parameter(ValueFromRemainingArguments = $true)]$params) { Write-Output "> kubectl $(@($params | ForEach-Object {$_}) -join ' ')"; & kubectl.exe $params; }
+function k([Parameter(ValueFromRemainingArguments = $true)]$params) { Write-Output "> k $(@($params | ForEach-Object {$_}) -join ' ')"; & kubectl.exe $params; }
+```
 
 {% collapsible %}
 
