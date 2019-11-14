@@ -25,4 +25,5 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor waltermyersiii %}
 {% githubauthor benc-uk %}
 {% githubauthor ezYakaEagle442 %}
+{% githubauthor aqueeb %}
 </div>
