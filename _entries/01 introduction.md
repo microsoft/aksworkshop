@@ -17,7 +17,7 @@ If you are a more experienced Kubernetes developer or administrator, you may hav
 Some of the things you’ll be going through:
 
 - Kubernetes deployments, services and ingress
-- Deploying MongoDB using Helm 2.x.x (latest stable 2.x.x version. Do not use version 3 of helm as there are commands in this workshop that are incompatible with version 3!)
+- Deploying MongoDB using Helm 2 (the instructions below are specifically for Helm 2 and will be later updated to Helm 3)
 - Azure Monitor for Containers, Horizontal Pod Autoscaler and the Cluster Autoscaler
 - Building CI/CD pipelines using Azure DevOps and Azure Container Registry
 - Scaling using Virtual Nodes, setting up SSL/TLS for your deployments, using Azure Key Vault for secrets
