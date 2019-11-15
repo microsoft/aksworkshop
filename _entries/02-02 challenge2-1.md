@@ -13,6 +13,8 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password. The username and password can be anything you like, but make a note of them for the next task. 
 
 > **Important**: The instructions below are specifically for Helm 2 and will not work with Helm 3. They will be later updated to Helm 3.
+
+
 > **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redeploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those claims using `kubectl get pvc`.
 
 ### Tasks
