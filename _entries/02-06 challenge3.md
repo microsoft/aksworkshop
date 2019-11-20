@@ -116,7 +116,7 @@ kubectl apply -f logreader-rbac.yaml
 
 If you have a Kubernetes cluster that is not configured with Kubernetes RBAC authorization or integrated with Azure AD single-sign on, you do not need to follow the steps above. Because Kubernetes authorization uses the kube-api, contributor access is required.
 
-Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Containers** tab and pick a container to view its live logs or event logs and debug what is going on.
+Head over to the AKS cluster on the Azure portal, click on **Insights** under **Monitoring**, click on the **Controllers** tab and pick a container to view its live logs or event logs and debug what is going on.
 
 ![Azure Monitor for Containers: Live Logs](media/livelogs.png)
 
