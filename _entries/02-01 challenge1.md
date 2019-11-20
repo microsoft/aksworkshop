@@ -43,11 +43,28 @@ az group create --name <resource-group> --location <region>
 
 ##### **Option 1:** Create an AKS cluster without the cluster autoscaler (recommended)
 
-> **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group. Additionally, if you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
+Create AKS using the latest version (if using the provided lab environment)
+  
+{% collapsible %}
+  
+> **Note** If you're using the provided lab environment, you'll not be able to create the Log Analytics workspace required to enable monitoring while creating the cluster from the Azure Portal unless you manually create the workspace in your assigned resource group. Additionally, if you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer. Additionaly, please pass in the service prinipal and secret provided.
 
+  ```sh
+  az aks create --resource-group <resource-group> \
+    --name <unique-aks-cluster-name> \
+    --location <region> \
+    --kubernetes-version $version \
+    --generate-ssh-keys \
+    --load-balancer-sku basic \
+    --service-principal <APP_ID> \
+    --client-secret <APP_SECRET>
+  ```
+
+  {% endcollapsible %}
+  
+  Create AKS using the latest version (on your own subscription)
+  
   {% collapsible %}
-
-  Create AKS using the latest version
 
   ```sh
   az aks create --resource-group <resource-group> \
@@ -61,13 +78,37 @@ az group create --name <resource-group> --location <region>
 
 ##### **Option 2 ** Create an AKS cluster with the cluster autoscaler
 
-> **Note** If you're running this on an Azure Pass, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer.
-
-  {% collapsible %}
  
   AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. 
 
   Use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
+  
+Create AKS using the latest version (if using the provided lab environment)
+
+{% collapsible %}
+
+> **Note** If you're running this on an Azure Pass or the provided lab environment, please add `--load-balancer-sku basic` to the flags, as the Azure Pass only supports the basic Azure Load Balancer. Additionaly, please pass in the service prinipal and secret provided.
+
+   ```sh
+  az aks create --resource-group <resource-group> \
+    --name <unique-aks-cluster-name> \
+    --location <region> \
+    --kubernetes-version $version \
+    --generate-ssh-keys \
+    --vm-set-type VirtualMachineScaleSets \
+    --enable-cluster-autoscaler \
+    --min-count 1 \
+    --max-count 3 \
+    --load-balancer-sku basic \
+    --service-principal <APP_ID> \
+    --client-secret <APP_SECRET>
+  ```
+
+{% endcollapsible %}
+  
+Create AKS using the latest version (on your own subscription)
+
+{% collapsible %}
 
    ```sh
   az aks create --resource-group <resource-group> \
