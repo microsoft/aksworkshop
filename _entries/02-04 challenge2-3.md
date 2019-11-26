@@ -153,6 +153,8 @@ NGINX ingress controller is easily deployed with helm:
 ```sh
 helm repo update
 
+kubectl create namespace ingress
+
 helm upgrade --install ingress stable/nginx-ingress --namespace ingress
 ```
 
