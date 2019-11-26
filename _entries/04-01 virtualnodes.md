@@ -163,12 +163,6 @@ kubectl get nodes
 
 {% collapsible %}
 
-Add Azure CLI extension.
-
-```bash
-az extension add --source https://aksvnodeextension.blob.core.windows.net/aks-virtual-node/aks_virtual_node-0.2.0-py2.py3-none-any.whl
-```
-
 Enable the virtual node in your cluster.
 
 ```bash
