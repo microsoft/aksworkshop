@@ -7,6 +7,11 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2019-12-03
+
+### Changed
+
+- Updated instructions for Helm 3.
 
 ## 2019-11-13
 
