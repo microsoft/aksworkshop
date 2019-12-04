@@ -37,10 +37,8 @@ helm repo add jetstack https://charts.jetstack.io
 helm repo update
 
 # Install the cert-manager Helm chart
-helm install \
-  --name cert-manager \
+helm install cert-manager \
   --namespace cert-manager \
-  --version v0.11.0 \
   jetstack/cert-manager
 ```
 
