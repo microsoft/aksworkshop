@@ -146,14 +146,20 @@ And deploy it using
 kubectl apply -f frontend-service.yaml
 ```
 
-##### Deploy the ingress controller with helm
+##### Deploy the ingress controller with Helm
 
-NGINX ingress controller is easily deployed with helm:
+Create a namespace for the ingress
+
+``sh
+kubectl create namespace ingress
+``
+
+NGINX ingress controller is easily deployed with Helm:
 
 ```sh
 helm repo update
 
-helm upgrade --install ingress stable/nginx-ingress --namespace ingress
+helm install ingress stable/nginx-ingress --namespace ingress
 ```
 
 In a couple of minutes, a public IP address will be allocated to the ingress controller, retrieve with:
