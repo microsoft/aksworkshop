@@ -12,63 +12,28 @@ You need to deploy MongoDB in a way that is scalable and production ready. There
 * Use Helm and a standard provided Helm chart to deploy MongoDB.
 * Be careful with the authentication settings when creating MongoDB. It is recommended that you create a standalone username/password. The username and password can be anything you like, but make a note of them for the next task. 
 
-> **Important**: The instructions below are specifically for Helm 2 and will not work with Helm 3. They will be later updated to Helm 3.
-
-
 > **Important**: If you install using Helm and then delete the release, the MongoDB data and configuration persists in a Persistent Volume Claim. You may face issues if you redeploy again using the same release name because the authentication configuration will not match. If you need to delete the Helm deployment and start over, make sure you delete the Persistent Volume Claims created otherwise you'll run into issues with authentication due to stale configuration. Find those claims using `kubectl get pvc`.
 
 ### Tasks
 
 #### Setup Helm
 
-Helm is an application package manager for Kubernetes, and way to easily deploy applications and services into Kubernetes, via what are called charts. To use Helm you will need the `helm` command (already installed in the Azure Cloud Shell), the Tiller component in your cluster which is created with the `helm init` command and a chart to deploy.
-
-#### Initialize the Helm components on the AKS cluster 
+Helm is an application package manager for Kubernetes, and way to easily deploy applications and services into Kubernetes, via what are called charts. To use Helm you will need the `helm` command (already installed in the Azure Cloud Shell).
 
 **Task Hints**
-* Refer to the AKS docs which includes [a guide for setting up Helm in your cluster](https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm)
-* You *will* have RBAC enabled in your AKS cluster, unless you specifically disabled it when creating it (very unlikely)
-* You can ignore the instructions regarding TLS
+* The instructions have been updated to use [Helm 3](https://helm.sh/blog/helm-3-released/).
+* Helm 3 does not come with any repositories predefined, you'll need initialize the [stable chart repository](https://v3.helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository)
 
 {% collapsible %}
 
-Unless you specified otherwise your cluster will be RBAC enabled, so you have to create the appropriate `ServiceAccount` for Tiller (the server side Helm component) to use. 
+Add the `stable` Helm charts repository
+`helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 
-Save the YAML below as `helm-rbac.yaml` or download it from [helm-rbac.yaml](yaml-solutions/01. challenge-02/helm-rbac.yaml)
+Upate the repositories
+`helm repo update`
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-```
-
-And deploy it using
-
-```sh
-kubectl apply -f helm-rbac.yaml
-```
-
-Initialize Tiller (omit the ``--service-account`` flag if your cluster is **not** RBAC enabled). Setting `--history-max` on `helm init` is recommended as configmaps and other objects in helm history can grow large in number if not purged by max limit. Without a max history set the history is kept indefinitely, leaving a large number of records for helm and tiller to maintain.
-
-```sh
-helm init --history-max 200 --service-account tiller --node-selectors "beta.kubernetes.io/os=linux"
-```
 {% endcollapsible %}
+
 
 
 #### Deploy an instance of MongoDB to your cluster
@@ -76,7 +41,7 @@ helm init --history-max 200 --service-account tiller --node-selectors "beta.kube
 Helm provides a standard repository of charts for many different software packages, and it has one for [MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb) that is easily replicated and horizontally scalable. 
 
 **Task Hints**
-* When installing a chart Helm uses a concept called a "release", and this release needs a name. You should give your release a name (using `--name`), it is strongly recommend you use `orders-mongo` as the name, as we'll need to refer to it later
+* When installing a chart Helm uses a concept called a "release", and this release needs a name. You should give your release a name and it is strongly recommend you use `orders-mongo` as the name, as we'll need to refer to it later
 * When deploying a chart you provide parameters with the `--set` switch and a comma separated list of `key=value` pairs. There are MANY parameters you can provide to the MongoDB chart, but pay attention to the `mongodbUsername`, `mongodbPassword` and `mongodbDatabase` parameters 
 
 > **Note** The application expects a database called `akschallenge`. Please DO NOT modify it.
@@ -84,10 +49,8 @@ Helm provides a standard repository of charts for many different software packag
 {% collapsible %}
 The recommended way to deploy MongoDB would be to use Helm. 
 
-After you have Tiller initialized in the cluster, wait for a short while then install the MongoDB chart, **then take note of the username, password and endpoints created. The command below creates a user called `orders-user` and a password of `orders-password`**
-
 ```sh
-helm install stable/mongodb --name orders-mongo --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
+helm install orders-mongo stable/mongodb --set mongodbUsername=orders-user,mongodbPassword=orders-password,mongodbDatabase=akschallenge
 ```
 
 > **Hint** By default, the service load balancing the MongoDB cluster would be accessible at ``orders-mongo-mongodb.default.svc.cluster.local``
@@ -121,9 +84,7 @@ You'll need to use the user created in the command above when configuring the de
 {% endcollapsible %}
 
 > **Resources**
-> * <https://www.digitalocean.com/community/tutorials/an-introduction-to-helm-the-package-manager-for-kubernetes>
-> * <https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm>
-> * <https://helm.sh/docs/helm/#helm-install>
+> * <https://helm.sh/docs/intro/using_helm/>
 > * <https://github.com/helm/charts/tree/master/stable/mongodb>
 > * <https://kubernetes.io/docs/concepts/configuration/secret/>
 
