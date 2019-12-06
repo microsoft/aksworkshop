@@ -13,10 +13,10 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service), we'll us
 
 {% collapsible %}
 
-Get the latest available Kubernetes version in your preferred region into a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`.
+Get the latest available Kubernetes version in your preferred region into a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`. The query also filters out preview versions.
 
 ```sh
-version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+version=$(az aks get-versions -l <region> --query 'orchestrators[?!isPreview] | [-1].orchestratorVersion' -o tsv)
 ```
 
 {% endcollapsible %}
