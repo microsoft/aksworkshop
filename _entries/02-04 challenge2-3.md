@@ -104,7 +104,7 @@ Instead of accessing the frontend through an IP address, you would like to expos
 
 As there are many options out there for ingress controllers, we will stick to the tried and true [nginx-ingress](https://github.com/helm/charts/tree/master/stable/nginx-ingress) controller, which is the most popular albeit not the most featureful controller.
 
-* **Ingress controller**: The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches and implements Kubernetes Ingress resources, which creates routes to application endpoints.
+> **Ingress controller** The Ingress controller is exposed to the internet by using a Kubernetes service of type LoadBalancer. The Ingress controller watches and implements Kubernetes Ingress resources, which creates routes to application endpoints.
 
 We will leverage the [nip.io](https://nip.io/) reverse wildcard DNS resolver service to map our ingress controller `LoadBalancerIP` to a proper DNS name.
 
