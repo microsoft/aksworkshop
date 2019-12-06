@@ -152,7 +152,7 @@ Create a namespace for the ingress
 
 ```sh
 kubectl create namespace ingress
-``
+```
 
 NGINX ingress controller is easily deployed with Helm:
 
