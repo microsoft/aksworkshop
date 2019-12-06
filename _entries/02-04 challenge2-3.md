@@ -150,7 +150,7 @@ kubectl apply -f frontend-service.yaml
 
 Create a namespace for the ingress
 
-``sh
+```sh
 kubectl create namespace ingress
 ``
 
