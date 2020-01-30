@@ -14,7 +14,7 @@ Use a combination of the available tools to setup alerting capabilities for your
 #### Create Log Analytics workspace
 
 **Task Hints**
-* To store monitoring data, events and metrics from your Kubernetes cluster and the applications. Azure Monitor can be used, specifically a component of Azure Monitor called [Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-portal).
+* To store monitoring data, events and metrics from your Kubernetes cluster and the applications, Azure Monitor can be used. Specifically a component of Azure Monitor called [Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-portal).
 * The Azure documentation has [guidance on how to create a new Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) using the portal.
 
 {% collapsible %}
@@ -37,7 +37,7 @@ az resource create --resource-type Microsoft.OperationalInsights/workspaces \
 #### Enable the monitoring addon
 
 **Task Hints**
-* The monitoring add-on also known as "Azure Monitor for containers" is [comprehensive monitoring solution for Kubernetes](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview)
+* The monitoring add-on, also known as "Azure Monitor for containers" is [a comprehensive monitoring solution for Kubernetes](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview)
 * To enable the add-on you can use the portal or the Azure CLI, and [integrate with the existing workspace you created in the last task](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-enable-existing-clusters#integrate-with-an-existing-workspace)
 
 {% collapsible %}
@@ -56,7 +56,7 @@ az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluste
 
 {% endcollapsible %}
 
-#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes event or logs and monitor your cluster health
+#### Leverage integrated Azure Kubernetes Service monitoring to figure out if requests are failing, inspect Kubernetes events or logs and monitor your cluster health
 
 **Task Hints**
 * View the utilization reports and charts in the Azure portal, via the "Insights" view on your AKS cluster
@@ -76,7 +76,7 @@ az aks enable-addons --resource-group <resource-group> --name <unique-aks-cluste
 
 **Task Hints**
 * You can view live log data from the 'Containers' tab in the Insights view, with the "View live data (preview)" button.
-* Will get an error, this can be fixed by setting up some RBAC roles and accounts in your cluster. [This is covered in the AKS documentation](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs). You might need to refresh the page in the portal for the changes to take effect.
+* You will get an error which can be fixed by setting up some RBAC roles and accounts in your cluster. [This is covered in the AKS documentation](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-live-logs). You might need to refresh the page in the portal for the changes to take effect.
 
 {% collapsible %}
 
@@ -189,7 +189,7 @@ Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-
 
 2. Generate traffic to the application by running curl. 
 
-  Find the pod you just created.
+  Find the pods you just created.
 
   ```sh
   kubectl get pods | grep prommetrics-demo
@@ -232,8 +232,11 @@ Save the YAML below as `prommetrics-demo.yaml` or download it from [prommetrics-
 
 4.	Query the Prometheus metrics and plot a chart. 
 
-  To access Log Analytics, go to the AKS overview page and click `Logs` in the TOC under Monitor. 
-  Copy the query below and run. 
+  To access Log Analytics, go to the overview page for your AKS cluster and click `Logs` in the list of options on the left hand side under Monitor. 
+ 
+ Copy the query below and run. 
+
+ > **Note** It can take several minutes for the log data to appear in Log Analytics. If you see "NO RESULTS FOUND", maybe try the next exercise and return later to view the data.
 
   ```
   InsightsMetrics
