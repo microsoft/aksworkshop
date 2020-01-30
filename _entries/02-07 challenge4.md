@@ -5,7 +5,7 @@ parent-id: upandrunning
 title: Scaling
 ---
 
-As popularity of the application grows the application needs to scale appropriately as demand changes.
+As the popularity of the application grows, the application needs to scale appropriately as demand changes.
 Ensure the application remains responsive as the number of order submissions increases.
 
 ### Tasks
@@ -17,7 +17,7 @@ Ensure the application remains responsive as the number of order submissions inc
 * [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/) can be used to run this image as a container, e.g using the  `az container create` command.
 * When running as a Container Instance set we don't want it to restart once it has finished, so set `--restart-policy Never` 
 * Provide the endpoint of your capture orders service in `SERVICE_ENDPOINT` environmental variable e.g. `-e SERVICE_ENDPOINT=https://orders.{ingress-ip}.nip.io`
-* You watch the orders come in with the frontend page, and can view the detailed output of the load test with the `az container logs` command
+* You can watch the orders come in using the Frontend application, and can view the detailed output of the load test with the `az container logs` command
 * Make a note of the results, response times etc
 
 {% collapsible %}
@@ -30,10 +30,10 @@ az container create -g <resource-group> -n loadtest --image azch/loadtest --rest
 
 This will fire off a series of increasing loads of concurrent users (100, 400, 1600, 3200, 6400) POSTing requests to your Order Capture API endpoint with some wait time in between to simulate an increased pressure on your application.
 
-You may view the logs of the Azure Container Instance streaming logs by running the command below. You may need to wait for a few minutes to get the full logs, or run this command multiple times.
+You may view the logs of the Azure Container Instance by running the command below. 
 
 ```sh
-az container logs -g <resource-group> -n loadtest
+az container logs -g <resource-group> -n loadtest --follow
 ```
 
 When you're done, you may delete it by running
@@ -85,17 +85,20 @@ You may use the Azure Monitor (previous task) to view the logs and figure out wh
 
 #### Create Horizontal Pod Autoscaler
 
-Most likely in your initial test, the `captureorder` container was the bottleneck. So the first step would be to scale it out. There are two ways to do so, you can either manually increase the number of replicas in the deployment, or use Horizontal Pod Autoscaler.
+Most likely in your initial test, the `captureorder` container was the bottleneck. So the first step would be to scale it out. There are two ways to do so
+
+* You can manually increase the number of replicas in the deployment by using the `kubectl scale` command or by editing the deployment's YAML file
+* You can use the Horizontal Pod Autoscaler (HPA) to automatically adjust the number of replicas based on demand
 
 Horizontal Pod Autoscaler allows Kubernetes to detect when your deployed pods need more resources and then it schedules more pods onto the cluster to cope with the demand.
 
 **Task Hints**
-* The [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale) (or HPA) is a way for deployments to scale their pods out automatically based on metrics such as CPU. 
-* There are two versions of the HPA object v1 and v2beta2, for this workshop you can work with the v1 version.
+* The [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale) (HPA) is a way for deployments to scale their pods out automatically based on metrics such as CPU utilization. 
+* There are two versions of the HPA object - `autoscaling/v1` and `autoscaling/v2beta2`. The `v2beta2` adds support for multiple metrics, custom metrics and other features. For this workshop though, the capabilities of the `v1` version are sufficient.
 * The `kubectl autoscale` command can easily set up a HPA for any deployment, [this walkthrough guide has an example you can re-use.](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#create-horizontal-pod-autoscaler)
 * Alternatively you can define the HPA object in a YAML file.
 * For the HPA to work, you must add [resource limits](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to your captureorder deployment, if you haven't already done so. Good values to use are `cpu: "500m"` (which is equivalent to half a CPU core), and for memory specify `memory: "256Mi"`.
-* Validate the HPA with `kubectl get hpa` and make sure the targets column is not showing `<unknown>` 
+* Validate the HPA with `kubectl get hpa` and make sure the `Targets` column is not showing `<unknown>` 
 
 {% collapsible %}
 
@@ -111,7 +114,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: captureorder
-  minReplicas: 4
+  minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 50
 ```
@@ -122,8 +125,7 @@ And deploy it using
 kubectl apply -f captureorder-hpa.yaml
 ```
 
-> **Important** For the Horizontal Pod Autoscaler to work, you **MUST** remove the explicit `replicas: 2` count from your `captureorder` deployment and redeploy it and your pods must define resource requests and resource limits.
-
+> **Important** For the Horizontal Pod Autoscaler to work, you **MUST** define requests and limits in the Capture Order API's deployment.
 {% endcollapsible %}
 
 #### Run a load test again after applying Horizontal Pod Autoscaler
@@ -164,9 +166,11 @@ Your browser does not support the video tag.
 
 **Task Hints**
 * As the HPA scales out with more & more pods, eventually the cluster will run out of resources. You will see pods in pending state.
+* You can use the `kubectl describe hpa <hpa-name>` command to see more information about what the HPA is doing and when it triggers the deployment of additional pods or removal of surplus pods
+* You can use the `kubectl top` command to view the CPU and memory utilisation of `pods` and `nodes`. This will tell you whether the cluster is hitting CPU and memory limits and should therefore need to scale. 
 * You may have to artificially force this situation by increasing the resource `request` and `limit` for memory in the captureorder deployment to `memory: "4G"` or even `memory: "2G"` (and re-deploy/apply the deployment)
-* If you enabled the cluster autoscaler, you might be able to get the cluster to scale automatically, check with the node count with `kubectl get nodes`
-* You you didn't enable the autoscaler you can try manually scaling with the `az aks scale` command and the `--node-count` parameter
+* If you enabled the cluster autoscaler, you might be able to get the cluster to scale automatically, check the node count with `kubectl get nodes`.
+* If you didn't enable the autoscaler you can try manually scaling with the `az aks scale` command and the `--node-count` parameter
   
 {% collapsible %}
 

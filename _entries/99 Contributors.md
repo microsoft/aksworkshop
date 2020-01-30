@@ -18,6 +18,7 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor kevingbb %}
 {% githubauthor khaled99b %}
 {% githubauthor marrobi %}
+{% githubauthor markwme %}
 {% githubauthor sabbour %}
 {% githubauthor shanepeckham %}
 {% githubauthor thorstenhans %}

@@ -13,10 +13,16 @@ Azure has a managed Kubernetes service, AKS (Azure Kubernetes Service), we'll us
 
 {% collapsible %}
 
-Get the latest available Kubernetes version in your preferred region into a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`.
+Get the latest available Kubernetes version in your preferred region and store it in a bash variable. Replace `<region>` with the region of your choosing, for example `eastus`.
 
 ```sh
 version=$(az aks get-versions -l <region> --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+```
+
+The above command lists all versions of Kubernetes available to deploy using AKS. Newer Kubernetes releases are typically made available in "Preview". To get the latest non-preview version of Kubernetes, use the following command instead
+
+```sh
+version=$(az aks get-versions -l <region> --query 'orchestrators[?isPreview == null].[orchestratorVersion][-1]' -o tsv)
 ```
 
 {% endcollapsible %}
@@ -37,7 +43,7 @@ az group create --name <resource-group> --location <region>
 
 **Task Hints**
 * It's recommended to use the Azure CLI and the `az aks create` command to deploy your cluster. Refer to the docs linked in the Resources section, or run `az aks create -h` for details
-* The size and number of nodes in your cluster is not critical but two or more nodes of `DS2_v2` or larger is recommended
+* The size and number of nodes in your cluster is not critical but two or more nodes of type `Standard_DS2_v2` or larger is recommended
 
 > **Note** You can create AKS clusters that support the [cluster autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler#about-the-cluster-autoscaler).
 
@@ -79,9 +85,9 @@ Create AKS using the latest version (if using the provided lab environment)
 ##### **Option 2 ** Create an AKS cluster with the cluster autoscaler
 
  
-  AKS clusters that support the cluster autoscaler must use virtual machine scale sets and run Kubernetes version *1.12.4* or later. 
-
-  Use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
+  AKS clusters create worker nodes in Virtual Machine Scale Sets by default. The number of nodes can be easily scaled up and down as required. AKS also supports the Kubernetes Cluster Autoscaler, which will automatically scale the number of nodes on demand to meet current system requirements. 
+  
+  To enable the Cluster Autoscaler, use the `az aks create` command specifying the `--enable-cluster-autoscaler` parameter, and a node `--min-count` and `--max-count`.
   
 Create AKS using the latest version (if using the provided lab environment)
 
@@ -127,7 +133,7 @@ Create AKS using the latest version (on your own subscription)
 #### Ensure you can connect to the cluster using `kubectl`
 
 **Task Hints**
-* `kubectl` is the main command line tool you will using for working with Kubernetes and AKS. It is already installed in the Azure Cloud Shell
+* `kubectl` is the main command line tool you will be using for working with Kubernetes and AKS. It is already installed in the Azure Cloud Shell
 * Refer to the AKS docs which includes [a guide for connecting kubectl to your cluster](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster) (Note. using the cloud shell you can skip the `install-cli` step).
 * A good sanity check is listing all the nodes in your cluster `kubectl get nodes`.
 * [This is a good cheat sheet](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf) for kubectl.
