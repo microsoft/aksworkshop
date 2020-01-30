@@ -90,9 +90,15 @@ kind: ClusterRole
 metadata: 
    name: containerHealth-log-reader 
 rules: 
-   - apiGroups: [""] 
-     resources: ["pods/log", "events"] 
-     verbs: ["get", "list"]  
+    - apiGroups: ["", "metrics.k8s.io", "extensions", "apps"]
+      resources:
+         - "pods/log"
+         - "events"
+         - "nodes"
+         - "pods"
+         - "deployments"
+         - "replicasets"
+      verbs: ["get", "list"]
 --- 
 apiVersion: rbac.authorization.k8s.io/v1 
 kind: ClusterRoleBinding 
