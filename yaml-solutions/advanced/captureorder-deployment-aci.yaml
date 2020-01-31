@@ -15,9 +15,14 @@ spec:
         - name: captureorder
           image: azch/captureorder
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
@@ -43,4 +48,4 @@ spec:
         - key: virtual-kubelet.io/provider
           operator: Exists
         - key: azure.com/aci
-          effect: NoSchedule 
+          effect: NoSchedule
