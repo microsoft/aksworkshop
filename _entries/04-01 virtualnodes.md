@@ -198,13 +198,6 @@ Repeat the steps in the [Deploy Order Capture API](#api) to deploy the API on yo
 
 Save the YAML below as `captureorder-deployment-aci.yaml` or download it from [captureorder-deployment-aci.yaml](yaml-solutions/advanced/captureorder-deployment-aci.yaml)
 
-Be sure to replace to environment variables in the yaml to match your environment:
-* TEAMNAME
-* CHALLENGEAPPINSIGHTS_KEY
-* MONGOHOST
-* MONGOUSER
-* MONGOPASSWORD
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -223,11 +216,14 @@ spec:
         - name: captureorder
           image: azch/captureorder
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
-          #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
@@ -262,7 +258,7 @@ Deploy it.
 kubectl apply -f captureorder-deployment-aci.yaml
 ```
 
-> **Note** the added `nodeSelector` and `tolerations` sections that basically tell Kubernetes that this deployment will run on the Virtual Node on Azure Container Instances (ACI).
+> **Note** The added `nodeSelector` and `tolerations` sections tell Kubernetes that this deployment will run on the Virtual Node on Azure Container Instances (ACI).
 
 {% endcollapsible %}
 
