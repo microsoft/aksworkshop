@@ -13,7 +13,7 @@ Feel free to open Issues with requests for new topics or challenges.
 - The `master` branch gets deployed to the production slot [aksworkshop.io](https://aksworkshop.io)
 - The `staging` branch gets deployed to the staging slot [staging.aksworkshop.io](https://staging.aksworkshop.io)
 - The `devsecops` branch gets deployed to the devsecops slot [devsecops.aksworkshop.io](https://devsecops.aksworkshop.io)
-- The `kubesec` branch gets deployed to the kubesec slot [kubesec.aksworkshop.io](https://devsecops.aksworkshop.io)
+- The `kubesec` branch gets deployed to the kubesec slot [kubesec.aksworkshop.io](https://kubesec.aksworkshop.io)
 
 ## Contributing
 
