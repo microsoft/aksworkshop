@@ -7,19 +7,67 @@ parent-id: intro
 
 ### Access the Azure Portal
 
-Using the credentials provided by the lab environment screen, navigate to [Azure Portal](https://portal.azure.com) and authenticate with the provided username and password.
+You can use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription. The Azure Cloud Shell has the Azure CLI pre-installed and configured to connect to your Azure subscription as well as `kubectl` and `helm`.
 
->  **Hint**
->  If you already have an Azure account, you can use that, or to use the lab environment you'll need to use a unique email address.
 
-![Lab environment credentials](media/lab-env.png)
+### Azure subscription
 
-### Launch Cloud Shell
+#### If you have an Azure subscription
 
-[Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/) is a browser-based CLI tool integrated directly into the Azure portal. Cloud shell provides all of the tools you need to manage your Azure resources in a pre-configured, on-demand virtual machine.
+{% collapsible %}
 
-You may launch Cloud Shell from the Azure Portal or open a new browser window and navigate to [Azure Cloud Shell https://shell.azure.com](https://shell.azure.com).
+Please use your username and password to login to <https://portal.azure.com>.
 
-![Launch Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/media/overview/overview-bash-pic.png)
+Also please authenticate your Azure CLI by running the command below on your machine and following the instructions.
 
-The first time you launch Cloud Shell you will be prompted to create a resource group, storage account, and Azure Files share. This is a one-time step and will be automatically attached for all sessions. A single file share can be used by both Bash and PowerShell in Cloud Shell.
+```sh
+az account show
+az login
+```
+
+{% endcollapsible %}
+
+#### If you have been given an access to a subscription as part of a lab, or you already have a Service Principal you want to use
+
+{% collapsible %} If you have lab environment credentials similar to the below or you already have a Service Principal you will use with this workshop,
+
+Lab environment credentials
+
+Please then perform an az login on your machine using the command below, passing in the Application Id, the Application Secret Key and the Tenant Id.
+
+```sh
+az login --service-principal --username "APP_ID" --password "APP_SECRET" --tenant "TENANT_ID"
+```
+{% endcollapsible %}
+
+#### Azure Cloud Shell
+
+You can use the Azure Cloud Shell accessible at <https://shell.azure.com> once you login with an Azure subscription.
+
+{% collapsible %}
+
+Head over to <https://shell.azure.com>, and sign in with your Azure Subscription details. Note, if you're already an Azure user, you may need to sign out of another subscription before using the subscription provided for the lab.
+
+Select **Bash** as your shell.
+
+![Select Bash](media/cloudshell/0-bash.png)
+
+Select **Show advanced settings**
+
+![Select show advanced settings](media/cloudshell/1-mountstorage-advanced.png)
+
+Set the **Storage account** and **File share** names to your resource group name (all lowercase, without any special characters), then hit **Create storage**
+
+![Azure Cloud Shell](media/cloudshell/2-storageaccount-fileshare.png)
+
+You should now have access to the Azure Cloud Shell
+
+![Set the storage account and fileshare names](media/cloudshell/3-cloudshell.png)
+
+{% endcollapsible %}
+
+#### Tips for uploading and editing files in Azure Cloud Shell
+
+- You can use `code <file you want to edit>` in Azure Cloud Shell to open the built-in text editor.
+- You can upload files to the Azure Cloud Shell by dragging and dropping them
+- You can also do a `curl -o filename.ext https://file-url/filename.ext` to download a file from the internet.
