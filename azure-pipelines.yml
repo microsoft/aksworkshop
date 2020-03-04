@@ -11,6 +11,7 @@ trigger:
     - master
     - staging
     - devsecops
+    - kubesec
   paths:
     exclude: 
     # Exclude README.md from triggering content deployments
