@@ -1,13 +1,10 @@
-# aksworkshop.io
+# PLEASE NOTE: CONTENT MIGRATED
 
-This is the repository for the Azure Kubernetes Service (AKS) Workshop website. For the full workshop experience, go to <https://aksworkshop.io>
-
-Feel free to open Issues with requests for new topics or challenges.
-
+**Please note that AKS workshop is now hosted on [Microsoft Learn](https://aka.ms/learn/aksworkshop). You may continue to fork this repository, but future updates will be done on the Microsoft Learn platform. To access the new location, please use the following link: <https://aka.ms/learn/aksworkshop>**
 
 ## Technology
 
-- The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder
+- The website is statically built using Jekyll and you'll find the different pages inside the `_entries` folder
 - You can preview your edits locally if you run `make build-run` inside the repository root
 - The build pipeline builds Docker images of the site and hosts it on a private repository on Azure Container Registry (`msworkshops.azurecr.io`)
 - The `master` branch gets deployed to the production slot [aksworkshop.io](https://aksworkshop.io)
