@@ -30,7 +30,7 @@ az keyvault create --resource-group <resource-group> --name <unique keyvault nam
 
 {% collapsible %}
 
-Replace `orders-password` with the password for MongoDB.
+Replace `orders-password` with the password for MongoDB if you chose a different one.
 
 ```bash
 az keyvault secret set --vault-name <unique keyvault name> --name mongo-password --value "orders-password"
@@ -44,19 +44,19 @@ The Key Vault FlexVolume driver offers two modes for accessing a Key Vault insta
 
 {% collapsible %}
 
-Replace `<name>` with a service principal name that is unique in your organization.
+Create a service principal
 
 ```bash
-az ad sp create-for-rbac --name "http://<name>" --skip-assignment
+az ad sp create-for-rbac --skip-assignment
 ```
 
-You should get back something like the below, make note of the `appId` and `password`.
+You should get back something like the below, make note of the`name`, `appId` and `password`.
 
 ```json
 {
   "appId": "9xxxxxb-bxxf-xx4x-bxxx-1xxxx850xxxe",
-  "displayName": "<name>",
-  "name": "http://<name>",
+  "displayName": "azure-cli-xxxx-xx-xx-xx-xx-xx",
+  "name": "http://azure-cli-xxxx-xx-xx-xx-xx-xx",
   "password": "dxxxxxx9-xxxx-4xxx-bxxx-xxxxe1xxxx",
   "tenant": "7xxxxxf-8xx1-41af-xxxb-xx7cxxxxxx7"
 }
@@ -74,7 +74,7 @@ Retrieve your Azure Key Vault ID and store it in a variable `KEYVAULT_ID`,  repl
 KEYVAULT_ID=$(az keyvault show --name <unique keyvault name> --query id --output tsv)
 ```
 
-Create the role assignment, replacing `"http://<name>"` with your service principal name that was created earlier, for example `"http://sp-captureorder"`.
+Create the role assignment, replacing `"http://<name>"` with your service principal name that was created earlier.
 
 ```sh
 az role assignment create --role Reader --assignee "http://<name>" --scope $KEYVAULT_ID
@@ -237,10 +237,6 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           env:
-          - name: TEAMNAME
-            value: "team-azch"
-          #- name: CHALLENGEAPPINSIGHTS_KEY # uncomment and set value only if you've been provided a key
-          #  value: "" # uncomment and set value only if you've been provided a key
           - name: MONGOHOST
             valueFrom:
               secretKeyRef:
@@ -268,7 +264,6 @@ spec:
               keyvaultname: <unique keyvault name>
               keyvaultobjectnames: mongo-password # Name of Key Vault secret
               keyvaultobjecttypes: secret
-              keyvaultobjectversions: ""     # [OPTIONAL] list of KeyVault object versions (semi-colon separated), will get latest if empty
               resourcegroup: <kv resource group>
               subscriptionid: <kv azure subscription id>
               tenantid: <kv azure tenant id>
@@ -279,9 +274,6 @@ And deploy it using
 ```sh
 kubectl apply -f captureorder-deployment-flexvol.yaml
 ```
-
-Apply your changes.
-
 {% endcollapsible %}
 
 #### Verify that everything is working

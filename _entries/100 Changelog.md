@@ -7,6 +7,13 @@ is-parent: yes
 
 All notable changes to this workshop will be documented in this file.
 
+## 2020-01-31
+
+- Numerous updates to fix typos, add extra details to some sections and various other fixes
+- Added command to obtain latest non-preview version of Kubernetes
+- Added solution and details for enabling TLS on `captureorder`
+- Removed Proctor Notes section as it was outdated and no longer used
+
 ## 2019-12-03
 
 ### Changed
