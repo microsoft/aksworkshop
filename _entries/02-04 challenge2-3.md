@@ -167,7 +167,7 @@ helm install ingress stable/nginx-ingress --namespace ingress
 In a couple of minutes, a public IP address will be allocated to the ingress controller, retrieve with:
 
 ```sh
-kubectl get svc  -n ingress    ingress-nginx-ingress-controller -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
+kubectl get svc -n ingress ingress-nginx-ingress-controller -o jsonpath="{.status.loadBalancer.ingress[*].ip}" -w
 ```
 
 ##### Ingress
