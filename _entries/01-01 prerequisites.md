@@ -4,6 +4,50 @@ sectionclass: h2
 title: Prerequisites
 parent-id: intro
 ---
+### Open Text Editor
+
+There are a number of values that you will be provided or you will create along the way that you will need later on in the lab. For your convenience, we list the most relevant here. It's recommended that you copy this list to a text editor and update the values as you go along. That way, it will be easy to copy them from the text editor when you need them, and especially if you lose your Azure Cloud Shell connection during the lab.
+
+```sh
+Azure Credentials:
+
+Username:	<Sent in email, and available on lab environment details page>
+Password:	<Sent in email, and available on lab environment details page>
+
+Others:
+
+Application ID (Service Pincipal):		<Sent in email, and available on lab environment details page>
+
+Application Secret Key (Client Secret):	<Sent in email, and available on lab environment details page>
+
+Region: 								<Location value of "az group list" command output>
+
+Resource Group: 						<Name value of "az group list" command output>
+
+Cluster Name: 							<Specified when creating cluster>
+
+MongoDB Username: 						orders-user
+
+MongoDB Password: 						orders-password
+
+MongoDB DNS Name: 						orders-mongo-mongodb.default.svc.cluster.local
+
+Capture Order IP Address: 				<External IP value of "kubectl get svc captureorder" command output> 
+
+Ingress IP Address: 					<External IP value of "kubectl get svc -n ingress ingress-nginx-ingress-controller" command output> 
+
+Azure Container Registry Name: 			<Specified when creating registry> 
+
+Build ID: 								<Run ID from "az acr build" command> 
+
+Aqua Admin Username: 					administrator
+
+Aqua Admin Password: 					<Specified when deploying Aqua>
+
+Aqua Server IP: 						<From output of Aqua deployment; or external IP value of "kubectl get svc aqua-web -n aqua" command output> 
+
+Aqua Server URL: 						http://<Aqua Server IP>:8080
+```
 
 ### Access Azure Cloud Shell
 
