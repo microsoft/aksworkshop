@@ -21,20 +21,6 @@ version=$(az aks get-versions -l <region> --query 'orchestrators[?isPreview == n
 
 {% endcollapsible %}
 
-#### Create a Resource Group
-
-> **Note** You don't need to create a resource group if you're using the lab environment. You can use the resource group created for you as part of the lab. To retrieve the resource group name in the managed lab environment, run `az group list`.
-
-{% collapsible %}
-
-This is for reference only. For this lab, we're using the resource group already created for you lab environment as noted above.
-
-```sh
-az group create --name <resource-group> --location <region>
-```
-
-{% endcollapsible %}
-
 #### Create the AKS cluster
 
 **Task Hints**

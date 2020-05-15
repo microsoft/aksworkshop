@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: frontend._CLUSTER_SPECIFIC_DNS_ZONE_
+  - host: frontend._INGRESS_CONTROLLER_EXTERNAL_IP_.nip.io
     http:
       paths:
       - backend:

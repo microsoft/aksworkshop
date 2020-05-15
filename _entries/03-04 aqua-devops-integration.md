@@ -91,6 +91,8 @@ And replace it with this YAML:
 > 1. Logging into the Aqua private registry using the registry service connection created earlier so that the Aqua scanner image can be pulled during the scan task
 > 1. Adding the Aqua scan task (which can also be configured via a task UI provided by the extension)
 
+> **Note: You may need to update the Aqua scanner version to match the version deployed (latest) for the workshop. For example, if this workshop takes place after the 5.0 release, replace the 4.6 tag with 5.0 like so: 'registry.aquasec.com/scanner:5.0'**
+
 ```yaml
     
     - task: Bash@3
